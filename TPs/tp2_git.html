@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP CIEL - Découverte de Git</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function(e) {
+                        if (e.target.tagName === 'A') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <header class="hero col">
+            <div class="eyebrow">Séance 2 — Collaboration</div>
+            <h1>Découverte de Git chez ProgPro</h1>
+            <div class="chips">
+                <span class="chip">Première Bac Pro CIEL</span>
+                <span class="chip">Durée : 2 h</span>
+                <span class="chip">Outils : LearnGitBranching, GitHub</span>
+                <span class="chip">Travail individuel</span>
+            </div>
+        </header>
+
+        <!-- Contexte -->
+        <section id="contexte">
+          <div class="sec-head"><span class="sec-num">01</span><h2>Ce que vous allez apprendre</h2><span class="sec-tag">Objectifs</span></div>
+          <div class="col">
+            <p>Vous êtes en stage chez <i>ProgPro</i>, votre tuteur vous demande de revoir les bases de Python pour automatiser des tâches de l'entreprise : calculs, vérifications, et simulations.</p>
+            <p>Ces scripts seront utilisés pour optimiser le travail de l'équipe réseau.</p>
+          </div>
+        </section>
+
+        <!-- Objectifs -->
+        <section id="objectifs">
+            <div class="sec-head"><span class="sec-num">01</span><h2>Ce que vous allez apprendre</h2><span class="sec-tag">Objectifs</span></div>
+            <div class="col">
+                <ul class="plain">
+                    <li>Comprendre les concepts de base de Git (dépôt, commit, branche, merge).</li>
+                    <li>Utiliser <b>LearnGitBranching</b> pour s'entraîner de manière interactive.</li>
+                    <li>Créer un dépôt GitHub et y ajouter ses scripts.</li>
+                    <li>Configurer VS Code pour utiliser Git.</li>
+                </ul>
+            </div>
+
+            <h3>Compétences visées</h3>
+            <div class="skills">
+                <div class="skill">
+                    <span class="code">C1.2 · Unité E31</span>
+                    <b>Utiliser un système de gestion de versions</b>
+                    <span>Comprendre et utiliser Git pour versionner son code.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C5.1 · Unité E32</span>
+                    <b>Travailler en équipe</b>
+                    <span>Utiliser GitHub pour collaborer sur un projet informatique.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C4.1 · Unité E31</span>
+                    <b>Configurer un environnement de développement</b>
+                    <span>Installer et configurer VS Code et ses extensions pour Python.</span>
+                </div>
+            </div>
+            <p class="note" style="margin-top:.9rem">Repères Vademecum Première TNE — activités « versionner son code » et « collaborer sur un projet ».</p>
+
+            <h3>Déroulé de la séance</h3>
+            <nav class="toc" aria-label="Sommaire">
+                <ol>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#tp2">TP 2 — Découverte de Git avec LearnGitBranching</a></li>
+                    <li><a href="#installation">Installation de VS Code</a></li>
+                    <li><a href="#lexique">Lexique</a></li>
+                </ol>
+            </nav>
+        </section>
+
+        <!-- Introduction -->
+        <section id="introduction">
+            <div class="sec-head"><span class="sec-num">02</span><h2>Introduction</h2><span class="sec-tag">Prérequis</span></div>
+            <div class="col">
+                <p>Chez <b>ProgPro</b>, l'équipe utilise <b>Git</b> pour :</p>
+                <ul class="plain">
+                    <li><b>Sauvegarder</b> l'historique des modifications des scripts.</li>
+                    <li><b>Collaborer</b> à plusieurs sur les mêmes fichiers sans écraser le travail des autres.</li>
+                    <li><b>Revenir en arrière</b> si une modification casse le code.</li>
+                </ul>
+                <p>Vous allez d'abord utiliser <b><a href="https://learngitbranching.js.org/?locale=fr_FR" target="_blank">LearnGitBranching</a></b>, un outil visuel pour comprendre Git, puis créer votre propre dépôt sur GitHub.</p>
+
+                <div class="callout">
+                    <span class="lbl">Matériel nécessaire</span>
+                    <p>Pour suivre ce TP, vous aurez besoin de :</p>
+                    <ul class="plain">
+                        <li>Un poste informatique avec accès à Internet.</li>
+                        <li>Un navigateur web (Firefox, Chrome, Edge).</li>
+                        <li>Un compte <a href="https://github.com" target="_blank">GitHub</a> (à créer si ce n'est pas déjà fait).</li>
+                        <li>Les scripts du TP 1 (à récupérer depuis OnlineIDE).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- creer une section qui les guides dans la création d'un compte github puis créer le premier  -->
+
+        <!-- TP2 -->
+        <section id="tp2">
+            <div class="sec-head"><span class="sec-num">03</span><h2>TP 2 — Découverte de Git avec LearnGitBranching</h2><span class="sec-tag">4 étapes</span></div>
+            <div class="col">
+                <p>Dans ce TP, vous allez :</p>
+                <ol class="plain">
+                    <li>Découvrir Git avec <b>LearnGitBranching</b>.</li>
+                    <li>Créer un dépôt GitHub et y ajouter vos scripts du TP 1.</li>
+                    <li>Configurer VS Code pour utiliser Git.</li>
+                </ol>
+            </div>
+
+            <ol class="steps">
+                <!-- Étape 1 : LearnGitBranching -->
+                <li class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-head">
+                        <span class="step-title">Découvrir Git avec LearnGitBranching</span>
+                        <label class="tick"><input type="checkbox" data-step="e1"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p>Rends-toi sur <a href="https://learngitbranching.js.org/?locale=fr_FR" target="_blank">LearnGitBranching</a> et suis les instructions pour compléter les niveaux suivants :</p>
+                        <ul class="plain">
+                            <li><b>Introduction Sequence</b> : Niveaux 1 à 3.
+                                <ul class="plain">
+                                    <li>Apprendre à créer des <b>commits</b>.</li>
+                                    <li>Comprendre l'<b>historique</b> des modifications.</li>
+                                </ul>
+                            </li>
+                            <li><b>Branching in Git</b> : Niveaux 1 à 4.
+                                <ul class="plain">
+                                    <li>Créer et <b>changer de branche</b>.</li>
+                                    <li><b>Fusionner</b> des branches (<code>git merge</code>).</li>
+                                    <li>Comprendre les <b>conflits</b>.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Conseil</span>
+                            <p>Si vous bloquez sur un niveau, utilise le bouton <b>"Show Solution"</b> pour voir la réponse, puis recommence.</p>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Tu as validé tous les niveaux demandés sur LearnGitBranching.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Étape 2 : Créer un dépôt GitHub -->
+                <li class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-head">
+                        <span class="step-title">Créer un dépôt GitHub</span>
+                        <label class="tick"><input type="checkbox" data-step="e2"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : Votre tuteur te demande de sauvegarder tes scripts du TP 1 dans un dépôt GitHub pour pouvoir les partager avec l'équipe.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ol class="plain">
+                            <li>Crée un compte GitHub si ce n'est pas déjà fait (<a href="https://github.com" target="_blank">github.com</a>).</li>
+                            <li>Crée un <b>nouveau dépôt</b> :
+                                <ul class="plain">
+                                    <li>Nom : <code>BacPro_CIEL_Dev</code>.</li>
+                                    <li>Description : <code>Dépôt pour les TP de développement Python et Git.</code></li>
+                                    <li>Visibilité : <b>Public</b> (pour que votre professeur puisse voir votre travail).</li>
+                                    <li>Ne pas cocher <b>"Add a README"</b> ou <b>"Add .gitignore"</b>.</li>
+                                </ul>
+                            </li>
+                            <li>Une fois le dépôt créé, copier le code des <b>4 scripts du TP 1</b> dans des fichiers séparés (ex: <code>tp1_exercice1.py</code>, <code>tp1_exercice2.py</code>, etc.).</li>
+                            <li>Ajoute ces fichiers à votre dépôt :
+                                <ul class="plain">
+                                    <li>Glisse-dépose les fichiers dans la page GitHub.</li>
+                                    <li>Ou clique sur <b>"Add file" → "Upload files"</b>.</li>
+                                </ul>
+                            </li>
+                            <li>Fais un <b>commit</b> pour chaque script avec un message clair (ex: <code>Ajout exercice 1 : calcul de moyenne</code>).</li>
+                        </ol>
+                        <div class="callout">
+                            <span class="lbl">Exemple de commit</span>
+                            <p>Message de commit :</p>
+                            <pre class="tree">Ajout exercice 2 : vérification mot de passe</pre>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Ton dépôt GitHub contient les 4 scripts du TP 1, avec un commit par script.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Étape 3 : Cloner le dépôt en local -->
+                <li class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-head">
+                        <span class="step-title">Cloner le dépôt en local</span>
+                        <label class="tick"><input type="checkbox" data-step="e3"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : Pour travailler efficacement, vous devez dois avoir une copie locale de votre dépôt.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ol class="plain">
+                            <li>Sur la page de votre dépôt GitHub, clique sur <b>"Code"</b> (bouton vert).</li>
+                            <li>Copie l'<b>URL HTTPS</b> du dépôt (ex: <code>https://github.com/utilisateur/BacPro_CIEL_Dev.git</code>).</li>
+                            <li>Ouvre le <b>terminal</b> (ou l'invite de commandes) et exécute :
+                                <pre class="tree">git clone https://github.com/utilisateur/BacPro_CIEL_Dev.git</pre>
+                            </li>
+                            <li>Un dossier <code>BacPro_CIEL_Dev</code> est créé sur votre poste. Ouvre-le pour vérifier que tes scripts sont bien présents.</li>
+                        </ol>
+                        <div class="callout">
+                            <span class="lbl">Astuce</span>
+                            <p>Si vous n'avez pas Git installé, télécharge-le <a href="https://git-scm.com/downloads" target="_blank">ici</a>.</p>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Tu as un dossier <code>BacPro_CIEL_Dev</code> sur votre poste avec les 4 scripts du TP 1.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Étape 4 : Installer VS Code -->
+                <li class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-head">
+                        <span class="step-title">Installer VS Code et ses extensions</span>
+                        <label class="tick"><input type="checkbox" data-step="e4"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : VS Code est l'IDE utilisé par l'équipe de RéseauPro. Vous devez l'installer et le configurer pour les prochains TP.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ol class="plain">
+                            <li>Télécharger et installer <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>.</li>
+                            <li>Ouvrir VS Code et installer les extensions suivantes :
+                                <ul class="plain">
+                                    <li><b>Python</b> (par Microsoft) : pour coder en Python.</li>
+                                    <li><b>GitLens</b> : pour visualiser les changements Git.</li>
+                                    <li><b>Code Runner</b> : pour exécuter rapidement du code.</li>
+                                </ul>
+                            </li>
+                            <li>Ouvrir le dossier <code>BacPro_CIEL_Dev</code> dans VS Code (via <b>Fichier → Ouvrir le dossier</b>).</li>
+                            <li>Vérifier que vous voyez bien tes 4 scripts du TP 1 dans l'explorateur de fichiers.</li>
+                        </ol>
+                        <div class="callout">
+                            <span class="lbl">Astuce</span>
+                            <p>Pour installer une extension :</p>
+                            <ol class="plain">
+                                <li>Ouvre le panneau des extensions (<kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>X</kbd>).</li>
+                                <li>Recherche le nom de l'extension (ex: <code>Python</code>).</li>
+                                <li>Clique sur <b>Installer</b>.</li>
+                            </ol>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>VS Code est installé avec les 3 extensions, et votre dépôt <code>BacPro_CIEL_Dev</code> est ouvert.</p>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Lexique -->
+        <section id="lexique">
+            <div class="sec-head"><span class="sec-num">04</span><h2>Lexique</h2><span class="sec-tag">Vocabulaire</span></div>
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mot</th>
+                            <th>Définition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Git</b></td>
+                            <td>Système de gestion de versions : permet de sauvegarder l'historique des modifications d'un projet.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Dépôt (Repository)</b></td>
+                            <td>Dossier où Git stocke l'historique des modifications d'un projet.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Commit</b></td>
+                            <td>Sauvegarde d'un état du code à un instant donné, avec un message descriptif.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Branche (Branch)</b></td>
+                            <td>Version parallèle du code, utilisée pour développer une nouvelle fonctionnalité sans affecter la version principale.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Merge</b></td>
+                            <td>Fusionner les modifications d'une branche dans une autre (ex: fusionner une branche <code>feature</code> dans <code>main</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b>GitHub</b></td>
+                            <td>Plateforme en ligne pour héberger des dépôts Git et collaborer avec d'autres développeurs.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Clone</b></td>
+                            <td>Récupérer une copie locale d'un dépôt distant (ex: depuis GitHub).</td>
+                        </tr>
+                        <tr>
+                            <td><b>IDE</b></td>
+                            <td>Environnement de Développement Intégré (ex: VS Code) : outil pour écrire, tester et déboguer du code.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="col">
+            <p>TP 2 — Découverte de Git — Première Bac Pro CIEL — Lycée Charlie Chaplin — T. Signoret</p>
+            <p>Septembre 2026.</p>
+        </footer>
+    </div>
+</body>
+</html>

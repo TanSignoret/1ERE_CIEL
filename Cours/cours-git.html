@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours Git — Versionner son code comme un pro</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <link rel="stylesheet" href="../Ressources/style.css">    
+</head>
+<body>
+    <div class="wrap">
+        <!-- En-tête -->
+        <header class="hero">
+            <div class="eyebrow">Cours — Outils de développement</div>
+            <h1>Git : Versionner son code comme un pro</h1>
+            <p class="lede">
+                Découvrez Git, l'outil indispensable pour collaborer sur des projets informatiques.
+                Apprenez son histoire, ses concepts clés, et comment l'utiliser efficacement en entreprise.
+            </p>
+            <div class="chips">
+                <span class="chip">Première Bac Pro CIEL</span>
+                <span class="chip">Durée : 2h</span>
+                <span class="chip">Outils : Git, GitHub, VS Code</span>
+            </div>
+        </header>
+
+        <!-- Introduction -->
+        <section id="introduction">
+            <div class="sec-head"><span class="sec-num">01</span><h2>Introduction à Git</h2><span class="sec-tag">Pourquoi Git ?</span></div>
+            <div class="col">
+                <p>
+                    Git est un <b>système de contrôle de version (VCS)</b> qui permet de :
+                </p>
+                <ul>
+                    <li><b>Sauvegarder l'historique</b> des modifications de votre code.</li>
+                    <li><b>Travailler en équipe</b> sans écraser le travail des autres.</li>
+                    <li><b>Revenir en arrière</b> si une modification introduit un bug.</li>
+                    <li><b>Créer des branches</b> pour développer de nouvelles fonctionnalités en parallèle.</li>
+                </ul>
+                <p>
+                    Utilisé par des millions de développeurs dans le monde, Git est devenu un <b>standard en entreprise</b>
+                    pour la gestion de projets informatiques, y compris en administration réseau et cybersécurité.
+                </p>
+            </div>
+            <div class="illustration">
+                <img src="https://git-scm.com/images/logo@2x.png" alt="Logo Git" style="width: 200px;">
+            </div>
+        </section>
+
+        <!-- Histoire de Git -->
+        <section id="histoire">
+            <div class="sec-head"><span class="sec-num">02</span><h2>L'histoire de Git : Linus Torvalds et Linux</h2><span class="sec-tag">Contexte historique</span></div>
+            <div class="col">
+                <p>
+                    Git a été créé en <b>2005 par Linus Torvalds</b>, le créateur du noyau Linux.
+                    Voici comment tout a commencé :
+                </p>
+                <div class="callout">
+                    <span class="lbl">1991 : Naissance de Linux</span>
+                    <p>
+                        Linus Torvalds crée le <b>noyau Linux</b>, un système d'exploitation open-source.
+                        Linux devient rapidement populaire grâce à sa <b>stabilité</b> et sa <b>flexibilité</b>.
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">2002-2005 : L'ère BitKeeper</span>
+                    <p>
+                        Pour gérer le développement de Linux, l'équipe utilise <b>BitKeeper</b>, un outil propriétaire de contrôle de version.
+                        En 2005, BitKeeper retire sa licence gratuite pour Linux, ce qui pose un problème majeur.
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Avril 2005 : Naissance de Git</span>
+                    <p>
+                        Linus Torvalds décide de créer son propre outil : <b>Git</b>.
+                        En seulement <b>2 semaines</b>, Git est fonctionnel et répond aux besoins suivants :
+                        <ul>
+                            <li><b>Rapidité</b> : Git est optimisé pour être extrêmement rapide.</li>
+                            <li><b>Décentralisation</b> : Chaque développeur a une copie complète du dépôt.</li>
+                            <li><b>Intégrité des données</b> : Chaque commit est identifié par un hash SHA-1.</li>
+                            <li><b>Branches légères</b> : Créer et fusionner des branches est simple et efficace.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">2008 : GitHub voit le jour</span>
+                    <p>
+                        GitHub est lancé en 2008, offrant une <b>interface web</b> pour héberger des dépôts Git.
+                        GitHub ajoute des fonctionnalités comme les <b>Pull Requests</b>, les <b>Issues</b>, et les <b>Actions</b> (CI/CD).
+                        Aujourd'hui, GitHub est la plateforme la plus utilisée pour le développement collaboratif.
+                    </p>
+                </div>
+                <div class="illustration">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Linus_Torvalds.jpg/440px-Linus_Torvalds.jpg"
+                         alt="Photo de Linus Torvalds" style="width: 200px; border-radius: 50%;">
+                    <p><em>Linus Torvalds, créateur de Linux et Git</em></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pourquoi Git en entreprise -->
+        <section id="pourquoi-git">
+            <div class="sec-head"><span class="sec-num">03</span><h2>Pourquoi Git est-il indispensable en entreprise ?</h2><span class="sec-tag">Avantages</span></div>
+            <div class="col">
+                <p>
+                    Git est devenu un <b>standard dans l'industrie</b> pour plusieurs raisons :
+                </p>
+                <h3>1. Collaboration simplifiée</h3>
+                <p>
+                    Git permet à <b>plusieurs développeurs</b> de travailler sur le même projet <b>simultanément</b> :
+                </p>
+                <ul>
+                    <li>Chaque développeur travaille sur sa <b>propre branche</b>.</li>
+                    <li>Les modifications sont <b>fusionnées</b> dans la branche principale une fois validées.</li>
+                    <li>Les <b>conflits</b> sont gérés de manière structurée.</li>
+                </ul>
+                <div class="schema">
+*   commit 3 (main)
+|\
+| * commit 2 (feature/login)
+|/
+* commit 1
+                </div>
+                <p><em>Exemple de fusion de branche : la branche <code>feature/login</code> est fusionnée dans <code>main</code>.</em></p>
+
+                <h3>2. Historique complet et traçable</h3>
+                <p>
+                    Chaque modification est <b>enregistrée</b> avec :
+                </p>
+                <ul>
+                    <li>Un <b>message de commit</b> décrivant le changement.</li>
+                    <li>Un <b>hash unique</b> (SHA-1) pour identifier le commit.</li>
+                    <li>La <b>date</b> et l'<b>auteur</b> du commit.</li>
+                </ul>
+                <p>
+                    Cela permet de :
+                </p>
+                <ul>
+                    <li>Savoir <b>qui a fait quoi et quand</b>.</li>
+                    <li><b>Revenir en arrière</b> si une modification introduit un bug.</li>
+                    <li><b>Comprendre l'évolution</b> du projet.</li>
+                </ul>
+
+                <h3>3. Branches et isolation des fonctionnalités</h3>
+                <p>
+                    Les branches permettent de :
+                </p>
+                <ul>
+                    <li>Travailler sur une <b>nouvelle fonctionnalité</b> sans affecter le code principal.</li>
+                    <li>Tester des <b>idées expérimentales</b> sans risque.</li>
+                    <li><b>Isoler les corrections de bugs</b> dans des branches dédiées.</li>
+                </ul>
+                <div class="mermaid">
+                    gitGraph
+                        commit
+                        branch feature/login
+                        commit
+                        commit
+                        checkout main
+                        commit
+                        merge feature/login
+                </div>
+                <p><em>Exemple de workflow avec branches : développement d'une fonctionnalité en parallèle.</em></p>
+
+                <h3>4. Sécurité et intégrité des données</h3>
+                <p>
+                    Git utilise des <b>hashs cryptographiques</b> (SHA-1) pour garantir :
+                </p>
+                <ul>
+                    <li>L'<b>intégrité</b> des données : toute modification d'un commit invalide son hash.</li>
+                    <li>La <b>traçabilité</b> : chaque commit est lié à son parent.</li>
+                    <li>La <b>résistance aux corruptions</b> : Git détecte les altérations des données.</li>
+                </ul>
+
+                <h3>5. Décentralisation</h3>
+                <p>
+                    Contrairement aux systèmes centralisés (comme SVN), Git est <b>décentralisé</b> :
+                </p>
+                <ul>
+                    <li>Chaque développeur a une <b>copie complète</b> du dépôt (historique + fichiers).</li>
+                    <li>Pas de <b>point de défaillance unique</b> : si un serveur tombe, les copies locales restent disponibles.</li>
+                    <li>Possibilité de travailler <b>hors ligne</b> et de synchroniser plus tard.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Concepts clés -->
+        <section id="concepts">
+            <div class="sec-head"><span class="sec-num">04</span><h2>Les concepts clés de Git</h2><span class="sec-tag">Terminologie</span></div>
+            <div class="col">
+                <p>
+                    Voici les concepts fondamentaux à maîtriser pour utiliser Git efficacement :
+                </p>
+                <div class="callout">
+                    <span class="lbl">Dépôt (Repository)</span>
+                    <p>
+                        Un dépôt Git est un <b>dossier</b> où Git stocke :
+                        <ul>
+                            <li>L'<b>historique complet</b> du projet (commits).</li>
+                            <li>Les <b>fichiers</b> du projet.</li>
+                            <li>Les <b>branches</b> et <b>tags</b>.</li>
+                        </ul>
+                        <p>
+                            <b>Commande</b> : <code>git init</code> (initialise un dépôt local).
+                        </p>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Commit</span>
+                    <p>
+                        Un commit est une <b>sauvegarde</b> d'un état du code à un instant donné.
+                        Chaque commit contient :
+                        <ul>
+                            <li>Un <b>hash unique</b> (ex: <code>a1b2c3d4...</code>).</li>
+                            <li>Un <b>message</b> décrivant les changements.</li>
+                            <li>Un <b>auteur</b> et une <b>date</b>.</li>
+                            <li>Un <b>parent</b> (le commit précédent).</li>
+                        </ul>
+                        <p>
+                            <b>Commande</b> : <code>git commit -m "Message"</code>.
+                        </p>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Branche (Branch)</span>
+                    <p>
+                        Une branche est une <b>version parallèle</b> du code.
+                        Elle permet de :
+                        <ul>
+                            <li>Travailler sur une <b>nouvelle fonctionnalité</b> sans affecter la branche principale.</li>
+                            <li><b>Expérimenter</b> sans risque.</li>
+                            <li><b>Corriger des bugs</b> dans un environnement isolé.</li>
+                        </ul>
+                        <p>
+                            <b>Commandes</b> :
+                            <ul>
+                                <li><code>git branch</code> : Lister les branches.</li>
+                                <li><code>git branch nom-branche</code> : Créer une nouvelle branche.</li>
+                                <li><code>git checkout nom-branche</code> : Basculer vers une branche.</li>
+                            </ul>
+                        </p>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Merge (Fusion)</span>
+                    <p>
+                        La fusion (<b>merge</b>) permet d'<b>intégrer les modifications</b> d'une branche dans une autre.
+                        <ul>
+                            <li><b>Fast-forward</b> : Si la branche n'a pas divergé, Git avance simplement le pointeur.</li>
+                            <li><b>Merge commit</b> : Si les branches ont divergé, Git crée un commit de fusion.</li>
+                        </ul>
+                        <p>
+                            <b>Commande</b> : <code>git merge nom-branche</code>.
+                        </p>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Clone et Remote</span>
+                    <p>
+                        <ul>
+                            <li><b>Clone</b> : Copier un dépôt distant en local.
+                                <p><b>Commande</b> : <code>git clone https://github.com/utilisateur/repo.git</code>.</p>
+                            </li>
+                            <li><b>Remote</b> : Référence à un dépôt distant (ex: GitHub).
+                                <p><b>Commandes</b> :
+                                    <ul>
+                                        <li><code>git remote add origin https://github.com/utilisateur/repo.git</code></li>
+                                        <li><code>git push origin main</code> : Envoyer les modifications.</li>
+                                        <li><code>git pull origin main</code> : Récupérer les modifications.</li>
+                                    </ul>
+                                </p>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Conflit (Conflict)</span>
+                    <p>
+                        Un conflit survient lorsque <b>deux modifications incompatibles</b> sont faites sur la même partie du code.
+                        Git marque les conflits dans le fichier :
+                        <pre>
+&lt;&lt;&lt;&lt;&lt; HEAD
+print("Version de la branche actuelle")
+=======
+print("Version de la branche fusionnée")
+&gt;&gt;&gt;&gt;&gt; nom-branche
+                        </pre>
+                        <p>
+                            <b>Résolution</b> :
+                            <ol>
+                                <li>Ouvrir le fichier en conflit.</li>
+                                <li>Choisir quelle version garder (ou fusionner manuellement).</li>
+                                <li>Faire un <code>git add</code> sur le fichier résolu.</li>
+                                <li>Valider avec <code>git commit</code>.</li>
+                            </ol>
+                        </p>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Commandes Git -->
+        <section id="commandes">
+            <div class="sec-head"><span class="sec-num">05</span><h2>Les commandes Git essentielles</h2><span class="sec-tag">Référence</span></div>
+            <div class="col">
+                <p>
+                    Voici les commandes Git les plus utilisées, classées par catégorie :
+                </p>
+
+                <h3>📌 Configuration initiale</h3>
+                <p>
+                    Configurer Git avec votre nom et email (nécessaire pour les commits) :
+                </p>
+                <pre>
+git config --global user.name "Votre Nom"
+git config --global user.email "votre@email.com"
+                </pre>
+
+                <h3>📁 Manipulation d'un dépôt</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Commande</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Initialiser un dépôt</td>
+                            <td><code>git init</code></td>
+                            <td>Crée un nouveau dépôt Git dans le dossier courant.</td>
+                        </tr>
+                        <tr>
+                            <td>Cloner un dépôt</td>
+                            <td><code>git clone https://github.com/utilisateur/repo.git</code></td>
+                            <td>Copie un dépôt distant en local.</td>
+                        </tr>
+                        <tr>
+                            <td>Voir l'état</td>
+                            <td><code>git status</code></td>
+                            <td>Affiche les fichiers modifiés, ajoutés ou non suivis.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>📝 Ajouter et valider des modifications</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Commande</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Ajouter un fichier</td>
+                            <td><code>git add fichier.py</code></td>
+                            <td>Ajoute un fichier spécifique à l'index.</td>
+                        </tr>
+                        <tr>
+                            <td>Ajouter tous les fichiers</td>
+                            <td><code>git add .</code></td>
+                            <td>Ajoute tous les fichiers modifiés/nouveaux.</td>
+                        </tr>
+                        <tr>
+                            <td>Faire un commit</td>
+                            <td><code>git commit -m "Message"</code></td>
+                            <td>Valide les modifications avec un message.</td>
+                        </tr>
+                        <tr>
+                            <td>Modifier le dernier commit</td>
+                            <td><code>git commit --amend</code></td>
+                            <td>Modifie le message ou ajoute des fichiers au dernier commit.</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🌿 Gérer les branches</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Commande</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Lister les branches</td>
+                            <td><code>git branch</code></td>
+                            <td>Affiche la liste des branches locales.</td>
+                        </tr>
+                        <tr>
+                            <td>Créer une branche</td>
+                            <td><code>git branch nom-branche</code></td>
+                            <td>Crée une nouvelle branche.</td>
+                        </tr>
+                        <tr>
+                            <td>Basculer vers une branche</td>
+                            <td><code>git checkout nom-branche</code></td>
+                            <td>Change de branche.</td>
+                        </tr>
+                        <tr>
+                            <td>Créer et basculer</td>
+                            <td><code>git checkout -b nom-branche</code></td>
+                            <td>Crée une nouvelle branche et bascule dessus.</td>
+                        </tr>
+                        <tr>
+                            <td>Fusionner une branche</td>
+                            <td><code>git merge nom-branche</code></td>
+                            <td>Fusionne <code>nom-branche</code> dans la branche actuelle.</td>
+                        </tr>
+                        <tr>
+                            <td>Supprimer une branche</td>
+                            <td><code>git branch -d nom-branche</code></td>
+                            <td>Supprime une branche locale (si elle a été fusionnée).</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🔄 Synchronisation avec un dépôt distant</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Commande</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Envoyer les modifications</td>
+                            <td><code>git push origin main</code></td>
+                            <td>Envoie les commits locaux vers le dépôt distant.</td>
+                        </tr>
+                        <tr>
+                            <td>Récupérer les modifications</td>
+                            <td><code>git pull origin main</code></td>
+                            <td>Récupère les commits distants et fusionne avec la branche locale.</td>
+                        </tr>
+                        <tr>
+                            <td>Récupérer sans fusionner</td>
+                            <td><code>git fetch origin</code></td>
+                            <td>Récupère les commits distants sans fusionner.</td>
+                        </tr>
+                        <tr>
+                            <td>Lister les dépôts distants</td>
+                            <td><code>git remote -v</code></td>
+                            <td>Affiche les URL des dépôts distants (ex: <code>origin</code>).</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🔍 Inspection et historique</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Action</th>
+                            <th>Commande</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Voir l'historique</td>
+                            <td><code>git log</code></td>
+                            <td>Affiche l'historique des commits.</td>
+                        </tr>
+                        <tr>
+                            <td>Voir l'historique (version compacte)</td>
+                            <td><code>git log --oneline</code></td>
+                            <td>Affiche les commits sur une seule ligne.</td>
+                        </tr>
+                        <tr>
+                            <td>Voir les différences</td>
+                            <td><code>git diff</code></td>
+                            <td>Affiche les modifications non commitées.</td>
+                        </tr>
+                        <tr>
+                            <td>Voir les différences d'un commit</td>
+                            <td><code>git show hash-commit</code></td>
+                            <td>Affiche les modifications d'un commit spécifique.</td>
+                        </tr>
+                        <tr>
+                            <td>Voir l'historique graphique</td>
+                            <td><code>git log --graph --oneline --all</code></td>
+                            <td>Affiche l'historique avec un graphique des branches.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Graphiques Git -->
+        <section id="graphiques">
+            <div class="sec-head"><span class="sec-num">06</span><h2>Visualiser Git avec des graphiques</h2><span class="sec-tag">Illustrations</span></div>
+            <div class="col">
+                <p>
+                    Les graphiques permettent de <b>visualiser l'historique</b> et les <b>branches</b> d'un dépôt Git.
+                    Voici quelques exemples :
+                </p>
+
+                <h3>🌳 Historique linéaire</h3>
+                <p>
+                    Un dépôt avec des commits successifs sur une seule branche (<code>main</code>) :
+                </p>
+                <div class="schema">
+* commit 3 (main)
+* commit 2
+* commit 1
+                </div>
+                <p>
+                    <b>Commande pour afficher ce graphique</b> :
+                    <pre>git log --graph --oneline</pre>
+                </p>
+
+                <h3>🌿 Branches et merges</h3>
+                <p>
+                    Un dépôt avec une branche <code>feature/login</code> fusionnée dans <code>main</code> :
+                </p>
+                <div class="mermaid">
+                    gitGraph
+                        commit id: "1"
+                        branch feature/login
+                        commit id: "2"
+                        commit id: "3"
+                        checkout main
+                        commit id: "4"
+                        merge feature/login
+                </div>
+                <p>
+                    <b>Explications</b> :
+                    <ul>
+                        <li><code>commit 1</code> : Commit initial sur <code>main</code>.</li>
+                        <li><code>commit 2</code> et <code>commit 3</code> : Commits sur la branche <code>feature/login</code>.</li>
+                        <li><code>commit 4</code> : Commit sur <code>main</code> en parallèle.</li>
+                        <li><code>merge</code> : Fusion de <code>feature/login</code> dans <code>main</code>.</li>
+                    </ul>
+                </p>
+
+                <h3>🔀 Conflit de merge</h3>
+                <p>
+                    Lorsque deux branches modifient la même ligne, Git ne peut pas fusionner automatiquement :
+                </p>
+                <div class="schema">
+*   commit 5 (main)
+|\
+| * commit 4 (feature/login)  ← Modifie la ligne 10
+* | commit 3 (main)          ← Modifie la ligne 10
+|/
+* commit 2
+                </div>
+                <p>
+                    <b>Résolution</b> :
+                    <ol>
+                        <li>Git marque le conflit dans le fichier :
+                            <pre>
+&lt;&lt;&lt;&lt;&lt; HEAD
+print("Version de main")
+=======
+print("Version de feature/login")
+&gt;&gt;&gt;&gt;&gt; feature/login
+                            </pre>
+                        </li>
+                        <li>L'utilisateur doit <b>choisir quelle version garder</b> (ou fusionner manuellement).</li>
+                        <li>Faire un <code>git add</code> sur le fichier résolu.</li>
+                        <li>Valider avec <code>git commit</code>.</li>
+                    </ol>
+                </p>
+            </div>
+        </section>
+
+        <!-- Workflow Git en entreprise -->
+        <section id="workflow">
+            <div class="sec-head"><span class="sec-num">07</span><h2>Workflow Git en entreprise</h2><span class="sec-tag">Bonnes pratiques</span></div>
+            <div class="col">
+                <p>
+                    Voici un <b>workflow typique</b> pour utiliser Git en équipe :
+                </p>
+
+                <div class="mermaid">
+                    gitGraph
+                        commit id: "1" tag: "v1.0"
+                        branch develop
+                        commit id: "2"
+                        commit id: "3"
+                        checkout main
+                        branch feature/login
+                        commit id: "4"
+                        commit id: "5"
+                        checkout develop
+                        merge feature/login
+                        commit id: "6" tag: "v2.0"
+                        branch release/v2.0
+                        commit id: "7"
+                        checkout main
+                        merge release/v2.0
+                        commit id: "8" tag: "v2.0"
+                </div>
+
+                <h3>📋 Étapes détaillées</h3>
+                <ol>
+                    <li>
+                        <b>Cloner le dépôt</b> :
+                        <pre>git clone https://github.com/entreprise/projet.git</pre>
+                        <p>Crée une copie locale du dépôt.</p>
+                    </li>
+                    <li>
+                        <b>Créer une branche de fonctionnalité</b> :
+                        <pre>git checkout -b feature/ma-fonctionnalite</pre>
+                        <p>Crée une nouvelle branche pour développer une fonctionnalité.</p>
+                    </li>
+                    <li>
+                        <b>Travailler sur la branche</b> :
+                        <ul>
+                            <li>Faire des commits réguliers :
+                                <pre>
+git add .
+git commit -m "Ajout de la fonction X"
+                                </pre>
+                            </li>
+                            <li>Pousser la branche vers le dépôt distant :
+                                <pre>git push origin feature/ma-fonctionnalite</pre>
+                            </li>
+                        </ul>
+                    </li>
+                    <li>
+                        <b>Créer une Pull Request (PR)</b> :
+                        <p>
+                            Sur GitHub/GitLab, créer une PR pour fusionner <code>feature/ma-fonctionnalite</code> dans <code>develop</code> ou <code>main</code>.
+                            <ul>
+                                <li>Un collègue <b>revise le code</b> (code review).</li>
+                                <li>La PR est <b>validée</b> si tout est correct.</li>
+                                <li>La PR est <b>fusionnée</b> dans la branche cible.</li>
+                            </ul>
+                        </p>
+                    </li>
+                    <li>
+                        <b>Mettre à jour sa branche locale</b> :
+                        <pre>git pull origin main</pre>
+                        <p>Récupère les dernières modifications de la branche principale.</p>
+                    </li>
+                </ol>
+
+                <h3>💡 Bonnes pratiques</h3>
+                <ul>
+                    <li>
+                        <b>Commits atomiques</b> :
+                        <p>Un commit = <b>un changement logique</b> (ex: "Corrige bug login" et non "Modifications diverses").</p>
+                    </li>
+                    <li>
+                        <b>Messages de commit clairs</b> :
+                        <p>Éviter les messages vagues comme "fix" ou "update". Préférer :
+                            <ul>
+                                <li>✅ <code>"Ajout validation mot de passe"</code></li>
+                                <li>✅ <code>"Corrige bug division par zéro"</code></li>
+                                <li>❌ <code>"fix"</code></li>
+                            </ul>
+                        </p>
+                    </li>
+                    <li>
+                        <b>Branches courtes</b> :
+                        <p>Fusionner souvent pour éviter les conflits et garder un historique propre.</p>
+                    </li>
+                    <li>
+                        <b>Pull avant push</b> :
+                        <p>Toujours faire un <code>git pull</code> avant de pousser pour éviter les conflits.</p>
+                    </li>
+                    <li>
+                        <b>.gitignore</b> :
+                        <p>Exclure les fichiers inutiles (ex: <code>__pycache__/</code>, <code>*.log</code>) avec un fichier <code>.gitignore</code>.</p>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Outils Git -->
+        <section id="outils">
+            <div class="sec-head"><span class="sec-num">08</span><h2>Outils et intégrations pour Git</h2><span class="sec-tag">Écosystème</span></div>
+            <div class="col">
+                <p>
+                    Git est souvent utilisé avec des <b>plateformes d'hébergement</b> et des <b>outils graphiques</b> pour faciliter son utilisation.
+                </p>
+
+                <h3>🌍 Plateformes d'hébergement</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Outil</th>
+                            <th>Description</th>
+                            <th>Lien</th>
+                            <th>Avantages</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>GitHub</b></td>
+                            <td>Plateforme la plus populaire pour héberger des dépôts Git.</td>
+                            <td><a href="https://github.com" target="_blank">github.com</a></td>
+                            <td>
+                                <ul>
+                                    <li>Communauté très active.</li>
+                                    <li>Intégrations nombreuses (CI/CD, bots, etc.).</li>
+                                    <li>Gratuit pour les dépôts publics.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>GitLab</b></td>
+                            <td>Alternative à GitHub avec DevOps intégré.</td>
+                            <td><a href="https://gitlab.com" target="_blank">gitlab.com</a></td>
+                            <td>
+                                <ul>
+                                    <li>Auto-hébergement possible.</li>
+                                    <li>Intégration native avec CI/CD.</li>
+                                    <li>Gratuit pour les dépôts privés (limite de stockage).</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Bitbucket</b></td>
+                            <td>Solution d'Atlassian, souvent utilisée en entreprise.</td>
+                            <td><a href="https://bitbucket.org" target="_blank">bitbucket.org</a></td>
+                            <td>
+                                <ul>
+                                    <li>Intégration avec Jira et Trello.</li>
+                                    <li>Gratuit pour les petites équipes.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🖥️ Outils graphiques</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Outil</th>
+                            <th>Description</th>
+                            <th>Lien</th>
+                            <th>Avantages</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>GitKraken</b></td>
+                            <td>Client Git graphique avec interface intuitive.</td>
+                            <td><a href="https://www.gitkraken.com" target="_blank">gitkraken.com</a></td>
+                            <td>
+                                <ul>
+                                    <li>Visualisation claire des branches.</li>
+                                    <li>Gratuit pour l'éducation.</li>
+                                    <li>Prise en charge de GitHub, GitLab, Bitbucket.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Sourcetree</b></td>
+                            <td>Client Git gratuit par Atlassian.</td>
+                            <td><a href="https://www.sourcetreeapp.com" target="_blank">sourcetreeapp.com</a></td>
+                            <td>
+                                <ul>
+                                    <li>Simple et intuitif.</li>
+                                    <li>Intégration avec Bitbucket.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>VS Code + GitLens</b></td>
+                            <td>Extension pour VS Code qui améliore l'intégration Git.</td>
+                            <td><a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens" target="_blank">GitLens</a></td>
+                            <td>
+                                <ul>
+                                    <li>Visualisation des modifications directement dans le code.</li>
+                                    <li>Historique des commits par ligne.</li>
+                                    <li>Gratuit et open-source.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🔧 Intégration avec les IDE</h3>
+                <p>
+                    La plupart des IDE modernes intègrent Git nativement :
+                </p>
+                <ul>
+                    <li><b>VS Code</b> : Support natif de Git + extensions comme GitLens.</li>
+                    <li><b>PyCharm</b> : Intégration Git avancée (visualisation des branches, résolution des conflits).</li>
+                    <li><b>IntelliJ IDEA</b> : Idéal pour le développement Java/Kotlin avec Git.</li>
+                    <li><b>Eclipse</b> : Plugin EGit pour Git.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Résumé -->
+        <section id="resume">
+            <div class="sec-head"><span class="sec-num">09</span><h2>Résumé du cours sur Git</h2><span class="sec-tag">Synthèse</span></div>
+            <div class="col">
+                <p>
+                    Voici les points clés à retenir sur Git :
+                </p>
+
+                <h3>📌 Git en 5 points</h3>
+                <ol>
+                    <li>
+                        <b>Git est un système de contrôle de version</b> créé par Linus Torvalds en 2005 pour gérer le développement de Linux.
+                    </li>
+                    <li>
+                        <b>Git est décentralisé</b> : chaque développeur a une copie complète du dépôt.
+                    </li>
+                    <li>
+                        <b>Git permet de collaborer</b> en équipe grâce aux branches et aux merges.
+                    </li>
+                    <li>
+                        <b>Git garantit l'intégrité des données</b> grâce aux hashs SHA-1.
+                    </li>
+                    <li>
+                        <b>Git est utilisé avec des plateformes</b> comme GitHub, GitLab ou Bitbucket pour héberger les dépôts.
+                    </li>
+                </ol>
+
+                <h3>💻 Commandes Git à connaître</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Commandes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Configuration</b></td>
+                            <td>
+                                <code>git config --global user.name "Nom"</code><br>
+                                <code>git config --global user.email "email"</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Dépôt</b></td>
+                            <td>
+                                <code>git init</code><br>
+                                <code>git clone url</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Modifications</b></td>
+                            <td>
+                                <code>git add .</code><br>
+                                <code>git commit -m "message"</code><br>
+                                <code>git status</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Branches</b></td>
+                            <td>
+                                <code>git branch</code><br>
+                                <code>git branch nom</code><br>
+                                <code>git checkout nom</code><br>
+                                <code>git merge nom</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Synchronisation</b></td>
+                            <td>
+                                <code>git push origin main</code><br>
+                                <code>git pull origin main</code><br>
+                                <code>git fetch origin</code>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Historique</b></td>
+                            <td>
+                                <code>git log</code><br>
+                                <code>git log --oneline --graph</code><br>
+                                <code>git diff</code>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h3>🎯 Prochaines étapes</h3>
+                <p>
+                    Pour aller plus loin avec Git :
+                </p>
+                <ul>
+                    <li>
+                        <b>Pratiquer avec LearnGitBranching</b> :
+                        <p>
+                            <a href="https://learngitbranching.js.org/?locale=fr_FR" target="_blank">https://learngitbranching.js.org/?locale=fr_FR</a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>Créer un compte GitHub</b> et y héberger vos projets :
+                        <p>
+                            <a href="https://github.com" target="_blank">https://github.com</a>
+                        </p>
+                    </li>
+                    <li>
+                        <b>Découvrir GitLab ou Bitbucket</b> pour des fonctionnalités avancées (CI/CD, auto-hébergement).
+                    </li>
+                    <li>
+                        <b>Configurer VS Code avec GitLens</b> pour une meilleure intégration Git.
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Cours Git — Première Bac Pro CIEL — Lycée Charlie Chaplin — T. Signoret</p>
+            <p>Septembre 2026</p>
+        </footer>
+    </div>
+</body>
+</html>

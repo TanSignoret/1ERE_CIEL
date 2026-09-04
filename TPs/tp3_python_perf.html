@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP CIEL - Mes premières fonctions en Python</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function(e) {
+                        if (e.target.tagName === 'A') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <header class="hero col">
+            <div class="eyebrow">Séance 3 — Structuration du code</div>
+            <h1>Mes premières fonctions en Python pour RéseauPro</h1>
+            <p class="lede">Chez RéseauPro, les scripts doivent être <b>modulaires et réutilisables</b>. Votre tuteur vous demande de structurer vos scripts avec des <b>fonctions</b> pour valider des adresses IP, générer des mots de passe, ou analyser des logs. Vous allez aussi apprendre à gérer les erreurs pour rendre vos scripts plus robustes.</p>
+            <div class="chips">
+                <span class="chip">Première Bac Pro CIEL</span>
+                <span class="chip">Durée : 2 h</span>
+                <span class="chip">Outils : VS Code, GitHub</span>
+                <span class="chip">Travail individuel</span>
+            </div>
+        </header>
+
+        <!-- Objectifs -->
+        <section id="objectifs">
+            <div class="sec-head"><span class="sec-num">01</span><h2>Ce que vous allez apprendre</h2><span class="sec-tag">Objectifs</span></div>
+            <div class="col">
+                <ul class="plain">
+                    <li>Créer et utiliser des <b>fonctions</b> en Python.</li>
+                    <li>Comprendre les <b>paramètres</b> et les <b>valeurs de retour</b>.</li>
+                    <li>Gérer les <b>erreurs</b> avec <code>try/except</code>.</li>
+                    <li>Documenter son code avec des <b>docstrings</b>.</li>
+                    <li>Versionner son code avec Git.</li>
+                </ul>
+            </div>
+
+            <h3>Compétences visées</h3>
+            <div class="skills">
+                <div class="skill">
+                    <span class="code">C1.1 · Unité E31</span>
+                    <b>Structurer un programme</b>
+                    <span>Utiliser des fonctions pour organiser son code en modules réutilisables.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C1.2 · Unité E31</span>
+                    <b>Gérer les erreurs</b>
+                    <span>Utiliser <code>try/except</code> pour rendre un script robuste.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C1.3 · Unité E31</span>
+                    <b>Documenter son code</b>
+                    <span>Utiliser des docstrings pour expliquer le rôle des fonctions.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C1.2 · Unité E31</span>
+                    <b>Versionner son code</b>
+                    <span>Utiliser Git pour sauvegarder et partager ses modifications.</span>
+                </div>
+            </div>
+            <p class="note" style="margin-top:.9rem">Repères Vademecum Première TNE — activités « structurer un programme » et « gérer les erreurs ».</p>
+
+            <h3>Déroulé de la séance</h3>
+            <nav class="toc" aria-label="Sommaire">
+                <ol>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#tp3">TP 3 — Créer des fonctions en Python</a></li>
+                    <li><a href="#lexique">Lexique</a></li>
+                </ol>
+            </nav>
+        </section>
+
+        <!-- Introduction -->
+        <section id="introduction">
+            <div class="sec-head"><span class="sec-num">02</span><h2>Introduction</h2><span class="sec-tag">Prérequis</span></div>
+            <div class="col">
+                <p>Chez <b>RéseauPro Solutions</b>, les scripts doivent être :</p>
+                <ul class="plain">
+                    <li><b>Modulaires</b> : chaque fonction a une responsabilité unique.</li>
+                    <li><b>Réutilisables</b> : une fonction peut être utilisée dans plusieurs scripts.</li>
+                    <li><b>Robustes</b> : le code gère les erreurs (ex: fichier introuvable, IP invalide).</li>
+                </ul>
+                <p>Dans ce TP, vous allez :</p>
+                <ul class="plain">
+                    <li>Créer des fonctions pour valider des adresses IP, générer des mots de passe, ou analyser des logs.</li>
+                    <li>Gérer les erreurs avec <code>try/except</code>.</li>
+                    <li>Documenter vos fonctions avec des <b>docstrings</b>.</li>
+                    <li>Versionner votre code avec Git.</li>
+                </ul>
+
+                <div class="callout">
+                    <span class="lbl">Matériel nécessaire</span>
+                    <p>Pour suivre ce TP, vous aurez besoin de :</p>
+                    <ul class="plain">
+                        <li>Un poste informatique avec <b>VS Code</b> et les extensions <b>Python</b> et <b>GitLens</b> (installés en TP 2).</li>
+                        <li>Un navigateur web (pour accéder à GitHub).</li>
+                        <li>Ton dépôt GitHub <code>BacPro_CIEL_Dev</code> (créé en TP 2).</li>
+                        <li>Un fichier de logs d'exemple (fourni par votre professeur ou à créer toi-même).</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- TP3 -->
+        <section id="tp3">
+            <div class="sec-head"><span class="sec-num">03</span><h2>TP 3 — Créer des fonctions en Python</h2><span class="sec-tag">4 exercices</span></div>
+            <div class="col">
+                <p>Dans ce TP, vous allez écrire <b>4 fonctions</b> pour structurer tes scripts. Chaque fonction doit être <b>testée</b>, <b>documentée</b>, et <b>versionnée</b> dans votre dépôt GitHub.</p>
+            </div>
+
+            <ol class="steps">
+                <!-- Exercice 1 -->
+                <li class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-head">
+                        <span class="step-title">Valider une adresse IP</span>
+                        <label class="tick"><input type="checkbox" data-step="e1"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : votre tuteur te demande de créer une fonction pour valider les adresses IP saisies par les utilisateurs.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Créer une fonction <code>valider_ip(ip)</code> qui :
+                                <ul class="plain">
+                                    <li>Retourne <code>True</code> si <code>ip</code> est au format <code>xxx.xxx.xxx.xxx</code> avec <code>0 ≤ xxx ≤ 255</code>.</li>
+                                    <li>Retourne <code>False</code> sinon.</li>
+                                    <li><b>Gère les erreurs</b> : Si <code>ip</code> n'est pas une chaîne de caractères, lève une exception avec <code>raise ValueError("IP invalide")</code>.</li>
+                                </ul>
+                            </li>
+                            <li>Écrire un script qui :
+                                <ul class="plain">
+                                    <li>Demande à l'utilisateur de saisir une IP.</li>
+                                    <li>Utilise la fonction <code>valider_ip</code> pour vérifier l'IP.</li>
+                                    <li>Affiche <code>"IP valide"</code> ou <code>"IP invalide"</code>.</li>
+                                </ul>
+                            </li>
+                            <li><b>Documenter</b> la fonction avec une <b>docstring</b> (ex: <code>"""Valide une adresse IP..."""</code>).</li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple</span>
+                            <p>Si l'utilisateur saisi <code>192.168.1.1</code>, le script doit afficher :</p>
+                            <pre class="tree">IP valide</pre>
+                            <p>Si l'utilisateur saisi <code>256.1.1.1</code>, le script doit afficher :</p>
+                            <pre class="tree">IP invalide</pre>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Ta fonction <code>valider_ip</code> est testée, documentée, et le script fonctionne correctement.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Exercice 2 -->
+                <li class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-head">
+                        <span class="step-title">Générer un mot de passe</span>
+                        <label class="tick"><input type="checkbox" data-step="e2"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : RéseauPro utilise des mots de passe robustes pour sécuriser ses systèmes. votre tuteur te demande de créer une fonction pour en générer.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Créer une fonction <code>generer_mot_de_passe(longueur=12)</code> qui :
+                                <ul class="plain">
+                                    <li>Génère un mot de passe aléatoire avec :
+                                        <ul class="plain">
+                                            <li>Majuscules (<code>A-Z</code>).</li>
+                                            <li>Minuscules (<code>a-z</code>).</li>
+                                            <li>Chiffres (<code>0-9</code>).</li>
+                                            <li>Symboles (<code>!@#$%^&*</code>).</li>
+                                        </ul>
+                                    </li>
+                                    <li>Retourne le mot de passe généré.</li>
+                                    <li><b>Gère les erreurs</b> : Si <code>longueur < 8</code>, lève une exception avec <code>raise ValueError("Longueur minimale : 8")</code>.</li>
+                                </ul>
+                            </li>
+                            <li>Écrire un script qui :
+                                <ul class="plain">
+                                    <li>Demande à l'utilisateur la longueur du mot de passe (par défaut : 12).</li>
+                                    <li>Utilise la fonction <code>generer_mot_de_passe</code> pour afficher un mot de passe.</li>
+                                </ul>
+                            </li>
+                            <li><b>Documenter</b> la fonction avec une <b>docstring</b>.</li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple</span>
+                            <p>Si l'utilisateur saisi <code>8</code>, le script peut afficher :</p>
+                            <pre class="tree">Mot de passe généré : A1b@Cd#E</pre>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Ta fonction <code>generer_mot_de_passe</code> est testée, documentée, et génère des mots de passe valides.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Exercice 3 -->
+                <li class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-head">
+                        <span class="step-title">Analyser des logs</span>
+                        <label class="tick"><input type="checkbox" data-step="e3"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : votre tuteur te demande d'analyser des logs réseau pour compter les erreurs et avertissements.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Créer une fonction <code>analyser_logs(fichier)</code> qui :
+                                <ul class="plain">
+                                    <li>Lit un fichier de logs (format : <code>IP - Date - Niveau - Message</code>).</li>
+                                    <li>Retourne un dictionnaire avec :
+                                        <ul class="plain">
+                                            <li>Le <b>nombre total de lignes</b>.</li>
+                                            <li>Le <b>nombre de lignes par niveau</b> (<code>ERROR</code>, <code>WARNING</code>, <code>INFO</code>).</li>
+                                        </ul>
+                                    </li>
+                                    <li><b>Gère les erreurs</b> : Si le fichier n'existe pas, affiche un message avec <code>try/except FileNotFoundError</code>.</li>
+                                </ul>
+                            </li>
+                            <li>Écrire un script qui :
+                                <ul class="plain">
+                                    <li>Utilise la fonction <code>analyser_logs</code> sur un fichier <code>logs.txt</code> (fourni par votre professeur).</li>
+                                    <li>Affiche les résultats.</li>
+                                </ul>
+                            </li>
+                            <li><b>Documenter</b> la fonction avec une <b>docstring</b>.</li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple de fichier logs.txt</span>
+                            <pre class="tree">192.168.1.1 - 2026-09-03 - ERROR - Connexion échouée
+192.168.1.2 - 2026-09-03 - WARNING - Temps de réponse élevé
+192.168.1.3 - 2026-09-03 - INFO - Connexion réussie
+192.168.1.4 - 2026-09-03 - ERROR - Port fermé</pre>
+                        </div>
+                        <div class="callout">
+                            <span class="lbl">Exemple de sortie</span>
+                            <pre class="tree">{
+    "total": 4,
+    "niveaux": {
+        "ERROR": 2,
+        "WARNING": 1,
+        "INFO": 1
+    }
+}</pre>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Ta fonction <code>analyser_logs</code> est testée, documentée, et gère les erreurs de fichier.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Exercice 4 -->
+                <li class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-head">
+                        <span class="step-title">Refactoriser le TP 1</span>
+                        <label class="tick"><input type="checkbox" data-step="e4"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : votre tuteur te demande de structurer le script de l'<b>Exercice 3 du TP 1</b> (simulateur de ping) avec des fonctions.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Prendre le code de l'<b>Exercice 3 du TP 1</b> (simulateur de ping).</li>
+                            <li>Le <b>refactoriser</b> en créant les fonctions suivantes :
+                                <ul class="plain">
+                                    <li><code>generer_ips(debut, fin)</code> : Génère une liste d'IPs de <code>192.168.1.debut</code> à <code>192.168.1.fin</code>.</li>
+                                    <li><code>simuler_ping(ip)</code> : Retourne <code>True</code> si le ping réussit (IP paire), <code>False</code> sinon.</li>
+                                    <li><code>afficher_resultats(ips)</code> : Affiche les résultats pour toutes les IPs.</li>
+                                </ul>
+                            </li>
+                            <li><b>Documenter</b> chaque fonction avec une <b>docstring</b>.</li>
+                            <li><b>Versionner</b> :
+                                <ul class="plain">
+                                    <li>Ajouter le nouveau script dans votre dépôt GitHub <code>BacPro_CIEL_Dev</code>.</li>
+                                    <li>Faire un commit avec le message : <code>"Refactorisation du simulateur de ping avec des fonctions"</code>.</li>
+                                    <li>Pousser les changements (<code>git push</code>).</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple de docstring</span>
+                            <pre class="tree">def simuler_ping(ip):
+    """Simule un ping vers une adresse IP.
+
+    Args:
+        ip (str): Adresse IP à pinger (format : 192.168.1.X).
+
+    Returns:
+        bool: True si le ping réussit (IP paire), False sinon.
+    """
+    # ... code de la fonction</pre>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Ton script est refactorisé avec des fonctions, documenté, et versionné dans GitHub.</p>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Lexique -->
+        <section id="lexique">
+            <div class="sec-head"><span class="sec-num">04</span><h2>Lexique</h2><span class="sec-tag">Vocabulaire</span></div>
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mot</th>
+                            <th>Définition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Fonction</b></td>
+                            <td>Bloc de code réutilisable, identifié par un nom, qui effectue une tâche spécifique.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Paramètre</b></td>
+                            <td>Variable passée à une fonction pour qu'elle puisse l'utiliser (ex: <code>ip</code> dans <code>valider_ip(ip)</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b>Valeur de retour</b></td>
+                            <td>Valeur renvoyée par une fonction avec <code>return</code> (ex: <code>True</code> ou <code>False</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b>Docstring</b></td>
+                            <td>Chaîne de caractères entre triple guillemets <code>""" """</code> pour documenter une fonction.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Exception</b></td>
+                            <td>Erreur levée par le code (ex: <code>ValueError</code>, <code>FileNotFoundError</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b><code>try/except</code></b></td>
+                            <td>Bloc utilisé pour gérer les erreurs : <code>try</code> exécute du code, <code>except</code> attrape les erreurs.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Refactoriser</b></td>
+                            <td>Améliorer la structure du code sans changer son fonctionnement (ex: utiliser des fonctions).</td>
+                        </tr>
+                        <tr>
+                            <td><b>Commit</b></td>
+                            <td>Sauvegarde d'un état du code dans Git, avec un message descriptif.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="col">
+            <p>TP 3 — Mes premières fonctions en Python — Première Bac Pro CIEL — Lycée Charlie Chaplin — T. Signoret</p>
+            <p>Septembre 2026.</p>
+        </footer>
+    </div>
+</body>
+</html>

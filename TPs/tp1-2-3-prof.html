@@ -1,0 +1,1511 @@
+ 
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prof - Résumé et propositions pour la suite</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function(e) {
+                        if (e.target.tagName === 'A') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <header class="hero col">
+            <div class="eyebrow">Résumé pédagogique</div>
+            <h1>Résumé des TP et propositions pour la suite</h1>
+            <p class="lede">Ce document résume les 3 TP proposés pour les élèves de Première Bac Pro CIEL, avec leurs objectifs, compétences visées, et livrables. Il propose aussi des pistes pour les TP suivants.</p>
+            <div class="chips">
+                <span class="chip">Première Bac Pro CIEL</span>
+                <span class="chip">Durée totale : 6 h</span>
+                <span class="chip">Outils : Python, Git, VS Code</span>
+                <span class="chip">Auteur : T. Signoret</span>
+            </div>
+        </header>
+
+        <!-- Résumé des TP -->
+        <section id="resume">
+            <div class="sec-head"><span class="sec-num">01</span><h2>Résumé des 3 TP</h2><span class="sec-tag">Synthèse</span></div>
+            <div class="col">
+                <p>Les 3 TP sont conçus pour être <b>progressifs</b> et <b>concrets</b>, avec un <b>contexte professionnel commun</b> (l'entreprise fictive <b>RéseauPro Solutions</b>). Voici un tableau récapitulatif :</p>
+            </div>
+
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>TP</th>
+                            <th>Thème</th>
+                            <th>Durée</th>
+                            <th>Objectifs principaux</th>
+                            <th>Outils utilisés</th>
+                            <th>Livrable</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>TP 1</b></td>
+                            <td>Révision des bases de Python</td>
+                            <td>2 h</td>
+                            <td>
+                                <ul class="plain">
+                                    <li>Réviser variables, conditions, boucles.</li>
+                                    <li>Écrire des scripts pour automatiser des tâches.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="plain">
+                                    <li>OnlineIDE</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="plain">
+                                    <li>4 scripts Python (liens OnlineIDE).</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>TP 2</b></td>
+                            <td>Découverte de Git</td>
+                            <td>2 h</td>
+                            <td>
+                                <ul class="plain">
+                                    <li>Comprendre Git avec LearnGitBranching.</li>
+                                    <li>Créer un dépôt GitHub.</li>
+                                    <li>Configurer VS Code.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="plain">
+                                    <li>LearnGitBranching</li>
+                                    <li>GitHub</li>
+                                    <li>VS Code</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="plain">
+                                    <li>Lien du dépôt GitHub avec les scripts du TP 1.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>TP 3</b></td>
+                            <td>Mes premières fonctions</td>
+                            <td>2 h</td>
+                            <td>
+                                <ul class="plain">
+                                    <li>Créer et utiliser des fonctions.</li>
+                                    <li>Gérer les erreurs (<code>try/except</code>).</li>
+                                    <li>Documenter son code.</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="plain">
+                                    <li>VS Code</li>
+                                    <li>GitHub</li>
+                                </ul>
+                            </td>
+                            <td>
+                                <ul class="plain">
+                                    <li>Dépôt GitHub mis à jour avec les scripts du TP 3.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Compétences du référentiel -->
+        <section id="competences">
+            <div class="sec-head"><span class="sec-num">02</span><h2>Compétences du référentiel abordées</h2><span class="sec-tag">Alignement pédagogique</span></div>
+            <div class="col">
+                <p>Voici les compétences du référentiel Bac Pro CIEL couvertes par cette séquence :</p>
+            </div>
+
+            <div class="skills">
+                <div class="skill">
+                    <span class="code">C1.1 · Unité E31</span>
+                    <b>Développer des scripts en Python</b>
+                    <span>Écrire des algorithmes simples en utilisant des variables, des conditions, des boucles, et des fonctions.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C1.2 · Unité E31</span>
+                    <b>Automatiser des tâches</b>
+                    <span>Utiliser Python pour automatiser des calculs ou des vérifications répétitives.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C1.3 · Unité E31</span>
+                    <b>Structurer un programme</b>
+                    <span>Utiliser des fonctions pour organiser son code en modules réutilisables.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C1.4 · Unité E31</span>
+                    <b>Gérer les erreurs</b>
+                    <span>Utiliser <code>try/except</code> pour rendre un script robuste.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C1.2 · Unité E31</span>
+                    <b>Utiliser un système de gestion de versions</b>
+                    <span>Comprendre et utiliser Git pour versionner son code.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C4.1 · Unité E32</span>
+                    <b>Configurer un environnement de développement</b>
+                    <span>Installer et configurer VS Code et ses extensions pour Python.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C5.1 · Unité E32</span>
+                    <b>Travailler en équipe</b>
+                    <span>Utiliser GitHub pour collaborer sur un projet informatique.</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contexte professionnel -->
+        <section id="contexte">
+            <div class="sec-head"><span class="sec-num">03</span><h2>Contexte professionnel</h2><span class="sec-tag">Mise en situation</span></div>
+            <div class="col">
+                <p>Pour rendre les TP plus concrets, un <b>contexte professionnel commun</b> a été utilisé : l'entreprise fictive <b>RéseauPro Solutions</b>.</p>
+                <p>Voici comment ce contexte évolue au fil des TP :</p>
+                <ul class="plain">
+                    <li><b>TP 1</b> : L'élève est en stage et doit <b>automatiser des tâches simples</b> (calculs, vérifications) pour son tuteur.</li>
+                    <li><b>TP 2</b> : L'équipe utilise Git pour collaborer. L'élève doit <b>maîtriser Git</b> pour contribuer aux projets.</li>
+                    <li><b>TP 3</b> : Les scripts doivent être <b>modulaires et robustes</b>. L'élève crée des fonctions pour structurer son code.</li>
+                </ul>
+                <p>Ce contexte permet aux élèves de comprendre <b>l'utilité pratique</b> de ce qu'ils apprennent.</p>
+            </div>
+        </section>
+
+        <!-- Correction -->
+        <!-- ===================== CORRECTIONS TP1 ===================== -->
+        <section id="corrections-tp1">
+            <div class="sec-head"><span class="sec-num">05</span><h2>Corrections du TP 1 — Révision des bases de Python</h2><span class="sec-tag">Pour le professeur</span></div>
+
+            <div class="col">
+                <p>
+                    Cette section propose les <b>corrections détaillées</b> pour le TP 1, incluant :
+                    <ul class="plain">
+                        <li>Les solutions pour les <b>4 exercices</b> de révision des bases de Python.</li>
+                        <li>Des <b>explications pédagogiques</b> pour chaque exercice.</li>
+                        <li>Des <b>conseils</b> pour aider les élèves en difficulté.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <!-- Exercice 1 -->
+            <h3>1. Calculer la moyenne de 5 temps de réponse réseau</h3>
+            <div class="col">
+                <p><b>Contexte</b> : Les élèves doivent calculer la moyenne de 5 temps de réponse réseau pour RéseauPro Solutions.</p>
+                <p><b>Objectifs pédagogiques</b> :</p>
+                <ul class="plain">
+                    <li>Utiliser des <b>boucles <code>for</code></b> pour demander plusieurs entrées.</li>
+                    <li>Gérer les <b>erreurs de saisie</b> avec <code>try/except</code>.</li>
+                    <li>Calculer une <b>moyenne</b> à partir d'une liste de valeurs.</li>
+                </ul>
+                <div class="callout">
+                    <span class="lbl">Solution</span>
+                    <pre class="tree">
+# Exercice 1 : Calculer la moyenne de 5 temps de réponse réseau
+# Contexte : RéseauPro Solutions - Automatisation des calculs de performance
+
+# Initialisation d'une liste pour stocker les temps de réponse
+temps_reponse = []
+
+# Demander à l'utilisateur de saisir 5 temps de réponse
+for i in range(5):
+    while True:
+        try:
+            temps = float(input(f"Saisir le temps de réponse {i + 1} (en ms) : "))
+            temps_reponse.append(temps)
+            break  # Sortir de la boucle si la saisie est valide
+        except ValueError:
+            print("Erreur : veuillez saisir un nombre valide.")
+
+# Calculer la moyenne
+moyenne = sum(temps_reponse) / len(temps_reponse)
+
+# Afficher le résultat
+print(f"Moyenne des temps de réponse : {moyenne:.2f} ms")
+                    </pre>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Explications</span>
+                    <p>
+                        <ul class="plain">
+                            <li><code>temps_reponse = []</code> : Initialise une liste vide pour stocker les temps de réponse.</li>
+                            <li><code>for i in range(5):</code> : Boucle pour demander 5 valeurs à l'utilisateur.</li>
+                            <li><code>while True:</code> : Boucle infinie pour gérer les erreurs de saisie.</li>
+                            <li><code>try/except ValueError:</code> : Attrape les erreurs si l'utilisateur saisi un texte au lieu d'un nombre.</li>
+                            <li><code>moyenne = sum(temps_reponse) / len(temps_reponse)</code> : Calcule la moyenne.</li>
+                            <li><code>print(f"Moyenne des temps de réponse : {moyenne:.2f} ms")</code> : Affiche la moyenne avec 2 décimales.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Conseils pédagogiques</span>
+                    <p>
+                        <ul class="plain">
+                            <li>Si les élèves bloquent sur la boucle <code>while True:</code>, leur montrer comment <b>sortir de la boucle</b> avec <code>break</code>.</li>
+                            <li>Leur demander de <b>tester avec des valeurs simples</b> (ex: 10, 20, 30, 40, 50) pour vérifier que la moyenne est correcte.</li>
+                            <li>Expliquer que <code>:.2f</code> dans le <code>print</code> permet d'afficher <b>2 décimales</b>.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Exercice 2 -->
+            <h3>2. Vérifier un mot de passe</h3>
+            <div class="col">
+                <p><b>Contexte</b> : Les élèves doivent vérifier si un mot de passe respecte les règles de sécurité de RéseauPro (8 caractères minimum + 1 chiffre).</p>
+                <p><b>Objectifs pédagogiques</b> :</p>
+                <ul class="plain">
+                    <li>Utiliser des <b>conditions <code>if/else</code></b>.</li>
+                    <li>Vérifier la <b>longueur</b> d'une chaîne avec <code>len()</code>.</li>
+                    <li>Utiliser <code>any()</code> pour vérifier la présence d'un chiffre.</li>
+                </ul>
+                <div class="callout">
+                    <span class="lbl">Solution</span>
+                    <pre class="tree">
+# Exercice 2 : Vérifier un mot de passe
+# Contexte : RéseauPro Solutions - Sécurité des comptes utilisateurs
+
+# Demander le nom d'utilisateur et le mot de passe
+nom_utilisateur = input("Saisir votre nom d'utilisateur : ")
+mot_de_passe = input("Saisir votre mot de passe : ")
+
+# Vérifier les conditions
+mot_de_passe_valide = len(mot_de_passe) >= 8 and any(char.isdigit() for char in mot_de_passe)
+
+# Afficher le résultat
+if mot_de_passe_valide:
+    print(f"Accès autorisé pour {nom_utilisateur}")
+else:
+            print(f"Accès refusé pour {nom_utilisateur}")
+                    </pre>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Explications</span>
+                    <p>
+                        <ul class="plain">
+                            <li><code>len(mot_de_passe) >= 8</code> : Vérifie que le mot de passe a au moins 8 caractères.</li>
+                            <li><code>any(char.isdigit() for char in mot_de_passe)</code> : Vérifie qu'au moins un caractère est un chiffre.</li>
+                            <li><code>mot_de_passe_valide = ...</code> : Stocke le résultat de la vérification dans une variable booléenne.</li>
+                            <li><code>if mot_de_passe_valide:</code> : Affiche un message en fonction du résultat.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Conseils pédagogiques</span>
+                    <p>
+                        <ul class="plain">
+                            <li>Expliquer que <code>any()</code> retourne <code>True</code> si <b>au moins un</b> élément de la liste est vrai.</li>
+                            <li>Montrer comment <b>tester la fonction</b> avec des mots de passe valides et invalides :
+                                <ul class="plain">
+                                    <li><code>Pass123</code> → Accès autorisé.</li>
+                                    <li><code>Pass</code> → Accès refusé (trop court).</li>
+                                    <li><code>Password</code> → Accès refusé (pas de chiffre).</li>
+                                </ul>
+                            </li>
+                            <li>Leur demander d'ajouter une vérification pour les <b>majuscules</b> (ex: <code>any(char.isupper() for char in mot_de_passe)</code>).</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Exercice 3 -->
+            <h3>3. Simuler un ping</h3>
+            <div class="col">
+                <p><b>Contexte</b> : Les élèves doivent simuler un test de connectivité (ping) vers 10 adresses IP (192.168.1.1 à 192.168.1.10). Le ping réussit si l'IP est paire.</p>
+                <p><b>Objectifs pédagogiques</b> :</p>
+                <ul class="plain">
+                    <li>Utiliser une <b>boucle <code>for</code></b> pour parcourir une plage de valeurs.</li>
+                    <li>Générer des <b>adresses IP dynamiquement</b> avec des f-strings.</li>
+                    <li>Utiliser l'opérateur <b>modulo <code>%</code></b> pour vérifier si un nombre est pair.</li>
+                </ul>
+                <div class="callout">
+                    <span class="lbl">Solution</span>
+                    <pre class="tree">
+# Exercice 3 : Simuler un ping
+# Contexte : RéseauPro Solutions - Test de connectivité réseau
+
+# Parcourir les adresses IP de 1 à 10
+for i in range(1, 11):
+    ip = f"192.168.1.{i}"
+
+    # Vérifier si l'IP est paire (i % 2 == 0)
+    if i % 2 == 0:
+        print(f"Ping réussi vers {ip}")
+    else:
+        print(f"Ping échoué vers {ip}")
+                    </pre>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Explications</span>
+                    <p>
+                        <ul class="plain">
+                            <li><code>for i in range(1, 11):</code> : Boucle de 1 à 10 (inclus).</li>
+                            <li><code>ip = f"192.168.1.{i}"</code> : Génère une adresse IP dynamique (ex: <code>192.168.1.1</code>, <code>192.168.1.2</code>, etc.).</li>
+                            <li><code>i % 2 == 0</code> : Vérifie si <code>i</code> est pair (le reste de la division par 2 est 0).</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Conseils pédagogiques</span>
+                    <p>
+                        <ul class="plain">
+                            <li>Expliquer que <code>range(1, 11)</code> génère les nombres de 1 à 10 (11 non inclus).</li>
+                            <li>Leur demander de <b>modifier le script</b> pour que le ping réussit pour les IPs impaires.</li>
+                            <li>Leur montrer comment <b>simuler un vrai ping</b> avec le module <code>subprocess</code> (pour les élèves avancés) :
+                                <pre class="tree">
+import subprocess
+
+for i in range(1, 11):
+    ip = f"192.168.1.{i}"
+    response = subprocess.run(["ping", "-c", "1", ip], capture_output=True)
+    if response.returncode == 0:
+                        print(f"Ping réussi vers {ip}")
+                    else:
+                        print(f"Ping échoué vers {ip}")
+                                </pre>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Exercice 4 -->
+            <h3>4. Analyser des valeurs de bandwith</h3>
+            <div class="col">
+                <p><b>Contexte</b> : Les élèves doivent analyser 10 valeurs de bandwith (en Mbps) pour calculer la valeur maximale, minimale et la moyenne.</p>
+                <p><b>Objectifs pédagogiques</b> :</p>
+                <ul class="plain">
+                    <li>Utiliser des <b>boucles</b> pour demander plusieurs entrées.</li>
+                    <li>Utiliser les fonctions <code>max()</code>, <code>min()</code>, et <code>sum()</code>.</li>
+                    <li>Gérer les <b>erreurs de saisie</b> avec <code>try/except</code>.</li>
+                </ul>
+                <div class="callout">
+                    <span class="lbl">Solution</span>
+                    <pre class="tree">
+# Exercice 4 : Analyser des valeurs de bandwith
+# Contexte : RéseauPro Solutions - Surveillance du réseau
+
+# Initialisation d'une liste pour stocker les valeurs de bandwith
+valeurs_bandwith = []
+
+# Demander à l'utilisateur de saisir 10 valeurs de bandwith
+for i in range(10):
+    while True:
+        try:
+            valeur = float(input(f"Saisir la valeur de bandwith {i + 1} (en Mbps) : "))
+            valeurs_bandwith.append(valeur)
+            break
+        except ValueError:
+            print("Erreur : veuillez saisir un nombre valide.")
+
+# Calculer les statistiques
+valeur_max = max(valeurs_bandwith)
+valeur_min = min(valeurs_bandwith)
+moyenne = sum(valeurs_bandwith) / len(valeurs_bandwith)
+
+# Afficher les résultats
+print(f"Valeur maximale : {valeur_max} Mbps")
+print(f"Valeur minimale : {valeur_min} Mbps")
+print(f"Moyenne : {moyenne:.2f} Mbps")
+            </pre>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Explications</span>
+                    <p>
+                        <ul class="plain">
+                            <li><code>valeurs_bandwith = []</code> : Initialise une liste vide pour stocker les valeurs.</li>
+                            <li><code>for i in range(10):</code> : Boucle pour demander 10 valeurs.</li>
+                            <li><code>try/except ValueError:</code> : Gère les erreurs si l'utilisateur saisi un texte.</li>
+                            <li><code>max(valeurs_bandwith)</code> : Trouve la valeur maximale.</li>
+                            <li><code>min(valeurs_bandwith)</code> : Trouve la valeur minimale.</li>
+                            <li><code>sum(valeurs_bandwith) / len(valeurs_bandwith)</code> : Calcule la moyenne.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Conseils pédagogiques</span>
+                    <p>
+                        <ul class="plain">
+                            <li>Expliquer que <code>max()</code>, <code>min()</code>, et <code>sum()</code> sont des <b>fonctions intégrées</b> de Python.</li>
+                            <li>Leur demander de <b>tester avec des valeurs simples</b> (ex: 10, 20, ..., 100) pour vérifier les résultats.</li>
+                            <li>Leur montrer comment <b>trier la liste</b> avec <code>valeurs_bandwith.sort()</code>.</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===================== CORRECTIONS TP2 ===================== -->
+        <section id="corrections-tp2">
+            <div class="sec-head"><span class="sec-num">07</span><h2>Corrections du TP 2 — Git et Collaboration</h2><span class="sec-tag">Pour le professeur</span></div>
+
+            <div class="col">
+                <p>
+                    Cette section propose les <b>corrections détaillées</b> pour le TP 2, incluant :
+                    <ul class="plain">
+                        <li>Les solutions pour <b>LearnGitBranching</b>.</li>
+                        <li>Les étapes pour créer un <b>dépôt GitHub</b> et y ajouter les scripts du TP 1.</li>
+                        <li>Les instructions pour <b>cloner le dépôt en local</b> et configurer VS Code.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <!-- LearnGitBranching -->
+            <h3>1. Solutions pour LearnGitBranching</h3>
+            <div class="col">
+                <p>
+                    Voici les <b>commandes Git</b> à utiliser pour valider chaque niveau de <a href="https://learngitbranching.js.org/?locale=fr_FR" target="_blank">LearnGitBranching</a>.
+                    Ces solutions sont à utiliser si les élèves bloquent ou pour une <b>démonstration en classe</b>.
+                </p>
+
+                <div class="callout">
+                    <span class="lbl">Niveau 1 - Introduction Sequence</span>
+                    <p><b>Objectif</b> : Créer son premier commit.</p>
+                    <p><b>Commande</b> :</p>
+                    <pre class="tree">git commit</pre>
+                    <p><b>Explication</b> : Valide les modifications dans le dépôt local.</p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Niveau 2 - Introduction Sequence</span>
+                    <p><b>Objectif</b> : Créer plusieurs commits.</p>
+                    <p><b>Commandes</b> :</p>
+                    <pre class="tree">git commit
+        git commit</pre>
+                    <p><b>Explication</b> : Chaque <code>git commit</code> sauvegarde l'état actuel du dépôt.</p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Niveau 3 - Introduction Sequence</span>
+                    <p><b>Objectif</b> : Voir l'historique des commits.</p>
+                    <p><b>Commande</b> :</p>
+                    <pre class="tree">git log</pre>
+                    <p><b>Explication</b> : Affiche la liste des commits avec leurs messages et identifiants (hash).</p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Niveau 1 - Branching in Git</span>
+                    <p><b>Objectif</b> : Créer une nouvelle branche.</p>
+                    <p><b>Commandes</b> :</p>
+                    <pre class="tree">git branch nouvelle-branche
+        git checkout nouvelle-branche</pre>
+                    <p><b>Explication</b> :
+                        <ul class="plain">
+                            <li><code>git branch</code> crée une nouvelle branche.</li>
+                            <li><code>git checkout</code> permet de basculer vers cette branche.</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Niveau 2 - Branching in Git</span>
+                    <p><b>Objectif</b> : Fusionner une branche dans <code>main</code>.</p>
+                    <p><b>Commandes</b> :</p>
+                    <pre class="tree">git checkout main
+        git merge nouvelle-branche</pre>
+                    <p><b>Explication</b> :
+                        <ul class="plain">
+                            <li><code>git checkout main</code> : Retour à la branche principale.</li>
+                            <li><code>git merge</code> : Fusionne les modifications de <code>nouvelle-branche</code> dans <code>main</code>.</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Niveau 3 - Branching in Git</span>
+                    <p><b>Objectif</b> : Résoudre un conflit de fusion.</p>
+                    <p><b>Étapes</b> :</p>
+                    <ol class="plain">
+                        <li>Faire un <code>git merge</code> pour déclencher le conflit.</li>
+                        <li>Ouvrir le fichier en conflit (marqué avec <code>&lt;&lt;&lt;&lt;&lt; HEAD</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt; nouvelle-branche</code>).</li>
+                        <li>Choisir quelle version garder ou fusionner manuellement.</li>
+                        <li>Faire un <code>git add</code> sur le fichier résolu.</li>
+                        <li>Valider avec <code>git commit</code>.</li>
+                    </ol>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Niveau 4 - Branching in Git</span>
+                    <p><b>Objectif</b> : Utiliser <code>git rebase</code> pour réécrire l'historique.</p>
+                    <p><b>Commandes</b> :</p>
+                    <pre class="tree">git checkout nouvelle-branche
+        git rebase main</pre>
+                    <p><b>Explication</b> :
+                        <code>git rebase</code> déplace les commits de <code>nouvelle-branche</code> à la fin de <code>main</code>,
+                        ce qui donne un historique linéaire.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Création d'un dépôt GitHub -->
+            <h3>2. Création d'un dépôt GitHub et ajout des scripts du TP 1</h3>
+            <div class="col">
+                <p>
+                    Voici les <b>étapes détaillées</b> pour créer un dépôt GitHub et y ajouter les scripts du TP 1.
+                    Ces instructions peuvent être <b>affichées au tableau</b> ou <b>imprimées</b> pour les élèves.
+                </p>
+
+                <ol class="steps">
+                    <li class="step">
+                        <div class="step-num">1</div>
+                        <div class="step-head">
+                            <span class="step-title">Créer un compte GitHub</span>
+                        </div>
+                        <div class="step-body">
+                            <p>Si ce n'est pas déjà fait, demandez aux élèves de :</p>
+                            <ol class="plain">
+                                <li>Aller sur <a href="https://github.com" target="_blank">github.com</a>.</li>
+                                <li>Cliquer sur <b>"Sign up"</b> (en haut à droite).</li>
+                                <li>Remplir le formulaire avec :
+                                    <ul class="plain">
+                                        <li>Un <b>nom d'utilisateur</b> (ex: <code>prenom.nom</code>).</li>
+                                        <li>Une <b>adresse email</b> valide.</li>
+                                        <li>Un <b>mot de passe</b> robuste.</li>
+                                    </ul>
+                                </li>
+                                <li>Valider son compte via le lien envoyé par email.</li>
+                            </ol>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">2</div>
+                        <div class="step-head">
+                            <span class="step-title">Créer un nouveau dépôt</span>
+                        </div>
+                        <div class="step-body">
+                            <p>Une fois connecté, demander aux élèves de :</p>
+                            <ol class="plain">
+                                <li>Cliquer sur l'icône <b>"+"</b> en haut à droite, puis sélectionner <b>"New repository"</b>.</li>
+                                <li>Remplir les champs :
+                                    <ul class="plain">
+                                        <li><b>Repository name</b> : <code>BacPro_CIEL_Dev</code>.</li>
+                                        <li><b>Description</b> : <code>Dépôt pour les TP de développement Python et Git.</code></li>
+                                        <li><b>Public/Private</b> : Sélectionner <b>Public</b>.</li>
+                                        <li><b>Add a README file</b> : <b>Désactiver</b> cette option.</li>
+                                        <li><b>Add .gitignore</b> : <b>Désactiver</b> cette option.</li>
+                                        <li><b>Choose a license</b> : <b>None</b>.</li>
+                                    </ul>
+                                </li>
+                                <li>Cliquer sur <b>"Create repository"</b>.</li>
+                            </ol>
+                            <div class="callout">
+                                <span class="lbl">Remarque</span>
+                                <p>
+                                    Si les élèves choisissent <b>Private</b>, ils devront <b>ajouter leur professeur comme collaborateur</b>
+                                    (via <b>Settings → Collaborators</b>) pour que celui-ci puisse voir leur travail.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">3</div>
+                        <div class="step-head">
+                            <span class="step-title">Ajouter les scripts du TP 1</span>
+                        </div>
+                        <div class="step-body">
+                            <p>Deux méthodes sont possibles pour ajouter les fichiers :</p>
+
+                            <h4>Méthode 1 : Glisser-déposer (recommandé pour les débutants)</h4>
+                            <ol class="plain">
+                                <li>Sur la page du dépôt GitHub, cliquer sur <b>"Add file" → "Upload files"</b>.</li>
+                                <li>Glisser-déposer les 4 fichiers Python (<code>tp1_exercice1.py</code> à <code>tp1_exercice4.py</code>) dans la zone dédiée.</li>
+                                <li>Attendre que les fichiers soient téléchargés.</li>
+                                <li>Dans <b>"Commit changes"</b> :
+                                    <ul class="plain">
+                                        <li><b>Message</b> : <code>Ajout des scripts du TP 1</code>.</li>
+                                        <li>Cliquer sur <b>"Commit changes"</b>.</li>
+                                    </ul>
+                                </li>
+                            </ol>
+
+                            <h4>Méthode 2 : Via la ligne de commande (pour les élèves à l'aise)</h4>
+                            <p>Si les élèves ont déjà cloné leur dépôt en local (voir étape suivante), ils peuvent :</p>
+                            <ol class="plain">
+                                <li>Copier les 4 fichiers Python dans le dossier <code>BacPro_CIEL_Dev</code>.</li>
+                                <li>Ouvrir un terminal dans ce dossier et exécuter :</li>
+                                <pre class="tree">git add tp1_exercice1.py tp1_exercice2.py tp1_exercice3.py tp1_exercice4.py
+        git commit -m "Ajout des scripts du TP 1"
+        git push origin main</pre>
+                            </ol>
+                            <div class="callout">
+                                <span class="lbl">Astuce</span>
+                                <p>
+                                    Pour ajouter <b>tous les fichiers</b> d'un coup, utiliser :
+                                    <pre class="tree">git add .</pre>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">4</div>
+                        <div class="step-head">
+                            <span class="step-title">Vérifier le dépôt GitHub</span>
+                        </div>
+                        <div class="step-body">
+                            <p>Demander aux élèves de :</p>
+                            <ol class="plain">
+                                <li>Rafraîchir la page de leur dépôt GitHub.</li>
+                                <li>Vérifier que les 4 fichiers Python apparaissent.</li>
+                                <li>Cliquer sur <b>"Commits"</b> pour voir l'historique et vérifier que le commit <code>"Ajout des scripts du TP 1"</code> est bien présent.</li>
+                            </ol>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>
+                                    Le dépôt GitHub contient bien les 4 scripts du TP 1, avec un commit clair.
+                                    Les élèves peuvent maintenant envoyer le <b>lien de leur dépôt</b> par mail au professeur.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Cloner le dépôt en local -->
+            <h3>3. Cloner le dépôt en local et configurer VS Code</h3>
+            <div class="col">
+                <p>
+                    Cette étape prépare les élèves pour le <b>TP 3</b>. Ils doivent avoir une copie locale de leur dépôt
+                    et configurer VS Code pour coder en Python.
+                </p>
+
+                <ol class="steps">
+                    <li class="step">
+                        <div class="step-num">1</div>
+                        <div class="step-head">
+                            <span class="step-title">Cloner le dépôt GitHub</span>
+                        </div>
+                        <div class="step-body">
+                            <p>Demander aux élèves de :</p>
+                            <ol class="plain">
+                                <li>Sur la page de leur dépôt GitHub, cliquer sur <b>"Code"</b> (bouton vert).</li>
+                                <li>Copier l'<b>URL HTTPS</b> (ex: <code>https://github.com/utilisateur/BacPro_CIEL_Dev.git</code>).</li>
+                                <li>Ouvrir le <b>terminal</b> (ou l'invite de commandes) :
+                                    <ul class="plain">
+                                        <li>Sur <b>Windows</b> : <kbd>Win + R</kbd>, taper <code>cmd</code>, puis <kbd>Entrée</kbd>.</li>
+                                        <li>Sur <b>Linux/macOS</b> : Ouvrir un terminal.</li>
+                                    </ul>
+                                </li>
+                                <li>Exécuter la commande suivante (en remplaçant l'URL) :</li>
+                                <pre class="tree">git clone https://github.com/utilisateur/BacPro_CIEL_Dev.git</pre>
+                                <li>Un dossier <code>BacPro_CIEL_Dev</code> est créé. Vérifier qu'il contient bien les 4 fichiers Python.</li>
+                            </ol>
+                            <div class="callout">
+                                <span class="lbl">Erreur courante</span>
+                                <p>
+                                    Si les élèves obtiennent <code>fatal: command not found: git</code>, c'est que Git n'est pas installé.
+                                    Ils doivent alors :
+                                    <ol class="plain">
+                                        <li>Télécharger Git depuis <a href="https://git-scm.com/downloads" target="_blank">git-scm.com</a>.</li>
+                                        <li>Installer Git en gardant les options par défaut.</li>
+                                        <li>Redémarrer le terminal et réessayer.</li>
+                                    </ol>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">2</div>
+                        <div class="step-head">
+                            <span class="step-title">Installer VS Code et les extensions</span>
+                        </div>
+                        <div class="step-body">
+                            <p>Demander aux élèves de :</p>
+                            <ol class="plain">
+                                <li>Télécharger et installer <a href="https://code.visualstudio.com/" target="_blank">VS Code</a>.</li>
+                                <li>Ouvrir VS Code et installer les extensions suivantes :
+                                    <ul class="plain">
+                                        <li><b>Python</b> (par Microsoft) :
+                                            <ul class="plain">
+                                                <li>Permet d'exécuter du code Python directement dans VS Code.</li>
+                                                <li>Ajoute la coloration syntaxique et l'autocomplétion.</li>
+                                            </ul>
+                                        </li>
+                                        <li><b>GitLens</b> :
+                                            <ul class="plain">
+                                                <li>Visualise les modifications Git directement dans l'éditeur.</li>
+                                                <li>Affiche l'historique des commits, les branches, etc.</li>
+                                            </ul>
+                                        </li>
+                                        <li><b>Code Runner</b> :
+                                            <ul class="plain">
+                                                <li>Permet d'exécuter rapidement du code avec un bouton.</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>Ouvrir le dossier <code>BacPro_CIEL_Dev</code> dans VS Code :
+                                    <ul class="plain">
+                                        <li><b>Fichier → Ouvrir le dossier</b>.</li>
+                                        <li>Sélectionner le dossier <code>BacPro_CIEL_Dev</code>.</li>
+                                    </ul>
+                                </li>
+                                <li>Vérifier que les 4 fichiers Python apparaissent dans l'explorateur de fichiers (à gauche).</li>
+                            </ol>
+                            <div class="callout">
+                                <span class="lbl">Astuce pour installer les extensions</span>
+                                <p>
+                                    <ol class="plain">
+                                        <li>Ouvrir le panneau des extensions avec <kbd>Ctrl + Shift + X</kbd>.</li>
+                                        <li>Rechercher le nom de l'extension (ex: <code>Python</code>).</li>
+                                        <li>Cliquer sur <b>Installer</b>.</li>
+                                    </ol>
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">3</div>
+                        <div class="step-head">
+                            <span class="step-title">Tester l'environnement</span>
+                        </div>
+                        <div class="step-body">
+                            <p>Pour s'assurer que tout fonctionne, demander aux élèves de :</p>
+                            <ol class="plain">
+                                <li>Ouvrir un fichier Python (ex: <code>tp1_exercice1.py</code>).</li>
+                                <li>Cliquer sur le bouton <b>"Run"</b> en haut à droite (si Code Runner est installé) ou appuyer sur <kbd>F5</kbd>.</li>
+                                <li>Vérifier que le script s'exécute sans erreur.</li>
+                            </ol>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>
+                                    VS Code est installé avec les 3 extensions, et les élèves peuvent exécuter leurs scripts Python
+                                    directement depuis l'éditeur.
+                                </p>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </div>
+
+            <!-- Résumé des commandes Git -->
+            <h3>4. Résumé des commandes Git pour le TP 2</h3>
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Commande</th>
+                            <th>Description</th>
+                            <th>Exemple</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>git init</code></td>
+                            <td>Initialise un dépôt Git dans le dossier courant.</td>
+                            <td><pre class="tree">git init</pre></td>
+                        </tr>
+                        <tr>
+                            <td><code>git clone</code></td>
+                            <td>Clone un dépôt distant en local.</td>
+                            <td><pre class="tree">git clone https://github.com/utilisateur/repo.git</pre></td>
+                        </tr>
+                        <tr>
+                            <td><code>git add</code></td>
+                            <td>Ajoute des fichiers à l'index (pour le prochain commit).</td>
+                            <td><pre class="tree">git add fichier.py</pre></td>
+                        </tr>
+                        <tr>
+                            <td><code>git commit</code></td>
+                            <td>Valide les modifications avec un message.</td>
+                            <td><pre class="tree">git commit -m "Message"</pre></td>
+                        </tr>
+                        <tr>
+                            <td><code>git push</code></td>
+                            <td>Envoie les commits locaux vers le dépôt distant.</td>
+                            <td><pre class="tree">git push origin main</pre></td>
+                        </tr>
+                        <tr>
+                            <td><code>git pull</code></td>
+                            <td>Récupère les modifications du dépôt distant.</td>
+                            <td><pre class="tree">git pull origin main</pre></td>
+                        </tr>
+                        <tr>
+                            <td><code>git branch</code></td>
+                            <td>Liste les branches locales.</td>
+                            <td><pre class="tree">git branch</pre></td>
+                        </tr>
+                        <tr>
+                            <td><code>git checkout</code></td>
+                            <td>Change de branche ou restaure un fichier.</td>
+                            <td><pre class="tree">git checkout nom-branche</pre></td>
+                        </tr>
+                        <tr>
+                            <td><code>git status</code></td>
+                            <td>Affiche l'état du dépôt (fichiers modifiés, non suivis, etc.).</td>
+                            <td><pre class="tree">git status</pre></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ===================== CORRECTIONS TP3 ===================== -->
+        <section id="corrections-tp3">
+            <div class="sec-head"><span class="sec-num">06</span><h2>Corrections du TP 3 — Mes premières fonctions en Python</h2><span class="sec-tag">Pour le professeur</span></div>
+
+            <div class="col">
+                <p>
+                    Cette section propose les <b>corrections détaillées</b> pour le TP 3, incluant :
+                    <ul class="plain">
+                        <li>Les solutions pour les <b>4 exercices</b> sur les fonctions.</li>
+                        <li>Des <b>explications pédagogiques</b> pour chaque fonction.</li>
+                        <li>Des <b>conseils</b> pour aider les élèves à comprendre la modularité et la gestion des erreurs.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <!-- Exercice 1 : valider_ip -->
+            <h3>1. Valider une adresse IP</h3>
+            <div class="col">
+                <p><b>Contexte</b> : Créer une fonction pour valider les adresses IP saisies par les utilisateurs chez RéseauPro.</p>
+                <p><b>Objectifs pédagogiques</b> :</p>
+                <ul class="plain">
+                    <li>Créer une <b>fonction</b> avec des paramètres et une valeur de retour.</li>
+                    <li>Utiliser <code>isinstance()</code> pour vérifier le type d'une variable.</li>
+                    <li>Gérer les <b>erreurs</b> avec <code>raise ValueError</code>.</li>
+                    <li>Documenter une fonction avec une <b>docstring</b>.</li>
+                </ul>
+                <div class="callout">
+                    <span class="lbl">Solution</span>
+                    <pre class="tree">
+def valider_ip(ip):
+    """
+    Valide une adresse IP au format xxx.xxx.xxx.xxx.
+
+    Args:
+        ip (str): Adresse IP à valider.
+
+    Returns:
+        bool: True si l'IP est valide, False sinon.
+
+    Raises:
+        ValueError: Si ip n'est pas une chaîne de caractères.
+    """
+    # Vérifier que ip est une chaîne de caractères
+    if not isinstance(ip, str):
+        raise ValueError("IP invalide : doit être une chaîne de caractères.")
+
+    # Diviser l'IP en parties
+    parties = ip.split('.')
+
+    # Vérifier qu'il y a exactement 4 parties
+    if len(parties) != 4:
+        return False
+
+    # Vérifier que chaque partie est un nombre entre 0 et 255
+    for partie in parties:
+        try:
+            nombre = int(partie)
+            if nombre < 0 or nombre > 255:
+                return False
+        except ValueError:
+            return False
+
+    return True
+
+# Script principal pour tester la fonction
+if __name__ == "__main__":
+    ip = input("Saisir une adresse IP : ")
+    try:
+        if valider_ip(ip):
+            print("IP valide")
+        else:
+            print("IP invalide")
+    except ValueError as e:
+        print(f"Erreur : {e}")
+                    </pre>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Explications</span>
+                    <p>
+                        <ul class="plain">
+                            <li><code>def valider_ip(ip):</code> : Déclare une fonction avec un paramètre <code>ip</code>.</li>
+                            <li><code>isinstance(ip, str)</code> : Vérifie que <code>ip</code> est une chaîne de caractères.</li>
+                            <li><code>raise ValueError("...")</code> : Lève une exception si <code>ip</code> n'est pas une chaîne.</li>
+                            <li><code>ip.split('.')</code> : Divise l'IP en parties en utilisant le point comme séparateur.</li>
+                            <li><code>for partie in parties:</code> : Parcourt chaque partie de l'IP.</li>
+                            <li><code>int(partie)</code> : Convertit chaque partie en entier.</li>
+                            <li><code>if nombre < 0 or nombre > 255:</code> : Vérifie que chaque partie est entre 0 et 255.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Conseils pédagogiques</span>
+                    <p>
+                        <ul class="plain">
+                            <li>Expliquer que <code>raise ValueError</code> permet de <b>lever une exception</b> si une condition n'est pas respectée.</li>
+                            <li>Leur demander de <b>tester la fonction</b> avec des IP valides et invalides :
+                                <ul class="plain">
+                                    <li><code>192.168.1.1</code> → Valide.</li>
+                                    <li><code>256.1.1.1</code> → Invalide (256 > 255).</li>
+                                    <li><code>192.168.1</code> → Invalide (3 parties au lieu de 4).</li>
+                                    <li><code>123</code> (entier) → Erreur (n'est pas une chaîne).</li>
+                                </ul>
+                            </li>
+                            <li>Leur montrer comment <b>améliorer la fonction</b> pour accepter des IP au format CIDR (ex: <code>192.168.1.0/24</code>).</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Exercice 2 : generer_mot_de_passe -->
+            <h3>2. Générer un mot de passe</h3>
+            <div class="col">
+                <p><b>Contexte</b> : Créer une fonction pour générer des mots de passe robustes pour RéseauPro.</p>
+                <p><b>Objectifs pédagogiques</b> :</p>
+                <ul class="plain">
+                    <li>Utiliser le module <b><code>random</code></b> pour générer des valeurs aléatoires.</li>
+                    <li>Utiliser <code>string.ascii_letters</code> et <code>string.digits</code> pour définir des caractères possibles.</li>
+                    <li>Gérer les <b>paramètres par défaut</b> (ex: <code>longueur=12</code>).</li>
+                    <li>Lever des exceptions pour les <b>entrées invalides</b>.</li>
+                </ul>
+                <div class="callout">
+                    <span class="lbl">Solution</span>
+                    <pre class="tree">
+import random
+import string
+
+def generer_mot_de_passe(longueur=12):
+    """
+    Génère un mot de passe aléatoire avec majuscules, minuscules, chiffres et symboles.
+
+    Args:
+        longueur (int): Longueur du mot de passe (par défaut : 12).
+
+    Returns:
+        str: Mot de passe généré.
+
+    Raises:
+        ValueError: Si longueur < 8.
+    """
+    # Vérifier la longueur minimale
+    if longueur < 8:
+        raise ValueError("Longueur minimale : 8")
+
+    # Définir les caractères possibles
+    caracteres = string.ascii_letters + string.digits + "!@#$%^&*"
+
+    # Générer le mot de passe
+    mot_de_passe = ''.join(random.choice(caracteres) for _ in range(longueur))
+
+    return mot_de_passe
+
+# Script principal pour tester la fonction
+if __name__ == "__main__":
+    try:
+        longueur = int(input("Saisir la longueur du mot de passe (par défaut : 12) : ") or 12)
+        mot_de_passe = generer_mot_de_passe(longueur)
+        print(f"Mot de passe généré : {mot_de_passe}")
+    except ValueError as e:
+        print(f"Erreur : {e}")
+                    </pre>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Explications</span>
+                    <p>
+                        <ul class="plain">
+                            <li><code>import random, string</code> : Importe les modules nécessaires.</li>
+                            <li><code>longueur=12</code> : Paramètre par défaut (12 caractères).</li>
+                            <li><code>if longueur < 8:</code> : Vérifie que la longueur est d'au moins 8.</li>
+                            <li><code>string.ascii_letters</code> : Contient toutes les lettres (majuscules + minuscules).</li>
+                            <li><code>string.digits</code> : Contient tous les chiffres (0-9).</li>
+                            <li><code>random.choice(caracteres)</code> : Sélectionne un caractère aléatoire.</li>
+                            <li><code>''.join(...)</code> : Combine les caractères en une seule chaîne.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Conseils pédagogiques</span>
+                    <p>
+                        <ul class="plain">
+                            <li>Expliquer que <code>string.ascii_letters</code> est équivalent à <code>"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"</code>.</li>
+                            <li>Leur demander de <b>tester la fonction</b> avec différentes longueurs.</li>
+                            <li>Leur montrer comment <b>améliorer la fonction</b> pour garantir au moins un caractère de chaque type :
+                                <pre class="tree">
+def generer_mot_de_passe_robuste(longueur=12):
+    if longueur < 8:
+        raise ValueError("Longueur minimale : 8")
+
+    majuscules = string.ascii_uppercase
+    minuscules = string.ascii_lowercase
+    chiffres = string.digits
+    symboles = "!@#$%^&*"
+
+    # Garantir au moins un caractère de chaque type
+    mot_de_passe = [
+        random.choice(majuscules),
+        random.choice(minuscules),
+        random.choice(chiffres),
+        random.choice(symboles)
+    ]
+
+    # Compléter avec des caractères aléatoires
+    caracteres = majuscules + minuscules + chiffres + symboles
+    mot_de_passe += random.choices(caracteres, k=longueur - 4)
+
+    # Mélanger les caractères
+    random.shuffle(mot_de_passe)
+
+    return ''.join(mot_de_passe)
+                                </pre>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Exercice 3 : analyser_logs -->
+            <h3>3. Analyser des logs</h3>
+            <div class="col">
+                <p><b>Contexte</b> : Créer une fonction pour analyser un fichier de logs et compter les occurrences de <code>ERROR</code>, <code>WARNING</code>, et <code>INFO</code>.</p>
+                <p><b>Objectifs pédagogiques</b> :</p>
+                <ul class="plain">
+                    <li>Lire un <b>fichier texte</b> avec <code>open()</code>.</li>
+                    <li>Utiliser un <b>dictionnaire</b> pour stocker des statistiques.</li>
+                    <li>Gérer les <b>erreurs de fichier</b> avec <code>try/except FileNotFoundError</code>.</li>
+                </ul>
+                <div class="callout">
+                    <span class="lbl">Solution</span>
+                    <pre class="tree">
+def analyser_logs(fichier):
+    """
+    Analyse un fichier de logs et retourne des statistiques.
+
+    Args:
+        fichier (str): Chemin vers le fichier de logs.
+
+    Returns:
+        dict: Dictionnaire avec le nombre total de lignes et le nombre de lignes par niveau.
+
+    Raises:
+        FileNotFoundError: Si le fichier n'existe pas.
+    """
+    try:
+        with open(fichier, 'r') as f:
+            lignes = f.readlines()
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Le fichier {fichier} n'existe pas.")
+
+    # Initialiser les compteurs
+    statistiques = {
+        "total": len(lignes),
+        "niveaux": {
+            "ERROR": 0,
+            "WARNING": 0,
+            "INFO": 0
+        }
+    }
+
+    # Compter les lignes par niveau
+    for ligne in lignes:
+        if "ERROR" in ligne:
+            statistiques["niveaux"]["ERROR"] += 1
+        elif "WARNING" in ligne:
+            statistiques["niveaux"]["WARNING"] += 1
+        elif "INFO" in ligne:
+            statistiques["niveaux"]["INFO"] += 1
+
+    return statistiques
+
+# Script principal pour tester la fonction
+if __name__ == "__main__":
+    fichier_logs = "logs.txt"  # Chemin vers le fichier de logs
+    try:
+        resultats = analyser_logs(fichier_logs)
+        print(f"Statistiques des logs : {resultats}")
+    except FileNotFoundError as e:
+        print(f"Erreur : {e}")
+                    </pre>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Fichier logs.txt</span>
+                    <p>Voici un exemple de fichier <code>logs.txt</code> à utiliser avec cette fonction :</p>
+                    <pre class="tree">
+192.168.1.1 - 2026-09-03 - ERROR - Connexion échouée
+192.168.1.2 - 2026-09-03 - WARNING - Temps de réponse élevé
+192.168.1.3 - 2026-09-03 - INFO - Connexion réussie
+192.168.1.4 - 2026-09-03 - ERROR - Port fermé
+192.168.1.5 - 2026-09-03 - INFO - Sauvegarde terminée
+192.168.1.6 - 2026-09-03 - WARNING - Espace disque faible
+192.168.1.7 - 2026-09-03 - ERROR - Authentification échouée
+192.168.1.8 - 2026-09-03 - INFO - Mise à jour réussie
+                    </pre>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Explications</span>
+                    <p>
+                        <ul class="plain">
+                            <li><code>with open(fichier, 'r') as f:</code> : Ouvre le fichier en mode lecture.</li>
+                            <li><code>f.readlines()</code> : Lit toutes les lignes du fichier et les stocke dans une liste.</li>
+                            <li><code>FileNotFoundError</code> : Exception levée si le fichier n'existe pas.</li>
+                            <li><code>statistiques = { ... }</code> : Initialise un dictionnaire pour stocker les résultats.</li>
+                            <li><code>for ligne in lignes:</code> : Parcourt chaque ligne du fichier.</li>
+                            <li><code>if "ERROR" in ligne:</code> : Vérifie si la ligne contient le mot <code>ERROR</code>.</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Conseils pédagogiques</span>
+                    <p>
+                        <ul class="plain">
+                            <li>Expliquer que <code>with open(...):</code> garantit que le fichier sera <b>fermé automatiquement</b> après utilisation.</li>
+                            <li>Leur demander de <b>tester la fonction</b> avec le fichier <code>logs.txt</code> fourni.</li>
+                            <li>Leur montrer comment <b>ajouter d'autres niveaux</b> (ex: <code>DEBUG</code>) :
+                                <pre class="tree">
+statistiques["niveaux"]["DEBUG"] = 0
+...
+elif "DEBUG" in ligne:
+    statistiques["niveaux"]["DEBUG"] += 1
+                                </pre>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Exercice 4 : Refactorisation du simulateur de ping -->
+            <h3>4. Refactoriser le simulateur de ping</h3>
+            <div class="col">
+                <p><b>Contexte</b> : Refactoriser l'Exercice 3 du TP 1 (simulateur de ping) en utilisant des fonctions pour le rendre plus modulaire.</p>
+                <p><b>Objectifs pédagogiques</b> :</p>
+                <ul class="plain">
+                    <li>Découper un script en <b>fonctions réutilisables</b>.</li>
+                    <li>Comprendre la <b>modularité</b> et la <b>réutilisabilité</b> du code.</li>
+                    <li>Documenter chaque fonction avec une <b>docstring</b>.</li>
+                </ul>
+                <div class="callout">
+                    <span class="lbl">Solution</span>
+                    <pre class="tree">
+def generer_ips(debut, fin):
+    """
+    Génère une liste d'adresses IP de 192.168.1.debut à 192.168.1.fin.
+
+    Args:
+        debut (int): Première IP (ex: 1).
+        fin (int): Dernière IP (ex: 10).
+
+    Returns:
+        list: Liste des adresses IP (ex: ["192.168.1.1", "192.168.1.2", ...]).
+    """
+    return [f"192.168.1.{i}" for i in range(debut, fin + 1)]
+
+def simuler_ping(ip):
+    """
+    Simule un ping vers une adresse IP.
+
+    Args:
+        ip (str): Adresse IP à pinger (ex: "192.168.1.1").
+
+    Returns:
+        bool: True si le ping réussit (IP paire), False sinon.
+    """
+    # Extraire le dernier octet de l'IP
+    dernier_octet = int(ip.split('.')[-1])
+    return dernier_octet % 2 == 0
+
+def afficher_resultats(ips):
+    """
+    Affiche les résultats des pings pour une liste d'IPs.
+
+    Args:
+        ips (list): Liste des adresses IP à pinger.
+    """
+    for ip in ips:
+        if simuler_ping(ip):
+            print(f"Ping réussi vers {ip}")
+        else:
+            print(f"Ping échoué vers {ip}")
+
+# Script principal
+if __name__ == "__main__":
+    # Générer les IPs de 1 à 10
+    ips = generer_ips(1, 10)
+
+    # Afficher les résultats
+    afficher_resultats(ips)
+                    </pre>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Explications</span>
+                    <p>
+                        <ul class="plain">
+                            <li><code>def generer_ips(debut, fin):</code> : Génère une liste d'IPs dynamiquement.</li>
+                            <li><code>[f"192.168.1.{i}" for i in range(debut, fin + 1)]</code> : Utilise une <b>compréhension de liste</b> pour créer la liste.</li>
+                            <li><code>def simuler_ping(ip):</code> : Vérifie si une IP est paire.</li>
+                            <li><code>ip.split('.')[-1]</code> : Extrait le dernier octet de l'IP.</li>
+                            <li><code>def afficher_resultats(ips):</code> : Affiche les résultats pour toutes les IPs.</li>
+                            <li><code>if __name__ == "__main__":</code> : Permet d'exécuter le script uniquement s'il est lancé directement (pas s'il est importé).</li>
+                        </ul>
+                    </p>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Conseils pédagogiques</span>
+                    <p>
+                        <ul class="plain">
+                            <li>Expliquer que la <b>refactorisation</b> consiste à <b>découper le code en fonctions</b> pour le rendre plus lisible et maintenable.</li>
+                            <li>Leur demander de <b>tester chaque fonction séparément</b> :
+                                <ul class="plain">
+                                    <li><code>generer_ips(1, 5)</code> → <code>["192.168.1.1", "192.168.1.2", "192.168.1.3", "192.168.1.4", "192.168.1.5"]</code>.</li>
+                                    <li><code>simuler_ping("192.168.1.2")</code> → <code>True</code>.</li>
+                                </ul>
+                            </li>
+                            <li>Leur montrer comment <b>ajouter une fonction</b> pour sauvegarder les résultats dans un fichier :
+                                <pre class="tree">
+def sauvegarder_resultats(ips, fichier="resultats_ping.txt"):
+    """Sauvegarde les résultats des pings dans un fichier."""
+    with open(fichier, 'w') as f:
+        for ip in ips:
+            resultat = "réussi" if simuler_ping(ip) else "échoué"
+            f.write(f"Ping {resultat} vers {ip}\n")
+                                </pre>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </section>
+        <!-- Propositions pour la suite -->
+        <section id="propositions">
+            <div class="sec-head"><span class="sec-num">04</span><h2>Propositions pour les TP suivants</h2><span class="sec-tag">Suite pédagogique</span></div>
+            <div class="col">
+                <p>Voici des idées pour poursuivre la progression avec les élèves. Chaque proposition s'appuie sur les compétences acquises lors des 3 premiers TP.</p>
+            </div>
+
+            <h3>TP 4 : Modules et bibliothèques Python</h3>
+            <div class="col">
+                <p><b>Thème</b> : *"Utiliser des modules pour étendre les fonctionnalités de ses scripts".*</p>
+                <p><b>Objectifs</b> :</p>
+                <ul class="plain">
+                    <li>Utiliser des <b>modules standards</b> de Python (<code>os</code>, <code>sys</code>, <code>random</code>, <code>datetime</code>).</li>
+                    <li>Installer et utiliser des <b>bibliothèques externes</b> (<code>requests</code> pour des requêtes HTTP).</li>
+                    <li>Créer son <b>propre module</b> (ex: <code>fonctions_reseau.py</code>).</li>
+                </ul>
+                <p><b>Contexte professionnel</b> :</p>
+                <p>RéseauPro utilise des bibliothèques comme <code>requests</code> pour interroger des API réseau. L'élève doit créer un module avec des fonctions utilitaires pour l'équipe.</p>
+                <p><b>Exercices proposés</b> :</p>
+                <ol class="plain">
+                    <li>Créer un module <code>utils.py</code> avec :
+                        <ul class="plain">
+                            <li>Une fonction <code>lire_fichier(fichier)</code> pour lire un fichier.</li>
+                            <li>Une fonction <code>ecrire_fichier(fichier, contenu)</code> pour écrire dans un fichier.</li>
+                            <li>Une fonction <code>get_timestamp()</code> pour obtenir un timestamp.</li>
+                        </ul>
+                    </li>
+                    <li>Utiliser ce module dans un script principal.</li>
+                    <li>Installer <code>requests</code> et écrire un script qui fait une requête HTTP vers une API publique (ex: <a href="https://ipapi.co/json/" target="_blank">ipapi.co</a> pour obtenir des infos sur une IP).</li>
+                </ol>
+                <p><b>Livrable</b> : Un dépôt GitHub avec le module <code>utils.py</code> et les scripts associés.</p>
+            </div>
+
+            <h3>TP 5 : Scripts système avec Python</h3>
+            <div class="col">
+                <p><b>Thème</b> : *"Interagir avec le système d'exploitation".*</p>
+                <p><b>Objectifs</b> :</p>
+                <ul class="plain">
+                    <li>Interagir avec le <b>système de fichiers</b> (<code>os</code>, <code>shutil</code>).</li>
+                    <li>Exécuter des <b>commandes shell</b> depuis Python (<code>subprocess</code>).</li>
+                    <li>Créer un <b>script de sauvegarde automatique</b>.</li>
+                </ul>
+                <p><b>Contexte professionnel</b> :</p>
+                <p>RéseauPro a besoin d'un script pour sauvegarder automatiquement les configurations des routeurs dans un dossier dédié.</p>
+                <p><b>Exercices proposés</b> :</p>
+                <ol class="plain">
+                    <li>Écrire un script qui :
+                        <ul class="plain">
+                            <li>Crée une arborescence de dossiers (ex: <code>Backup/2026-09-03/</code>).</li>
+                            <li>Copie des fichiers depuis un dossier source vers le dossier de backup.</li>
+                        </ul>
+                    </li>
+                    <li>Utiliser <code>subprocess</code> pour :
+                        <ul class="plain">
+                            <li>Exécuter un <code>ping</code> depuis Python.</li>
+                            <li>Récupérer la sortie de la commande.</li>
+                        </ul>
+                    </li>
+                    <li>Créer un script qui sauvegarde automatiquement les fichiers modifiés depuis la dernière sauvegarde.</li>
+                </ol>
+                <p><b>Livrable</b> : Un dépôt GitHub avec les scripts de sauvegarde.</p>
+            </div>
+
+            <h3>TP 6 : Introduction à la POO (Programmation Orientée Objet)</h3>
+            <div class="col">
+                <p><b>Thème</b> : *"Modéliser des objets du monde réel".*</p>
+                <p><b>Objectifs</b> :</p>
+                <ul class="plain">
+                    <li>Comprendre les concepts de la <b>POO</b> : classes, objets, attributs, méthodes.</li>
+                    <li>Créer des <b>classes</b> pour modéliser des objets réseau (ex: <code>Utilisateur</code>, <code>Routeur</code>).</li>
+                    <li>Utiliser l'<b>héritage</b> et l'<b>encapsulation</b>.</li>
+                </ul>
+                <p><b>Contexte professionnel</b> :</p>
+                <p>RéseauPro veut modéliser ses équipements réseau (routeurs, switches) et ses utilisateurs pour faciliter la gestion du parc.</p>
+                <p><b>Exercices proposés</b> :</p>
+                <ol class="plain">
+                    <li>Créer une classe <code>Utilisateur</code> avec :
+                        <ul class="plain">
+                            <li>Des attributs : <code>nom</code>, <code>email</code>, <code>mot_de_passe</code>.</li>
+                            <li>Des méthodes : <code>se_connecter()</code>, <code>changer_mot_de_passe(nouveau_mdp)</code>.</li>
+                        </ul>
+                    </li>
+                    <li>Créer une classe <code>Routeur</code> avec :
+                        <ul class="plain">
+                            <li>Des attributs : <code>adresse_ip</code>, <code>modele</code>, <code>etat</code>.</li>
+                            <li>Des méthodes : <code>redemarrer()</code>, <code>get_config()</code>.</li>
+                        </ul>
+                    </li>
+                    <li>Créer une classe <code>Administrateur</code> qui <b>hérite</b> de <code>Utilisateur</code> et ajoute des méthodes spécifiques (ex: <code>gerer_utilisateurs()</code>).</li>
+                </ol>
+                <p><b>Livrable</b> : Un dépôt GitHub avec les classes créées et un script de test.</p>
+            </div>
+
+            <h3>TP 7 : Projet fil rouge – Outil d'administration réseau</h3>
+            <div class="col">
+                <p><b>Thème</b> : *"Créer un outil complet pour RéseauPro".*</p>
+                <p><b>Objectifs</b> :</p>
+                <ul class="plain">
+                    <li>Combiner toutes les compétences acquises (Python, Git, POO, modules).</li>
+                    <li>Créer un <b>outil utile</b> pour un administrateur réseau.</li>
+                    <li>Travailler en <b>équipe</b> (si possible).</li>
+                </ul>
+                <p><b>Contexte professionnel</b> :</p>
+                <p>RéseauPro a besoin d'un outil pour :
+                    <ul class="plain">
+                        <li>Scanner les ports ouverts sur un réseau local.</li>
+                        <li>Vérifier la disponibilité des serveurs (ping, requêtes HTTP).</li>
+                        <li>Générer un rapport au format CSV ou JSON.</li>
+                    </ul>
+                </p>
+                <p><b>Fonctionnalités attendues</b> :</p>
+                <ol class="plain">
+                    <li><b>Scanner de ports</b> :
+                        <ul class="plain">
+                            <li>Utiliser le module <code>socket</code> pour scanner les ports 1 à 1024 d'une IP donnée.</li>
+                            <li>Afficher les ports ouverts.</li>
+                        </ul>
+                    </li>
+                    <li><b>Vérificateur de serveurs</b> :
+                        <ul class="plain">
+                            <li>Vérifier si un serveur répond à un ping.</li>
+                            <li>Vérifier si un port spécifique est ouvert (ex: 80 pour HTTP).</li>
+                        </ul>
+                    </li>
+                    <li><b>Générateur de rapports</b> :
+                        <ul class="plain">
+                            <li>Enregistrer les résultats dans un fichier CSV ou JSON.</li>
+                            <li>Inclure : date, IP scannée, ports ouverts, statut du serveur.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p><b>Contraintes</b> :</p>
+                <ul class="plain">
+                    <li>Utiliser <b>Git</b> pour versionner le code.</li>
+                    <li>Structurer le code en <b>fonctions/modules</b>.</li>
+                    <li>Documenter le code avec des <b>docstrings</b> et un <code>README.md</code>.</li>
+                    <li>(Optionnel) Utiliser la <b>POO</b> pour modéliser les équipements réseau.</li>
+                </ul>
+                <p><b>Livrable</b> : Un dépôt GitHub avec :
+                    <ul class="plain">
+                        <li>Le code complet de l'outil.</li>
+                        <li>Un <code>README.md</code> expliquant comment utiliser l'outil.</li>
+                        <li>Un exemple de rapport généré.</li>
+                    </ul>
+                </p>
+            </div>
+        </section>
+
+        <!-- Ressources utiles -->
+        <section id="ressources">
+            <div class="sec-head"><span class="sec-num">05</span><h2>Ressources utiles</h2><span class="sec-tag">Pour aller plus loin</span></div>
+            <div class="col">
+                <h3>Pour les élèves</h3>
+                <ul class="plain">
+                    <li><b>LearnGitBranching</b> : <a href="https://learngitbranching.js.org/?locale=fr_FR" target="_blank">https://learngitbranching.js.org/?locale=fr_FR</a></li>
+                    <li><b>Documentation Python</b> : <a href="https://docs.python.org/fr/3/" target="_blank">https://docs.python.org/fr/3/</a></li>
+                    <li><b>OnlineIDE</b> : <a href="https://www.onlineide.pro/playground/python" target="_blank">https://www.onlineide.pro/playground/python</a></li>
+                    <li><b>GitHub</b> : <a href="https://github.com" target="_blank">https://github.com</a></li>
+                    <li><b>VS Code</b> : <a href="https://code.visualstudio.com/" target="_blank">https://code.visualstudio.com/</a></li>
+                </ul>
+
+                <h3>Pour le professeur</h3>
+                <ul class="plain">
+                    <li><b>Corrections des TP</b> : Les corrections détaillées pour chaque TP sont disponibles dans les fichiers <code>TP1_Correction.py</code>, <code>TP2_Correction.py</code>, etc. (à créer).</li>
+                    <li><b>Exemples de fichiers de logs</b> : Un fichier <code>logs.txt</code> d'exemple est fourni pour le TP 3.</li>
+                    <li><b>Modèle de dépôt GitHub</b> : Un dépôt <a href="https://github.com/example/BacPro_CIEL_Dev" target="_blank">exemple</a> est disponible pour montrer la structure attendue.</li>
+                    <li><b>Référentiel Bac Pro CIEL</b> : <a href="https://eduscol.education.fr/" target="_blank">https://eduscol.education.fr/</a></li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Conseils pédagogiques -->
+        <section id="conseils">
+            <div class="sec-head"><span class="sec-num">06</span><h2>Conseils pédagogiques</h2><span class="sec-tag">Bonnes pratiques</span></div>
+            <div class="col">
+                <h3>Pour le TP 1</h3>
+                <ul class="plain">
+                    <li><b>Rythme</b> : Allez vite sur les rappels (20 min max) pour laisser du temps aux exercices.</li>
+                    <li><b>Aide</b> : Pour les élèves en difficulté, fournir un <b>squelette de code</b> (ex: <code>for i in range(5):</code> déjà écrit).</li>
+                    <li><b>Validation</b> : Vérifier que les scripts fonctionnent sur <a href="https://www.onlineide.pro/playground/python" target="_blank">OnlineIDE</a> avant l'envoi.</li>
+                </ul>
+
+                <h3>Pour le TP 2</h3>
+                <ul class="plain">
+                    <li><b>LearnGitBranching</b> : Insister sur le fait que c'est <b>visuel et interactif</b> → les élèves peuvent recommencer un niveau s'ils bloquent.</li>
+                    <li><b>GitHub</b> :
+                        <ul class="plain">
+                            <li>Montrer <b>pas à pas</b> comment créer un dépôt et pousser des fichiers.</li>
+                            <li>Utiliser <b>GitHub Desktop</b> si les élèves ont du mal avec la ligne de commande.</li>
+                        </ul>
+                    </li>
+                    <li><b>Collaboration</b> : Faire un <b>exemple en direct</b> où vous modifiez un fichier et les élèves doivent faire un <code>git pull</code>.</li>
+                </ul>
+
+                <h3>Pour le TP 3</h3>
+                <ul class="plain">
+                    <li><b>Fonctions</b> : Commencer par des <b>exemples très simples</b> (ex: <code>def dire_bonjour(): print("Bonjour")</code>).</li>
+                    <li><b>Gestion des erreurs</b> : Montrer un <b>exemple concret</b> (ex: division par zéro) avant de passer aux exercices.</li>
+                    <li><b>Refactorisation</b> : Expliquer que c'est comme <b>"ranger sa chambre"</b> : on regroupe ce qui va ensemble.</li>
+                </ul>
+
+                <h3>Adaptation de la difficulté</h3>
+                <p><b>Si les élèves sont très à l'aise</b> :</p>
+                <ul class="plain">
+                    <li><b>TP 1</b> : Ajouter un exercice sur les <b>listes et dictionnaires</b> (ex: compter le nombre d'occurrences de chaque mot dans un texte).</li>
+                    <li><b>TP 2</b> : Travailler sur des <b>branches</b> pour des fonctionnalités différentes (ex: un élève travaille sur <code>feature/valider-ip</code>, un autre sur <code>feature/generer-mdp</code>).</li>
+                    <li><b>TP 3</b> : Utiliser des <b>fonctions lambdas</b> (ex: <code>carre = lambda x: x**2</code>).</li>
+                </ul>
+                <p><b>Si les élèves bloquent</b> :</p>
+                <ul class="plain">
+                    <li><b>TP 1</b> : Fournir un <b>squelette de code</b> pour les exercices.</li>
+                    <li><b>TP 2</b> : Faire une <b>démonstration pas à pas</b> de <code>git add</code>, <code>git commit</code>, <code>git push</code>.</li>
+                    <li><b>TP 3</b> : Commencer par des <b>fonctions sans paramètres</b> (ex: <code>def dire_bonjour():</code>).</li>
+                </ul>
+            </div>
+        </section>
+
+        <footer class="col">
+            <p>Résumé pédagogique — Première Bac Pro CIEL — Lycée Charlie Chaplin — T. Signoret</p>
+            <p>Septembre 2026.</p>
+        </footer>
+    </div>
+</body>
+</html>
