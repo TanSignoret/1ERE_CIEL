@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP CIEL - Révision des bases de Python</title>
+    <link rel="stylesheet" href="../../01_EducNat/styles/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function(e) {
+                        if (e.target.tagName === 'A') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="wrap">
+        <header class="hero col">
+            <div class="eyebrow">Séance 1 — Révision programmation</div>
+            <h1>La programation en Python</h1>
+            <div class="chips">
+                <span class="chip">Première Bac Pro CIEL</span>
+                <span class="chip">Durée : 2 h</span>
+                <span class="chip">IDE en ligne : OnlineIDE</span>
+                <span class="chip">Travail individuel</span>
+            </div>
+        </header>
+
+        <!-- Contexte -->
+        <section id="contexte">
+          <div class="sec-head"><span class="sec-num">01</span><h2>Ce que tu vas apprendre</h2><span class="sec-tag">Objectifs</span></div>
+          <div class="col">
+            <p>Vous êtes en stage chez <i class="lede">ProgPro</i>, votre tuteur vous demande de revoir les bases de Python pour automatiser des tâches de l'entreprise : calculs, vérifications, et simulations.</p>
+            <p>Ces scripts seront utilisés pour optimiser le travail de l'équipe réseau.</p>
+          </div>
+        </section>
+
+        <!-- Objectifs -->
+        <section id="objectifs">
+            <div class="sec-head"><span class="sec-num">01</span><h2>Ce que tu vas apprendre</h2><span class="sec-tag">Objectifs</span></div>
+            <div class="col">
+                <ul class="plain">
+                    <li>Réviser les bases de Python : variables, conditions, boucles.</li>
+                    <li>Écrire des scripts pour automatiser des tâches simples.</li>
+                    <li>Utiliser un IDE en ligne pour coder rapidement.</li>
+                </ul>
+            </div>
+
+            <h3>Compétences visées</h3>
+            <div class="skills">
+                <div class="skill">
+                    <span class="code">C1.1 · Unité E31</span>
+                    <b>Développer des scripts en Python</b>
+                    <span>Écrire un algorithme simple en utilisant des variables, des conditions et des boucles.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C1.2 · Unité E31</span>
+                    <b>Automatiser des tâches</b>
+                    <span>Utiliser Python pour automatiser des calculs ou des vérifications répétitives.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C4.1 · Unité E32</span>
+                    <b>Utiliser un environnement de développement</b>
+                    <span>Manipuler un IDE en ligne pour écrire et tester du code.</span>
+                </div>
+            </div>
+            <p class="note" style="margin-top:.9rem">Repères Vademecum Première TNE — activités « développer un algorithme simple » et « automatiser des tâches ».</p>
+
+            <h3>Déroulé de la séance</h3>
+            <nav class="toc" aria-label="Sommaire">
+                <ol>
+                    <li><a href="#introduction">Introduction</a></li>
+                    <li><a href="#tp1">TP 1 — Révision des bases de Python</a></li>
+                    <li><a href="#lexique">Lexique</a></li>
+                </ol>
+            </nav>
+        </section>
+
+        <!-- Introduction -->
+        <section id="introduction">
+            <div class="sec-head"><span class="sec-num">02</span><h2>Introduction</h2><span class="sec-tag">Prérequis</span></div>
+            <div class="col">
+                <p>Chez <b>ProgPro</b>, votre équipe utilise Python pour automatiser des tâches d'administration réseau. Votre tuteur vous demande de <b>réviser les bases de Python</b> pour être capable de :</p>
+                <ul class="plain">
+                    <li>Calculer des moyennes de temps de réponse réseau.</li>
+                    <li>Vérifier des configurations (ex: mots de passe, adresses IP).</li>
+                    <li>Simuler des tests réseau (ex: ping).</li>
+                </ul>
+                <p>Vous allez utiliser <b><a href="https://www.onlineide.pro/playground/python" target="_blank">OnlineIDE</a></b>, un IDE en ligne qui ne nécessite pas d'installation.</p>
+
+                <div class="callout">
+                    <span class="lbl">Matériel nécessaire</span>
+                    <p>Pour suivre ce TP, tu auras besoin de :</p>
+                    <ul class="plain">
+                        <li>Un poste informatique avec accès à Internet.</li>
+                        <li>Un navigateur web (Firefox, Chrome, Edge).</li>
+                        <li>Un accès sur <a href="https://www.onlineide.pro/playground/python" target="_blank">OnlineIDE</a>.</li>
+                        <li>Documentation Python : <a href="https://docs.python.org/fr/3/" target="_blank">https://docs.python.org/fr/3/</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- TP1 -->
+        <section id="tp1">
+            <div class="sec-head"><span class="sec-num">03</span><h2>TP 1 — Révision des bases de Python</h2><span class="sec-tag">4 exercices</span></div>
+            <div class="col">
+                <p>Dans ce TP, tu vas écrire <b>4 scripts Python</b> pour automatiser des tâches simples chez RéseauPro. Chaque script doit être <b>testé et fonctionnel</b> avant de passer à l'exercice suivant.</p>
+            </div>
+
+            <ol class="steps">
+                <!-- Exercice 1 -->
+                <li class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-head">
+                        <span class="step-title">Calculer la moyenne de temps de réponse</span>
+                        <label class="tick"><input type="checkbox" data-step="e1"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : Votre tuteur vous demande de calculer la moyenne des temps de réponse de 5 serveurs (en ms).</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Demander à l'utilisateur de saisir <b>5 temps de réponse</b> (un par un).</li>
+                            <li>Calculer et afficher la <b>moyenne</b>.</li>
+                            <li>Afficher un message du type : <code>Moyenne des temps de réponse : XX ms</code>.</li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple</span>
+                            <p>Si l'utilisateur saisi <code>10, 20, 30, 40, 50</code>, le script doit afficher :</p>
+                            <pre class="tree">Moyenne des temps de réponse : 30 ms</pre>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Votre script fonctionne avec n'importe quelles valeurs et affiche la bonne moyenne.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Exercice 2 -->
+                <li class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-head">
+                        <span class="step-title">Vérifier un mot de passe</span>
+                        <label class="tick"><input type="checkbox" data-step="e2"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : RéseauPro impose des règles strictes pour les mots de passe : au moins 8 caractères et au moins un chiffre.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Demander à l'utilisateur de saisir un <b>nom d'utilisateur</b> et un <b>mot de passe</b>.</li>
+                            <li>Vérifier si le mot de passe respecte les règles.</li>
+                            <li>Afficher :
+                                <ul class="plain">
+                                    <li><code>Accès autorisé pour [nom]</code> si le mot de passe est valide.</li>
+                                    <li><code>Accès refusé pour [nom]</code> sinon.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple</span>
+                            <p>Si l'utilisateur saisi <code>Alice</code> et <code>Pass123</code>, le script doit afficher :</p>
+                            <pre class="tree">Accès autorisé pour Alice</pre>
+                            <p>Si l'utilisateur saisi <code>Alice</code> et <code>Pass</code>, le script doit afficher :</p>
+                            <pre class="tree">Accès refusé pour Alice</pre>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Votre script vérifie correctement les 2 conditions (longueur ≥ 8 et présence d'un chiffre).</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Exercice 3 -->
+                <li class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-head">
+                        <span class="step-title">Simuler un ping</span>
+                        <label class="tick"><input type="checkbox" data-step="e3"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : Tu dois simuler un test de connectivité (ping) vers 10 adresses IP (192.168.1.1 à 192.168.1.10). Pour simplifier, on considère que le ping réussit si l'IP est paire.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Utiliser une <b>boucle <code>for</code></b> pour parcourir les IPs de 1 à 10.</li>
+                            <li>Pour chaque IP, afficher :
+                                <ul class="plain">
+                                    <li><code>Ping réussi vers 192.168.1.X</code> si X est pair.</li>
+                                    <li><code>Ping échoué vers 192.168.1.X</code> si X est impair.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple</span>
+                            <p>Le script doit afficher :</p>
+                            <pre class="tree">Ping échoué vers 192.168.1.1
+Ping réussi vers 192.168.1.2
+...
+Ping échoué vers 192.168.1.9
+Ping réussi vers 192.168.1.10</pre>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Votre script utilise une boucle et affiche les bons résultats pour chaque IP.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Exercice 4 -->
+                <li class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-head">
+                        <span class="step-title">Analyser des valeurs de bande passante (débit de données)</span>
+                        <label class="tick"><input type="checkbox" data-step="e4"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : Votre tuteur vous donne 10 valeurs de bande passante (en Mbps) et vous demande d'analyser ces données.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Demander à l'utilisateur de saisir <b>10 valeurs de bande passante</b> (une par une).</li>
+                            <li>Calculer et afficher :
+                                <ul class="plain">
+                                    <li>La <b>valeur maximale</b>.</li>
+                                    <li>La <b>valeur minimale</b>.</li>
+                                    <li>La <b>moyenne</b>.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple</span>
+                            <p>Si l'utilisateur saisi <code>10, 20, 30, 40, 50, 60, 70, 80, 90, 100</code>, le script doit afficher :</p>
+                            <pre class="tree">Valeur maximale : 100 Mbps
+Valeur minimale : 10 Mbps
+Moyenne : 55 Mbps</pre>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Validation</span>
+                            <p>Votre script calcule correctement les 3 valeurs (max, min, moyenne).</p>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Lexique -->
+        <section id="lexique">
+            <div class="sec-head"><span class="sec-num">04</span><h2>Lexique</h2><span class="sec-tag">Vocabulaire</span></div>
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mot</th>
+                            <th>Définition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>IDE</b></td>
+                            <td>Environnement de Développement Intégré (ex: OnlineIDE, VS Code) : outil pour écrire et tester du code.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Script</b></td>
+                            <td>Programme court écrit dans un langage de programmation (ex: Python) pour automatiser une tâche.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Variable</b></td>
+                            <td>Espace de stockage pour une valeur (ex: <code>temps_reponse = 10</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b>Boucle <code>for</code></b></td>
+                            <td>Structure qui permet de répéter une action un nombre précis de fois.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Condition <code>if</code></b></td>
+                            <td>Structure qui exécute du code en fonction d'une condition (ex: <code>if mot_de_passe_valide:</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b>Bandwith</b></td>
+                            <td>Débit de données disponible sur un réseau (en Mbps).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="col">
+            <p>TP 1 — Révision Python — Première Bac Pro CIEL — Lycée Charlie Chaplin — T. Signoret</p>
+            <p>Septembre 2026.</p>
+        </footer>
+    </div>
+</body>
+</html>
