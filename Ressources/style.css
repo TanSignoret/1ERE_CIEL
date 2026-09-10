@@ -298,6 +298,17 @@ section {
     color: var(--accent);
 }
 
+/* QCM Section */
+.qcm-options {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.qcm-options li {
+    margin-bottom: 0.5rem;
+}
+
 /* Sections */
 .sec-tag {
     margin-left: auto;
@@ -440,15 +451,16 @@ section {
 
 table {
     border-collapse: collapse;
+    border: 2px solid var(--line);
     width: 100%;
     min-width: 34rem;
     font-size: 0.95rem;
 }
 
 th, td {
-    text-align: left;
+    text-align: center;
     padding: 0.7rem 0.9rem;
-    border-bottom: 1px solid var(--line);
+    border: 2px solid var(--line);
     vertical-align: top;
 }
 
@@ -460,10 +472,6 @@ thead th {
     text-transform: uppercase;
     color: var(--muted);
     background: var(--surface-2);
-}
-
-tbody tr:last-child td {
-    border-bottom: none;
 }
 
 td.pts {

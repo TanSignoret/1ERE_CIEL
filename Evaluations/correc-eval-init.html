@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corrigé Première CIEL - Positionnement</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+</head>
+<body>
+    <header class="hero col">
+        <div class="eyebrow">Evaluation — Révisions</div>
+        <h1>Corrigé - Révisions de seconde</h1>
+        <div class="chips">
+            <span class="chip">Première Bac Pro CIEL</span>
+            <span class="chip">Durée : 30 min</span>
+            <span class="chip">Travail individuel</span>
+        </div>
+        <p class="lede">Durée : 1h15 | Consignes : Répondez aux questions de manière précise.</p>
+    </header>
+
+    <section>
+        <h2>1. Mathématiques</h2>
+        
+        <div class="question">
+            <p class="question-title">1. Conversion : Convertir le nombre hexadécimal <code>1F</code> en décimal.</p>
+            <pre class="tree">1F = 1*16 + 15*1 = 16 + 15 = 31</pre>
+        </div>
+
+        <div class="question">
+            <p class="question-title">2. Logique booléenne : Compléter la table de vérité pour une porte <strong>ET</strong> avec les entrées A et B.</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>A</th>
+                        <th>B</th>
+                        <th>A ET B</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>0</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>0</td>
+                        <td>1</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>0</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>1</td>
+                        <td>1</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="question">
+            <p class="question-title">3. Calcul : Résoudre l’équation <code>5x + 10 = 3x + 24</code>.</p>
+            <pre class="tree">5x + 10 = 3x + 24<br>5x - 3x = 24 - 10<br>2x = 14<br>x = 7</pre>
+        </div>
+
+        <div class="question">
+            <p class="question-title">4. QCM : Quel est la conversion de <code>1011</code> (binaire) en décimal ?</p>
+            <ul class="qcm-options">
+                <li><input type="radio" name="q4" disabled> 9</li>
+                <li><input type="radio" name="q4" disabled> 10</li>
+                <li><input type="radio" name="q4" disabled checked> 11</li>
+                <li><input type="radio" name="q4" disabled> 12</li>
+            </ul>
+            <p>Pourquoi ?</p>
+            <pre class="tree">1011 = 1*8 + 0*4 + 1*2 + 1*1 = 8 + 0 + 2 + 1 = 11</pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. Physique</h2>
+        
+        <div class="question">
+            <p class="question-title">1. Calcul : Dans un circuit en série avec 3 résistances en série (100 Ω, 200 Ω, 300 Ω) et une tension de 12 V, calculer le courant total.</p>
+            <pre class="tree">U = 12 V, R_total = 600 Ω, I = U / R_total = 12 / 600 = 0.02 A</pre>
+        </div>
+
+        <div class="question">
+            <p class="question-title">2. Théorie : Expliquer la différence entre un <strong>signal analogique</strong> et un <strong>signal numérique</strong>.</p>
+            <pre class="tree">Un signal analogique est continu et peut prendre n'importe quelle valeur dans une plage donnée, tandis qu'un signal numérique est discret et ne peut prendre que des valeurs spécifiques.</pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. Électronique</h2>
+        
+        <div class="question">
+            <p class="question-title">1. Schéma : Voici un schéma electrique.</p>
+            <img src="../Ressources/schema-elec.png">
+            <p class="question-title">Comment appel-on une telle installation ?</p>
+            <pre class="tree">Un tel montage est appelé un diviseur de tension.</pre>
+        </div>
+
+        <div class="question">
+            <div class="callout">
+                <span class="lbl">R1 = 1 kΩ | R2 = 2 kΩ</span>
+                <span class="lbl">E = 9 V | I = 1 A</span>
+            </div>
+            <p class="question-title">Calculez la tension V2, aux bornes de R2.</p>
+            <pre class="tree">U2 = (R2 / (R1 + R2)) * E = (2000 / (1000 + 2000)) * 9 = 6 V</pre>
+            <p class="question-title">Calculez la courant I2, dans la branche contenant R2.</p>
+            <pre class="tree">I2 = U2 / R2 = 6 / 2000 = 3 mA</pre>
+        </div>
+
+        <div class="question">
+            <p class="question-title">2. Pratique : À quoi sert un <strong>multimètre</strong> en électronique ?</p>
+            <pre class="tree">Un multimètre est un instrument de mesure qui permet de mesurer plusieurs grandeurs électriques comme la tension, le courant et la résistance.</pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>4. Réseaux</h2>
+
+        <div class="question">
+            <p class="question-title">1. Théorie : Expliquer la différence entre une <strong>adresse IP</strong> et un <strong>nom de domaine</strong>.</p>
+            <pre class="tree">Une adresse IP est un numéro unique attribué à chaque appareil sur un réseau.
+un nom de domaine est un nom lisible par l'homme qui correspond à une adresse IP.</pre>
+        </div>
+
+        <div class="question">
+            <p class="question-title">2. QCM : Parmi les affirmations suivantes, laquelle est fausse ?</p>
+            <ul class="qcm-options">
+                <li><input type="radio" name="q2" disabled> Une adresse MAC est unique pour chaque carte réseau et ne peut pas être modifiée.</li>
+                <li><input type="radio" name="q2" disabled> Une adresse IP peut être dynamique ou statique.</li>
+                <li><input type="radio" name="q2" disabled checked> Une adresse MAC est utilisée pour identifier un appareil sur Internet, tandis qu'une adresse IP identifie un appareil sur un réseau local.</li>
+                <li><input type="radio" name="q2" disabled> Une adresse IP peut être partagée par plusieurs appareils sur un même réseau.</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <p class="question-title">3. QCM : Quel protocole est utilisé pour transférer des fichiers sur un réseau ?</p>
+            <ul class="qcm-options">
+                <li><input type="radio" name="q3" disabled> HTTP</li>
+                <li><input type="radio" name="q3" disabled checked> FTP</li>
+                <li><input type="radio" name="q3" disabled> SMTP</li>
+                <li><input type="radio" name="q3" disabled> DNS</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <p class="question-title">4. Théorie : Expliquer le rôle du <strong>protocole DNS</strong>.</p>
+            <pre class="tree">Le protocole DNS (Domain Name System) permet de traduire les noms de domaine en adresses IP.</pre>
+        </div>
+    </section>
+
+    <section>
+        <h2>5. Informatique et Cybersécurité</h2>
+        
+        <div class="question">
+            <p class="question-title">1. Algorithme : Écrire un algorithme en pseudocode pour calculer la moyenne de 3 notes saisies par l’utilisateur.</p>
+            <pre class="tree">
+Début
+    Lire note1
+    Lire note2
+    Lire note3
+    moyenne = (note1 + note2 + note3) / 3
+    Afficher "La moyenne est : " + moyenne
+Fin</pre>
+        </div>
+
+        <div class="question">
+            <p class="question-title">2. Algorithme : Donner 3 types de variables et quels sont leurs différences ?</p>
+            <pre class="tree">Int, Float, String.
+Les int sont des nombres entiers, les float sont des nombres à virgule flottante et les string sont des chaînes de caractères.</pre>
+        </div>
+
+        <div class="question">
+            <p class="question-title">3. QCM : Quel type de cyberattaque consiste à submerger un serveur de requêtes pour le rendre inaccessible ?</p>
+            <ul class="qcm-options">
+                <li><input type="radio" name="cyber" disabled> Phishing</li>
+                <li><input type="radio" name="cyber" disabled checked> DDoS</li>
+                <li><input type="radio" name="cyber" disabled> Ransomware</li>
+                <li><input type="radio" name="cyber" disabled> Spyware</li>
+            </ul>
+        </div>
+
+        <div class="question">
+            <p class="question-title">4. Théorie : Expliquer le fonctionnement d'une architecture client-serveur en répondant aux questions suivantes :</p>
+            <ul>
+                <li>Quels sont les rôles du client et du serveur ?</li>
+                <pre class="tree">Envoie des requêtes (ex : navigateur web) et affiche les résultats.</pre>
+                <li>Donner un exemple d'application utilisant cette architecture.</li>
+                <pre class="tree">Exemple : Un site web où le navigateur (client) envoie des requêtes au serveur web pour récupérer les pages.</pre>
+            </ul>
+        </div>
+    </section>
+</body>
+</html>
