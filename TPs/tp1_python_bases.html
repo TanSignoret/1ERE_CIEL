@@ -129,6 +129,16 @@
                             <li>Calculer et afficher la <b>moyenne</b>.</li>
                             <li>Afficher un message du type : <code>Moyenne des temps de réponse : XX ms</code>.</li>
                         </ul>
+                        <p><b>Etapes</b> :</p>
+                        <ul class="plain">
+                            <li>Créer une variable pour stocker un temps de réponse.</li>
+                            <li>Demander à l'utilisateur de saisir un temps de réponse.</li>
+                            <li>Répéter cette opération 5 fois et stocker les valeurs dans différentes variables.</li>
+                            <li>Convertir les valeurs en nombres (utiliser <code>int()</code> ou <code>float()</code>).</li>
+                            <li>Calculer la somme des valeurs.</li>
+                            <li>Calculer la moyenne en divisant la somme par l'effectif (5).</li>
+                            <li>Afficher un message du type : <code>Moyenne des temps de réponse : XX ms</code>.</li>
+                        </ul>
                         <div class="callout">
                             <span class="lbl">Exemple</span>
                             <p>Si l'utilisateur saisi <code>10, 20, 30, 40, 50</code>, le script doit afficher :</p>
@@ -153,13 +163,27 @@
                         <p><b>Consignes</b> :</p>
                         <ul class="plain">
                             <li>Demander à l'utilisateur de saisir un <b>nom d'utilisateur</b> et un <b>mot de passe</b>.</li>
-                            <li>Vérifier si le mot de passe respecte les règles.</li>
+                            <li>
+                                Vérifier si le mot de passe respecte les règles.
+                                <ul class="plain">
+                                    <li>Utiliser l'instruction <code>if</code> pour faire une condition</li>
+                                    <li>Longueur ≥ 8 caractères : utiliser le mot clé <code>len()</code> pour connaitre la longueur d'une chaine de caractères</li>
+                                </ul>
+                            </li>
                             <li>Afficher :
                                 <ul class="plain">
                                     <li><code>Accès autorisé pour [nom]</code> si le mot de passe est valide.</li>
                                     <li><code>Accès refusé pour [nom]</code> sinon.</li>
                                 </ul>
                             </li>
+                        </ul>
+
+                        <p><b>Etapes</b> :</p>
+                        <ul class="plain">
+                            <li>Demander à l'utilisateur de saisir un <b>nom d'utilisateur</b> et un <b>mot de passe</b>.</li>
+                            <li>Créer une variable pour stocker le mot de passe saisi.</li>
+                            <li>Vérifier si le mot de passe respecte les règles (longueur ≥ 8 et présence d'un chiffre).</li>
+                            <li>Afficher le message correspondant selon que le mot de passe est valide ou non.</li>
                         </ul>
                         <div class="callout">
                             <span class="lbl">Exemple</span>
@@ -170,7 +194,11 @@
                         </div>
                         <div class="callout deliver">
                             <span class="lbl">Validation</span>
-                            <p>Votre script vérifie correctement les 2 conditions (longueur ≥ 8 et présence d'un chiffre).</p>
+                            <p>Votre script vérifie correctement la condition : longueur ≥ 8.</p>
+                        </div>
+                        <div class="callout deliver">
+                            <span class="lbl">Bonnus</span>
+                            <p>Votre script vérifie également la présence d'au moins un <i>chiffre, une majuscule et un caractère spécial</i> dans le mot de passe.</p>
                         </div>
                     </div>
                 </li>
