@@ -198,13 +198,11 @@ nombre = int(texte)  # 123
 
 # Conversion int → str
 nombre = 42
-texte = str(nombre)  # "42"
-                    </pre>
+texte = str(nombre)  # "42"</pre>
                     <p>
                         <b>Attention</b> : La conversion peut échouer si le format est invalide :
                         <pre>
-int("abc")  # ❌ ValueError: invalid literal for int()
-                        </pre>
+int("abc")  # ❌ ValueError: invalid literal for int()</pre>
                     </p>
                 </div>
 
@@ -300,13 +298,12 @@ int("abc")  # ❌ ValueError: invalid literal for int()
 nom = input("Quel est votre nom ? ")
 
 # Afficher un message personnalisé
-print(f"Bonjour, {nom}!")
+print(f"Bonjour ", nom)
 
 # Calculer et afficher la somme de deux nombres
 a = int(input("Saisir le premier nombre : "))
 b = int(input("Saisir le deuxième nombre : "))
-print(f"La somme est : {a + b}")
-                </pre>
+print(f"La somme est : {a + b}")</pre>
                 <div class="callout">
                     <span class="lbl">Astuce : Les f-strings</span>
                     <p>
@@ -315,31 +312,61 @@ print(f"La somme est : {a + b}")
                     <pre>
 nom = "Alice"
 age = 25
-print(f"{nom} a {age} ans.")  # Affiche : Alice a 25 ans.
-                    </pre>
+print(f"{nom} a {age} ans.")  # Affiche : Alice a 25 ans.</pre>
                     <p>
                         Alternative (ancienne méthode) :
                         <pre>
-print("{} a {} ans.".format(nom, age))
-                        </pre>
+print("{} a {} ans.".format(nom, age))</pre>
                     </p>
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- Conditions -->
+        <section id="conditions">
+            <div class="sec-head"><span class="sec-num">04</span><h2>Les conditions en Python</h2><span class="sec-tag">for et while</span></div>
+            <div>
+                <p>Les conditions permettent de <b>prendre des décisions</b> dans votre code.</p>
+                <p>Ce langage utilise les mots-clés <code>if</code>, <code>elif</code> et <code>else</code>.</p>
+                <div class="callout">
+                    <span class="lbl">Syntaxe de base</span>
+                    <pre>
+if [ma condition]:
+    Les instructions à exécuter si la condition est vraie
+elif [autre condition]:
+    Les instructions à exécuter si la première condition est fausse et que la deuxième est vraie
+else:
+    Les instructions à exécuter si toutes les conditions précédentes sont fausses</pre>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Voici un exemple concret :</span>
+                    <pre>
+# Vérifier si un nombre est positif, négatif ou nul
+nombre = int(input("Saisir un nombre : "))
+if nombre > 0:
+    print("Le nombre est positif.")
+elif nombre < 0:
+    print("Le nombre est négatif.")
+else:
+    print("Le nombre est nul.")</pre>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Exemple concret : Vérifier l'âge</span>
+                    <pre>
+age = int(input("Saisir votre âge : "))
+if age >= 18:
+    print("Vous êtes majeur.")
+else:
+    print("Vous êtes mineur.")</pre>
                 </div>
             </div>
         </section>
 
         <!-- Boucles -->
-        <section id="tp1">
-            <div class="sec-head"><span class="sec-num">04</span><h2>TP 1 - Revoir les bases</h2><span class="sec-tag">for et while</span></div>
-            <div>
-                <p>On revoit les bases avec le tp1 puis on passe aux boucles.</p>
-                <p>Le tp1 est disponible sur le dépôt <a href="">GitHub</a> de la classe.</p>
-            </div> 
-        </section>
-        
-
-        <!-- Boucles -->
         <section id="boucles">
-            <div class="sec-head"><span class="sec-num">04</span><h2>Les boucles en Python</h2><span class="sec-tag">for et while</span></div>
+            <div class="sec-head"><span class="sec-num">05</span><h2>Les boucles en Python</h2><span class="sec-tag">for et while</span></div>
             <div>
                 <p>
                     Les boucles permettent de <b>répéter une action</b> plusieurs fois.
@@ -361,8 +388,7 @@ for fruit in fruits:
 # Résultat :
 # pomme
 # banane
-# cerise
-                    </pre>
+# cerise</pre>
                 </div>
 
                 <div class="callout">
@@ -379,8 +405,7 @@ for i in range(1, 6):      # 1 à 5
     print(i)
 
 for i in range(10, 0, -1): # 10 à 1 (décroissant)
-    print(i)
-                    </pre>
+    print(i)</pre>
                 </div>
 
                 <div class="callout">
@@ -436,20 +461,31 @@ while True:
     elif essai < nombre_secret:
         print("C'est plus grand.")
     else:
-        print("C'est plus petit.")
-                    </pre>
+        print("C'est plus petit.")</pre>
                 </div>
 
                 <h3>📊 Comparaison : <code>for</code> vs <code>while</code></h3>
-                <div class="schema">
-+-------------------+---------------------------+---------------------------+
-| Critère           | Boucle for                | Boucle while              |
-+-------------------+---------------------------+---------------------------+
-| Nombre d'itérations | Connu à l'avance       | Inconnu à l'avance        |
-| Cas d'usage       | Parcourir une séquence   | Répéter jusqu'à condition |
-| Exemple           | for i in range(5)         | while x < 10              |
-+-------------------+---------------------------+---------------------------+
-                </div>
+                <table>
+                    <th>
+                        <td>Boucle for</td>
+                        <td>Boucle while</td>
+                    </th>
+                    <tr>
+                        <td>Nombre d'itérations</td>
+                        <td>Connu à l'avance</td>
+                        <td>Inconnu à l'avance</td>
+                    </tr>
+                    <tr>
+                        <td>Cas d'usage</td>
+                        <td>Parcourir une séquence</td>
+                        <td>Répéter jusqu'à condition</td>
+                    </tr>
+                    <tr>
+                        <td>Exemple</td>
+                        <td><code>for i in range(5)</code></td>
+                        <td><code>while x < 10</code></td>
+                    </tr>
+                </table>
 
                 <div class="callout">
                     <span class="lbl">Quand utiliser <code>for</code> ou <code>while</code> ?</span>
@@ -465,7 +501,7 @@ while True:
 
         <!-- Boucles : Typographie et bonnes pratiques -->
         <section id="boucles-bonnes-pratiques">
-            <div class="sec-head"><span class="sec-num">05</span><h2>Boucles : Typographie et bonnes pratiques</h2><span class="sec-tag">Style et conseils</span></div>
+            <div class="sec-head"><span class="sec-num">06</span><h2>Boucles : Typographie et bonnes pratiques</h2><span class="sec-tag">Style et conseils</span></div>
             <div>
                 <p>
                     Voici les <b>règles de typographie</b> et les <b>bonnes pratiques</b> pour écrire des boucles claires et maintenables.
@@ -485,8 +521,7 @@ for i in range(5):
 # ❌ Mauvaise indentation (tabulations ou espaces incohérents)
 for i in range(5):
     #print avec une tabulation (erreur)
-    print(i)
-                    </pre>
+    print(i)</pre>
                     <p>
                         <b>Règle</b> : Utilisez <b>4 espaces</b> pour l'indentation (pas de tabulations).
                     </p>
@@ -508,8 +543,7 @@ for index in range(5):
 
 # ✅ Encore mieux (si contexte clair)
 for temps_reponse in range(5):
-    print(f"Temps de réponse {temps_reponse} : {temps_reponse * 10} ms")
-                    </pre>
+    print(f"Temps de réponse {temps_reponse} : {temps_reponse * 10} ms")</pre>
                     <p>
                         <b>Convention</b> : Utilisez <code>snake_case</code> pour les noms de variables (ex: <code>temps_reponse</code>, <code>nombre_essais</code>).
                     </p>
@@ -526,8 +560,7 @@ i = i + 1  # Incrémente i de 1
 
 # ✅ Utile (explique l'intention)
 for i in range(5):  # Boucle pour les 5 serveurs à ping
-    ...
-                    </pre>
+    ...</pre>
                 </div>
 
                 <h3>💡 Bonnes pratiques</h3>
@@ -545,8 +578,7 @@ while True:
 utilisateur_veut_continuer = True
 while utilisateur_veut_continuer:
     print("Faire quelque chose...")
-    utilisateur_veut_continuer = input("Continuer ? (o/n) : ") == "o"
-                    </pre>
+    utilisateur_veut_continuer = input("Continuer ? (o/n) : ") == "o"</pre>
                 </div>
 
                 <div class="callout">
@@ -562,8 +594,7 @@ for i in range(len(fruits)):
 
 # ✅ Plus lisible (parcours direct)
 for fruit in fruits:
-    print(fruit)
-                    </pre>
+    print(fruit)</pre>
                 </div>
 
                 <div class="callout">
@@ -583,15 +614,14 @@ for i in range(10):
 for i in range(5):
     if i % 2 == 0:
         continue  # Passe aux itérations paires
-    print(i)  # Affiche 1, 3
-                    </pre>
+    print(i)  # Affiche 1, 3</pre>
                 </div>
             </div>
         </section>
 
         <!-- Fonctions -->
         <section id="fonctions">
-            <div class="sec-head"><span class="sec-num">06</span><h2>Les fonctions en Python</h2><span class="sec-tag">Modularité et réutilisabilité</span></div>
+            <div class="sec-head"><span class="sec-num">07</span><h2>Les fonctions en Python</h2><span class="sec-tag">Modularité et réutilisabilité</span></div>
             <div>
                 <p>
                     Les fonctions permettent de <b>structurer votre code</b> en blocs réutilisables.
@@ -624,18 +654,16 @@ for i in range(5):
 def nom_fonction(param1, param2):
     """Docstring : description de la fonction."""
     # Code de la fonction
-    return valeur_de_retour  # Optionnel
-                </pre>
+    return valeur_de_retour  # Optionnel</pre>
                 <div class="callout">
                     <span class="lbl">Exemple simple : Dire bonjour</span>
                     <pre>
 def dire_bonjour(nom):
     """Affiche un message de salutation."""
-    print(f"Bonjour, {nom}!")
+    print(f"Bonjour", nom, "!")
 
 # Appel de la fonction
-dire_bonjour("Alice")  # Affiche : Bonjour, Alice!
-                    </pre>
+dire_bonjour("Alice")  # Affiche : Bonjour, Alice!</pre>
                 </div>
 
                 <div class="callout">
@@ -647,8 +675,7 @@ def calculer_carre(nombre):
 
 # Appel de la fonction
 resultat = calculer_carre(5)  # resultat = 25
-print(f"Le carré de 5 est {resultat}.")
-                    </pre>
+print(f"Le carré de 5 est {resultat}.")</pre>
                 </div>
 
                 <h3>📥 Paramètres et valeurs de retour</h3>
@@ -662,8 +689,7 @@ def dire_bonjour(nom):  # nom est obligatoire
     print(f"Bonjour, {nom}!")
 
 dire_bonjour("Alice")  # ✅ OK
-dire_bonjour()        # ❌ Erreur : il manque un argument
-                    </pre>
+dire_bonjour()        # ❌ Erreur : il manque un argument</pre>
                 </div>
 
                 <div class="callout">
@@ -676,8 +702,7 @@ def dire_bonjour(nom="inconnu"):  # nom a une valeur par défaut
     print(f"Bonjour, {nom}!")
 
 dire_bonjour("Alice")   # Affiche : Bonjour, Alice!
-dire_bonjour()          # Affiche : Bonjour, inconnu!
-                    </pre>
+dire_bonjour()          # Affiche : Bonjour, inconnu!</pre>
                 </div>
 
                 <div class="callout">
@@ -690,8 +715,7 @@ def creer_utilisateur(nom, age, ville="Paris"):
     print(f"{nom}, {age} ans, {ville}")
 
 creer_utilisateur("Alice", 25)          # ville = "Paris" (par défaut)
-creer_utilisateur("Bob", 30, ville="Lyon")  # Paramètre nommé
-                    </pre>
+creer_utilisateur("Bob", 30, ville="Lyon")  # Paramètre nommé</pre>
                 </div>
 
                 <div class="callout">
@@ -704,8 +728,7 @@ def get_min_max(nombres):
     return min(nombres), max(nombres)  # Retourne un tuple
 
 min_val, max_val = get_min_max([5, 2, 8, 1, 9])
-print(f"Min : {min_val}, Max : {max_val}")  # Affiche : Min : 1, Max : 9
-                    </pre>
+print(f"Min : {min_val}, Max : {max_val}")  # Affiche : Min : 1, Max : 9</pre>
                 </div>
 
                 <h3>📖 Docstrings : Documenter ses fonctions</h3>
@@ -732,8 +755,7 @@ def ma_fonction(param1, param2):
         type: Description de la valeur de retour.
     """
     # Code de la fonction
-    return valeur
-                    </pre>
+    return valeur</pre>
                 </div>
 
                 <div class="callout">
@@ -753,15 +775,14 @@ def calculer_moyenne(notes):
     """
     if len(notes) == 0:
         raise ValueError("La liste de notes ne peut pas être vide.")
-    return sum(notes) / len(notes)
-                    </pre>
+    return sum(notes) / len(notes)</pre>
                 </div>
             </div>
         </section>
 
         <!-- Portée des variables -->
         <section id="portee-variables">
-            <div class="sec-head"><span class="sec-num">07</span><h2>Portée des variables</h2><span class="sec-tag">Locale vs Globale</span></div>
+            <div class="sec-head"><span class="sec-num">08</span><h2>Portée des variables</h2><span class="sec-tag">Locale vs Globale</span></div>
             <div>
                 <p>
                     La <b>portée d'une variable</b> détermine où cette variable peut être <b>accédée</b> dans votre code.
@@ -779,8 +800,7 @@ def ma_fonction():
     print(x)  # ✅ OK : x est accessible ici
 
 ma_fonction()  # Affiche : 10
-print(x)       # ❌ Erreur : x n'est pas défini ici (hors de la fonction)
-                    </pre>
+print(x)       # ❌ Erreur : x n'est pas défini ici (hors de la fonction)</pre>
                 </div>
 
                 <h3>🌐 Variables globales</h3>
@@ -796,8 +816,7 @@ def ma_fonction():
     print(x)  # ✅ OK : x est accessible ici
 
 ma_fonction()  # Affiche : 10
-print(x)       # ✅ OK : Affiche : 10
-                    </pre>
+print(x)       # ✅ OK : Affiche : 10</pre>
                 </div>
 
                 <div class="callout">
@@ -813,8 +832,7 @@ def ma_fonction():
     x = 20     # Modifie la variable globale
 
 ma_fonction()
-print(x)  # Affiche : 20 (la variable globale a été modifiée)
-                    </pre>
+print(x)  # Affiche : 20 (la variable globale a été modifiée)</pre>
                     <p>
                         <b>Attention</b> : L'utilisation de variables globales est <b>déconseillée</b> car elle rend le code plus difficile à maintenir.
                         Préférez passer les variables en <b>paramètres</b> ou utiliser des <b>valeurs de retour</b>.
@@ -847,8 +865,7 @@ print(x)  # Affiche : 20 (la variable globale a été modifiée)
                     <pre>
 # Ce programme plante si l'utilisateur saisi un texte
 nombre = int(input("Saisir un nombre : "))
-print(f"Vous avez saisi : {nombre}")
-                    </pre>
+print(f"Vous avez saisi : {nombre}")</pre>
                     <p>
                         <b>Problème</b> : Si l'utilisateur saisi <code>"abc"</code>, le programme affiche une erreur <code>ValueError</code> et s'arrête.
                     </p>
@@ -861,8 +878,7 @@ try:
     nombre = int(input("Saisir un nombre : "))
     print(f"Vous avez saisi : {nombre}")
 except ValueError:
-    print("Erreur : veuillez saisir un nombre valide.")
-                    </pre>
+    print("Erreur : veuillez saisir un nombre valide.")</pre>
                     <p>
                         <b>Avantage</b> : Le programme <b>ne plante pas</b> et informe l'utilisateur de l'erreur.
                     </p>
@@ -878,8 +894,7 @@ try:
     resultat = 10 / 0
 except ZeroDivisionError:
     # Code exécuté si une erreur se produit
-    print("Erreur : division par zéro.")
-                </pre>
+    print("Erreur : division par zéro.")</pre>
                 <div class="callout">
                     <span class="lbl">Attraper plusieurs types d'erreurs</span>
                     <pre>
@@ -890,8 +905,7 @@ try:
 except ValueError:
     print("Erreur : veuillez saisir un nombre valide.")
 except ZeroDivisionError:
-    print("Erreur : division par zéro.")
-                </pre>
+    print("Erreur : division par zéro.")</pre>
                 </div>
 
                 <div class="callout">
@@ -902,8 +916,7 @@ try:
     resultat = 10 / int(input("Saisir un nombre : "))
 except Exception as e:
     # Attrape TOUTES les erreurs
-    print(f"Une erreur est survenue : {e}")
-                    </pre>
+    print(f"Une erreur est survenue : {e}")</pre>
                     <p>
                         <b>⚠️ Attention</b> : Attraper toutes les erreurs peut masquer des <b>bugs inattendus</b>.
                         Préférez attraper des erreurs <b>spécifiques</b>.
@@ -978,8 +991,7 @@ try:
 except ZeroDivisionError:
     print("Division par zéro.")
 else:
-    print(f"Résultat : {resultat}")  # Exécuté si aucune erreur
-                    </pre>
+    print(f"Résultat : {resultat}")  # Exécuté si aucune erreur</pre>
                 </div>
 
                 <div class="callout">
@@ -991,8 +1003,7 @@ try:
 except FileNotFoundError:
     print("Fichier introuvable.")
 finally:
-    fichier.close()  # Fermer le fichier dans tous les cas
-                    </pre>
+    fichier.close()  # Fermer le fichier dans tous les cas</pre>
                     <p>
                         <b>Utilité</b> : <code>finally</code> est utile pour <b>nettoyer des ressources</b> (ex: fermer un fichier, une connexion réseau).
                     </p>
@@ -1014,8 +1025,7 @@ def diviser(a, b):
 try:
     resultat = diviser(10, 0)
 except ValueError as e:
-    print(f"Erreur : {e}")  # Affiche : Erreur : Le dénominateur ne peut pas être zéro.
-                    </pre>
+    print(f"Erreur : {e}")  # Affiche : Erreur : Le dénominateur ne peut pas être zéro.</pre>
                 </div>
 
                 <div class="callout">
@@ -1035,8 +1045,7 @@ def ma_fonction(valeur):
 try:
     resultat = ma_fonction(-5)
 except ErreurPersonnalisee as e:
-    print(f"Erreur : {e}")  # Affiche : Erreur : La valeur ne peut pas être négative.
-                    </pre>
+    print(f"Erreur : {e}")  # Affiche : Erreur : La valeur ne peut pas être négative.</pre>
                 </div>
             </div>
         </section>
@@ -1068,26 +1077,7 @@ for nombre in nombres:
     if nombre % 2 == 0:
         compteur_pairs += 1
 
-print(f"Nombre de pairs : {compteur_pairs}")
-                        </pre>
-                    </details>
-                </div>
-
-                <div class="callout">
-                    <span class="lbl">Exercice 2 : Calculer la factorielle</span>
-                    <p>
-                        Écrivez un programme qui demande à l'utilisateur de saisir un nombre <code>n</code> et calcule <code>n!</code> (factorielle).
-                        <br><em>Rappel : n! = 1 * 2 * 3 * ... * n</em>
-                    </p>
-                    <details>
-                        <summary>Voir la correction</summary>
-                        <pre>
-n = int(input("Saisir un nombre : "))
-factorielle = 1
-for i in range(1, n + 1):
-    factorielle *= i
-print(f"{n}! = {factorielle}")
-                        </pre>
+print(f"Nombre de pairs : {compteur_pairs}")</pre>
                     </details>
                 </div>
 
@@ -1120,8 +1110,7 @@ while True:
     elif essai < nombre_secret:
         print("C'est plus grand.")
     else:
-        print("C'est plus petit.")
-                        </pre>
+        print("C'est plus petit.")</pre>
                     </details>
                 </div>
 
@@ -1158,8 +1147,7 @@ def calculer_moyenne(notes):
 
 # Exemple d'utilisation
 notes = [12, 15, 9, 18]
-print(f"Moyenne : {calculer_moyenne(notes)}")
-                        </pre>
+print(f"Moyenne : {calculer_moyenne(notes)}")</pre>
                     </details>
                 </div>
 
@@ -1192,36 +1180,7 @@ def verifier_mot_de_passe(mdp):
 if verifier_mot_de_passe("MonMotDePasse123"):
     print("Mot de passe valide")
 else:
-    print("Mot de passe invalide")
-                        </pre>
-                    </details>
-                </div>
-
-                <div class="callout">
-                    <span class="lbl">Exercice 3 : Fonction récursive (factorielle)</span>
-                    <p>
-                        Écrivez une fonction <code>factorielle(n)</code> qui calcule la factorielle de <code>n</code> de manière <b>récursive</b>.
-                        <br><em>Rappel : n! = n * (n-1)! et 0! = 1</em>
-                    </p>
-                    <details>
-                        <summary>Voir la correction</summary>
-                        <pre>
-def factorielle(n):
-    """Calcule la factorielle de n de manière récursive.
-
-    Args:
-        n (int): Nombre entier positif.
-
-    Returns:
-        int: n! (factorielle de n).
-    """
-    if n == 0:
-        return 1
-    return n * factorielle(n - 1)
-
-# Exemple d'utilisation
-print(f"5! = {factorielle(5)}")  # Affiche : 5! = 120
-                        </pre>
+    print("Mot de passe invalide")</pre>
                     </details>
                 </div>
 
@@ -1247,8 +1206,7 @@ try:
 except ValueError:
     print("Erreur : veuillez saisir des nombres valides.")
 except ZeroDivisionError:
-    print("Erreur : division par zéro.")
-                        </pre>
+    print("Erreur : division par zéro.")</pre>
                     </details>
                 </div>
 
@@ -1285,8 +1243,7 @@ contenu = lire_fichier("fichier_inexistant.txt")
 if contenu is None:
     print("Fichier introuvable.")
 else:
-    print(f"Contenu : {contenu}")
-                        </pre>
+    print(f"Contenu : {contenu}")</pre>
                     </details>
                 </div>
             </div>
@@ -1368,8 +1325,7 @@ else:
                             <td>
                                 <pre>
 def ma_fonction():
-    """Description."""
-                                </pre>
+    """Description."""</pre>
                             </td>
                         </tr>
                         <tr>
@@ -1379,16 +1335,14 @@ def ma_fonction():
 try:
     ...
 except Erreur:
-    ...
-                                </pre>
+    ...</pre>
                             </td>
                             <td>
                                 <pre>
 try:
     x = int(input())
 except ValueError:
-    print("Erreur")
-                                </pre>
+    print("Erreur")</pre>
                             </td>
                         </tr>
                         <tr>
