@@ -20,7 +20,7 @@
             </p>
             <div class="chips">
                 <span class="chip">Première Bac Pro CIEL</span>
-                <span class="chip">Durée : 2h</span>
+                <span class="chip">Durée : 30min</span>
                 <span class="chip">Outils : Git, GitHub, VS Code</span>
             </div>
         </header>
@@ -91,11 +91,6 @@
                         Aujourd'hui, GitHub est la plateforme la plus utilisée pour le développement collaboratif.
                     </p>
                 </div>
-                <div class="illustration">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Linus_Torvalds.jpg/440px-Linus_Torvalds.jpg"
-                         alt="Photo de Linus Torvalds" style="width: 200px; border-radius: 50%;">
-                    <p><em>Linus Torvalds, créateur de Linux et Git</em></p>
-                </div>
             </div>
         </section>
 
@@ -115,14 +110,13 @@
                     <li>Les modifications sont <b>fusionnées</b> dans la branche principale une fois validées.</li>
                     <li>Les <b>conflits</b> sont gérés de manière structurée.</li>
                 </ul>
-                <div class="schema">
+                <pre>
 *   commit 3 (main)
 |\
-| * commit 2 (feature/login)
+| * commit 2 (fonctionnalité)
 |/
-* commit 1
-                </div>
-                <p><em>Exemple de fusion de branche : la branche <code>feature/login</code> est fusionnée dans <code>main</code>.</em></p>
+* commit 1</div>
+                <p><em>Exemple de fusion de branche : la branche <code>fonctionnalité</code> est fusionnée dans <code>main</code>.</em></p>
 
                 <h3>2. Historique complet et traçable</h3>
                 <p>
@@ -703,7 +697,7 @@ git commit -m "Ajout de la fonction X"
                     <tbody>
                         <tr>
                             <td><b>GitHub</b></td>
-                            <td>Plateforme la plus populaire pour héberger des dépôts Git.</td>
+                            <td>Plateforme la plus populaire pour héberger des dépôts Git. Celle que l'on va utiliser pour ce cours.</td>
                             <td><a href="https://github.com" target="_blank">github.com</a></td>
                             <td>
                                 <ul>
@@ -715,7 +709,7 @@ git commit -m "Ajout de la fonction X"
                         </tr>
                         <tr>
                             <td><b>GitLab</b></td>
-                            <td>Alternative à GitHub avec DevOps intégré.</td>
+                            <td>Alternative à GitHub.</td>
                             <td><a href="https://gitlab.com" target="_blank">gitlab.com</a></td>
                             <td>
                                 <ul>
@@ -751,6 +745,18 @@ git commit -m "Ajout de la fonction X"
                     </thead>
                     <tbody>
                         <tr>
+                            <td><b>VS Code + GitLens</b></td>
+                            <td>Extension pour VS Code qui améliore l'intégration Git.<br>Ce que l'on va utiliser pour ce cours.</td>
+                            <td><a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens" target="_blank">GitLens</a></td>
+                            <td>
+                                <ul>
+                                    <li>Visualisation des modifications directement dans le code.</li>
+                                    <li>Historique des commits par ligne.</li>
+                                    <li>Gratuit et open-source.</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
                             <td><b>GitKraken</b></td>
                             <td>Client Git graphique avec interface intuitive.</td>
                             <td><a href="https://www.gitkraken.com" target="_blank">gitkraken.com</a></td>
@@ -770,18 +776,6 @@ git commit -m "Ajout de la fonction X"
                                 <ul>
                                     <li>Simple et intuitif.</li>
                                     <li>Intégration avec Bitbucket.</li>
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><b>VS Code + GitLens</b></td>
-                            <td>Extension pour VS Code qui améliore l'intégration Git.</td>
-                            <td><a href="https://marketplace.visualstudio.com/items?itemName=eamodio.gitlens" target="_blank">GitLens</a></td>
-                            <td>
-                                <ul>
-                                    <li>Visualisation des modifications directement dans le code.</li>
-                                    <li>Historique des commits par ligne.</li>
-                                    <li>Gratuit et open-source.</li>
                                 </ul>
                             </td>
                         </tr>
@@ -903,12 +897,6 @@ git commit -m "Ajout de la fonction X"
                         <p>
                             <a href="https://github.com" target="_blank">https://github.com</a>
                         </p>
-                    </li>
-                    <li>
-                        <b>Découvrir GitLab ou Bitbucket</b> pour des fonctionnalités avancées (CI/CD, auto-hébergement).
-                    </li>
-                    <li>
-                        <b>Configurer VS Code avec GitLens</b> pour une meilleure intégration Git.
                     </li>
                 </ul>
             </div>
