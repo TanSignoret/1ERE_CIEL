@@ -22,9 +22,35 @@
                 <span class="chip">Langage : Python </span>
             </div>
         </header>
+        
 
+
+
+        <!-- Pourquoi Python en CIEL -->
+        <section id="sommaire">
+            <div class="sec-head"><span class="sec-num">00</span><h2>Sommaire</h2><span class="sec-tag">Cas d'usage</span></div>
+            <div>
+                <nav class="toc" aria-label="Sommaire">
+                    <ol>
+                        <li><a href="#intro">Introduction</a></li>
+                        <li><a href="#pourquoi">Pourquoi Python</a></li>
+                        <li><a href="#pourquoi">Pourquoi Python</a></li>
+                        <li><a href="#entrees-sorties">Les entrées et sorties</a></li>
+                        <li><a href="#pourquoi">Les types</a></li>
+                        <li><a href="#listes">Les listes</a></li>
+                        <li><a href="#operateurs">Les opérateurs</a></li>
+                        <li><a href="#conditions">Les conditions</a></li>
+                        <li><a href="#boucles">Les boucles</a></li>
+                        <li><a href="#boucles-2">Les boucles - niveau 2</a></li>
+                        <li><a href="#fonctions">Les fonctions</a></li>
+                        <li><a href="#erreurs">La gestion des erreurs</a></li>
+                        <li><a href="#resume">Le résumé</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </section>
         <!-- Introduction -->
-        <section id="introduction">
+        <section id="intro">
             <div class="sec-head"><span class="sec-num">01</span><h2>Introduction à Python</h2><span class="sec-tag">Pourquoi Python ?</span></div>
             <div>
                 <div class="illustration">
@@ -44,7 +70,7 @@
         </section>
 
         <!-- Pourquoi Python en CIEL -->
-        <section id="pourquoi-python">
+        <section id="pourquoi">
             <div class="sec-head"><span class="sec-num">02</span><h2>Pourquoi Python en CIEL ?</h2><span class="sec-tag">Cas d'usage</span></div>
             <div>
                 <p>
@@ -126,12 +152,46 @@
         </section>
 
         <!-- Bases de Python -->
-        <section id="bases-python">
-            <div class="sec-head"><span class="sec-num">04</span><h2>Les bases de Python</h2><span class="sec-tag">Syntaxe et types</span></div>
+        <section id="entrees-sorties">
+            <div class="sec-head"><span class="sec-num">04</span><h2>Les entrées sorties</h2><span class="sec-tag">Syntaxe et types</span></div>
             <div>
-            
-                <p>Avant de plonger dans les boucles et les fonctions, voici les rappel sur les différents types en programmation et leur manière d'être en <b>Python</b>.</p>
+                <p>
+                    Python permet d'interagir avec l'utilisateur via <code>input()</code> et d'afficher des résultats avec <code>print()</code> :
+                </p>
+                <pre>
+# Demander le nom de l'utilisateur
+nom = input("Quel est votre nom ? ")
 
+# Afficher un message personnalisé
+print("Bonjour ", nom)
+# ou
+print(f"Bonjour {nom}")
+
+# Calculer et afficher la somme de deux nombres
+a = int(input("Saisir le premier nombre : "))
+b = int(input("Saisir le deuxième nombre : "))
+print(f"La somme est : {a + b}")</pre>
+                <div class="callout">
+                    <span class="lbl">Astuce : Les f-strings</span>
+                    <p>
+                        Les <b>f-strings</b> (depuis Python 3.6) permettent d'insérer facilement des variables dans une chaîne :
+                    </p>
+                    <pre>
+nom = "Alice"
+age = 25
+print(f"{nom} a {age} ans.")  # Affiche : Alice a 25 ans.</pre>
+                    <p>
+                        Alternative (ancienne méthode) :
+                        <pre>
+print("{} a {} ans.".format(nom, age))</pre>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="types">
+            <div class="sec-head"><span class="sec-num">04</span><h2>Les types</h2><span class="sec-tag">Syntaxe et types</span></div>
+            <div>
                 <h3>📝 Variables et types de données</h3>
                 <p>Python est un langage <b>dynamiquement typé</b> : vous n'avez pas besoin de déclarer le type d'une variable. Cela synifice aussi qu'il ne faut pas faire "n'importe quoi" avec ses variables.</p>
                 <p><i>Dynamiquement typé ?</i> Cela synifie que c'est le langage qui décide quel type est le plus approprié pour l'inscruction donnée.</p>
@@ -205,8 +265,301 @@ texte = str(nombre)  # "42"</pre>
 int("abc")  # ❌ ValueError: invalid literal for int()</pre>
                     </p>
                 </div>
+            </div>
+        </section>
 
-                <h3>🔢 Opérateurs</h3>
+        <section id="listes">
+            <div class="sec-head"><span class="sec-num">05</span><h2>Spécificités des listes</h2><span class="sec-tag">Type</span></div>
+            <div class="col">
+                <p>
+                    Les <b>listes</b> sont un type de données très utile en Python pour <b>stocker plusieurs valeurs dans une seule variable</b>.
+                    Elles sont particulièrement pratiques en administration réseau pour gérer des <b>listes d'adresses IP, de ports, ou de configurations</b>.
+                </p>
+            </div>
+
+            <!-- 1. Qu'est-ce qu'une liste ? -->
+            <h3>📌 1. Qu'est-ce qu'une liste ?</h3>
+            <div class="col">
+                <p>
+                    Une liste est une <b>collection ordonnée</b> de valeurs, séparées par des virgules et entourées de <b>crochets <code>[]</code></b>.
+                    Chaque valeur dans une liste est appelée un <b>élément</b>, et chaque élément a un <b>index</b> (sa position dans la liste).
+                </p>
+
+                <div class="callout">
+                    <span class="lbl">Exemple de liste</span>
+                    <p>Voici une liste d'adresses IP :</p>
+                    <pre class="tree">
+        # Liste d'adresses IP
+        ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3"]
+                    </pre>
+                    <p>
+                        <b>Schéma de la liste</b> :
+                    </p>
+                    <pre class="tree">
+        +-------------------+-------------------+-------------------+
+        | Index 0           | Index 1           | Index 2           |
+        +-------------------+-------------------+-------------------+
+        | "192.168.1.1"     | "192.168.1.2"     | "192.168.1.3"     |
+        +-------------------+-------------------+-------------------+
+                    </pre>
+                </div>
+                <p>
+                    <b>À retenir</b> :
+                    <ul class="plain">
+                        <li>Les indices commencent à <b>0</b> (le premier élément est à l'index 0).</li>
+                        <li>Une liste peut contenir des éléments de <b>n'importe quel type</b> (<code>int</code>, <code>float</code>, <code>str</code>, etc.).</li>
+                        <li>Les listes sont <b>modifiables</b> : vous pouvez ajouter, supprimer ou modifier des éléments.</li>
+                    </ul>
+                </p>
+            </div>
+
+            <!-- 2. Créer une liste -->
+            <h3>📝 2. Créer une liste</h3>
+            <div class="col">
+                <p>
+                    Pour créer une liste, utilisez des <b>crochets <code>[]</code></b> et séparez les éléments par des virgules.
+                </p>
+
+                <div class="callout">
+                    <span class="lbl">Exemples</span>
+                    <p>
+                        <ul class="plain">
+                            <li>
+                                <b>Liste de chaînes de caractères</b> :
+                                <pre class="tree">noms_serveurs = ["SRV-WEB-01", "SRV-DB-02", "SRV-BACKUP-03"]</pre>
+                            </li>
+                            <li>
+                                <b>Liste de nombres entiers</b> :
+                                <pre class="tree">ports = [22, 80, 443, 8080]</pre>
+                            </li>
+                            <li>
+                                <b>Liste mixte (différents types)</b> :
+                                <pre class="tree">config = ["192.168.1.1", 22, "SSH", True]</pre>
+                            </li>
+                            <li>
+                                <b>Liste vide</b> :
+                                <pre class="tree">logs = []</pre>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">À vous de jouer</span>
+                    <p>
+                        Créez une liste appelée <code>equipements</code> contenant les noms de 3 équipements réseau :
+                        <code>"Routeur"</code>, <code>"Switch"</code> et <code>"Firewall"</code>.
+                    </p>
+                    <details>
+                        <summary>Voir la solution</summary>
+                        <pre class="tree">equipements = ["Routeur", "Switch", "Firewall"]</pre>
+                    </details>
+                </div>
+            </div>
+
+            <!-- 3. Accéder aux éléments d'une liste -->
+            <h3>🔍 3. Accéder aux éléments d'une liste</h3>
+            <div class="col">
+                <p>
+                    Pour accéder à un élément d'une liste, utilisez son <b>index</b> entre crochets <code>[]</code>.
+                    <b>Attention</b> : Les indices commencent à <b>0</b> !
+                </p>
+
+                <div class="callout">
+                    <span class="lbl">Exemple</span>
+                    <p>
+                        Avec la liste suivante :
+                        <pre class="tree">ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3"]</pre>
+                        <ul class="plain">
+                            <li><code>ips[0]</code> retourne <code>"192.168.1.1"</code> (premier élément).</li>
+                            <li><code>ips[1]</code> retourne <code>"192.168.1.2"</code> (deuxième élément).</li>
+                            <li><code>ips[2]</code> retourne <code>"192.168.1.3"</code> (troisième élément).</li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">⚠️ Erreurs courantes</span>
+                    <p>
+                        <ul class="plain">
+                            <li>
+                                <b>Index hors limites</b> :
+                                <pre class="tree">ips = ["192.168.1.1", "192.168.1.2"]
+print(ips[2])  # ❌ Erreur : IndexError (la liste n'a que 2 éléments, indices 0 et 1)</pre>
+                            </li>
+                            <li>
+                                <b>Index négatif</b> :
+                                <p>
+                                    Les indices négatifs permettent d'accéder aux éléments <b>à partir de la fin</b> :
+                                    <pre class="tree">ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3"]
+print(ips[-1])  # Affiche "192.168.1.3" (dernier élément)
+print(ips[-2])  # Affiche "192.168.1.2" (avant-dernier élément)</pre>
+                                </p>
+                            </li>
+                        </ul>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">À vous de jouer</span>
+                    <p>
+                        Avec la liste suivante :
+                        <pre class="tree">ports = [22, 80, 443, 8080, 21]</pre>
+                        Affichez :
+                        <ol class="plain">
+                            <li>Le premier port (<code>ports[0]</code>).</li>
+                            <li>Le troisième port (<code>ports[2]</code>).</li>
+                            <li>Le dernier port (<code>ports[-1]</code>).</li>
+                        </ol>
+                    </p>
+                    <details>
+                        <summary>Voir la solution</summary>
+                        <pre class="tree">ports = [22, 80, 443, 8080, 21]
+print("Premier port :", ports[0])   # Affiche 22
+print("Troisième port :", ports[2]) # Affiche 443
+print("Dernier port :", ports[-1])  # Affiche 21</pre>
+                    </details>
+                </div>
+            </div>
+
+            <!-- 4. Modifier une liste -->
+            <h3>🔄 4. Modifier une liste</h3>
+            <div class="col">
+                <p>
+                    Les listes sont <b>modifiables</b> : vous pouvez ajouter, supprimer ou remplacer des éléments.
+                </p>
+
+                <h4>➕ Ajouter un élément</h4>
+                <div class="callout">
+                    <span class="lbl">Méthode <code>append()</code></span>
+                    <p>
+                        La méthode <code>append()</code> ajoute un élément <b>à la fin</b> de la liste.
+                    </p>
+                    <pre class="tree">ips = ["192.168.1.1", "192.168.1.2"]
+ips.append("192.168.1.3")  # Ajoute "192.168.1.3" à la fin
+print(ips)  # Affiche : ['192.168.1.1', '192.168.1.2', '192.168.1.3']</pre>
+                </div>
+
+                <h4>➖ Supprimer un élément</h4>
+                <div class="callout">
+                    <span class="lbl">Méthode <code>remove()</code></span>
+                    <p>
+                        La méthode <code>remove()</code> supprime la <b>première occurrence</b> d'une valeur dans la liste.
+                    </p>
+                    <pre class="tree">ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3"]
+ips.remove("192.168.1.2")  # Supprime "192.168.1.2"
+print(ips)  # Affiche : ['192.168.1.1', '192.168.1.3']</pre>
+                    <p><b>⚠️ Attention</b> : Si la valeur n'existe pas dans la liste, <code>remove()</code> lèvera une erreur (<code>ValueError</code>).</p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Méthode <code>pop()</code></span>
+                    <p>
+                        La méthode <code>pop()</code> supprime et <b>retourne</b> un élément à un index donné.
+                        Si aucun index n'est précisé, elle supprime le <b>dernier élément</b>.
+                    </p>
+                    <pre class="tree">ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3"]
+derniere_ip = ips.pop()  # Supprime et retourne le dernier élément
+print(derniere_ip)  # Affiche : 192.168.1.3
+print(ips)          # Affiche : ['192.168.1.1', '192.168.1.2']
+
+# Supprimer le premier élément
+premiere_ip = ips.pop(0)
+print(premiere_ip)  # Affiche : 192.168.1.1</pre>
+                </div>
+
+                <h4>🔄 Remplacer un élément</h4>
+                <div class="callout">
+                    <span class="lbl">Accès par index</span>
+                    <p>
+                        Pour remplacer un élément, utilisez son index :
+                    </p>
+                    <pre class="tree">ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3"]
+ips[1] = "192.168.1.10"  # Remplace le deuxième élément
+print(ips)  # Affiche : ['192.168.1.1', '192.168.1.10', '192.168.1.3']</pre>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">À vous de jouer</span>
+                    <p>
+                        Créez une liste <code>ports</code> avec les valeurs <code>[22, 80, 443]</code>, puis :
+                        <ol class="plain">
+                            <li>Ajoutez le port <code>8080</code> à la fin de la liste.</li>
+                            <li>Supprimez le port <code>80</code> de la liste.</li>
+                            <li>Remplacez le premier élément (<code>ports[0]</code>) par <code>21</code>.</li>
+                            <li>Affichez la liste finale.</li>
+                        </ol>
+                    </p>
+                    <details>
+                        <summary>Voir la solution</summary>
+                        <pre class="tree">ports = [22, 80, 443]
+ports.append(8080)      # Ajoute 8080 à la fin
+ports.remove(80)        # Supprime 80
+ports[0] = 21           # Remplace le premier élément (22) par 21
+print(ports)            # Affiche : [21, 443, 8080]</pre>
+                    </details>
+                </div>
+            </div>
+
+            <!-- 5. Parcourir une liste -->
+            <h3>🔁 5. Parcourir une liste</h3>
+            <div class="col">
+                <p>
+                    Pour exécuter une action sur <b>chaque élément</b> d'une liste, utilisez une <b>boucle <code>for</code></b>.
+                </p>
+
+                <div class="callout">
+                    <span class="lbl">Exemple avec <code>for</code></span>
+                    <p>
+                        Afficher chaque adresse IP d'une liste :
+                    </p>
+                    <pre class="tree">ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3"]
+for ip in ips:
+    print("Adresse IP : "ip)</pre>
+                    <p><b>Résultat</b> :</p>
+                    <pre class="tree">Adresse IP : 192.168.1.1
+Adresse IP : 192.168.1.2
+Adresse IP : 192.168.1.3</pre>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">Exemple avec <code>for</code> et <code>range()</code></span>
+                    <p>
+                        Parcourir une liste avec ses indices :
+                    </p>
+                    <pre class="tree">ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3"]
+for i in range(len(ips)): 
+    print(f"IP {i} : {ips[i]}")</pre>
+                    <p><b>Résultat</b> :</p>
+                    <pre class="tree">IP 0 : 192.168.1.1
+IP 1 : 192.168.1.2
+IP 2 : 192.168.1.3</pre>
+                    <p>
+                        <b>Astuce</b> : Si vous ne voulez pas utiliser <code>len()</code>, vous pouvez utiliser <code>enumerate()</code> :
+                        <pre class="tree">for i, ip in enumerate(ips):
+    print("IP ", ip")</pre>
+                    </p>
+                </div>
+
+                <div class="callout">
+                    <span class="lbl">À vous de jouer</span>
+                    <p>
+                        Créez une liste <code>serveurs</code> avec les noms <code>["SRV-WEB", "SRV-DB", "SRV-BACKUP"]</code>, puis affichez chaque serveur avec un message :
+                        <pre class="tree">Le serveur [nom] est en ligne.</pre>
+                    </p>
+                    <details>
+                        <summary>Voir la solution</summary>
+                        <pre class="tree">serveurs = ["SRV-WEB", "SRV-DB", "SRV-BACKUP"]
+for serveur in serveurs:
+    print("Le serveur " + serveur " est en ligne.")</pre>
+                    </details>
+                </div>
+            </div>
+        </section>
+
+        <section id="operateurs">
+            <div class="sec-head"><span class="sec-num">06</span><h2>Les opérateurs</h2><span class="sec-tag">Syntaxe et types</span></div>
+            <div>
                 <p>
                     Voici les opérateurs de base en Python :
                 </p>
@@ -288,44 +641,11 @@ int("abc")  # ❌ ValueError: invalid literal for int()</pre>
                         </tr>
                     </tbody>
                 </table>
-
-                <h3>📥 Entrées/Sorties</h3>
-                <p>
-                    Python permet d'interagir avec l'utilisateur via <code>input()</code> et d'afficher des résultats avec <code>print()</code> :
-                </p>
-                <pre>
-# Demander le nom de l'utilisateur
-nom = input("Quel est votre nom ? ")
-
-# Afficher un message personnalisé
-print(f"Bonjour ", nom)
-
-# Calculer et afficher la somme de deux nombres
-a = int(input("Saisir le premier nombre : "))
-b = int(input("Saisir le deuxième nombre : "))
-print(f"La somme est : {a + b}")</pre>
-                <div class="callout">
-                    <span class="lbl">Astuce : Les f-strings</span>
-                    <p>
-                        Les <b>f-strings</b> (depuis Python 3.6) permettent d'insérer facilement des variables dans une chaîne :
-                    </p>
-                    <pre>
-nom = "Alice"
-age = 25
-print(f"{nom} a {age} ans.")  # Affiche : Alice a 25 ans.</pre>
-                    <p>
-                        Alternative (ancienne méthode) :
-                        <pre>
-print("{} a {} ans.".format(nom, age))</pre>
-                    </p>
-                </div>
             </div>
         </section>
         
-
-        <!-- Conditions -->
         <section id="conditions">
-            <div class="sec-head"><span class="sec-num">04</span><h2>Les conditions en Python</h2><span class="sec-tag">for et while</span></div>
+            <div class="sec-head"><span class="sec-num">07</span><h2>Les conditions en Python</h2><span class="sec-tag">for et while</span></div>
             <div>
                 <p>Les conditions permettent de <b>prendre des décisions</b> dans votre code.</p>
                 <p>Ce langage utilise les mots-clés <code>if</code>, <code>elif</code> et <code>else</code>.</p>
@@ -364,9 +684,8 @@ else:
             </div>
         </section>
 
-        <!-- Boucles -->
         <section id="boucles">
-            <div class="sec-head"><span class="sec-num">05</span><h2>Les boucles en Python</h2><span class="sec-tag">for et while</span></div>
+            <div class="sec-head"><span class="sec-num">08</span><h2>Les boucles en Python</h2><span class="sec-tag">for et while</span></div>
             <div>
                 <p>
                     Les boucles permettent de <b>répéter une action</b> plusieurs fois.
@@ -499,9 +818,8 @@ while True:
             </div>
         </section>
 
-        <!-- Boucles : Typographie et bonnes pratiques -->
-        <section id="boucles-bonnes-pratiques">
-            <div class="sec-head"><span class="sec-num">06</span><h2>Boucles : Typographie et bonnes pratiques</h2><span class="sec-tag">Style et conseils</span></div>
+        <section id="boucles-2">
+            <div class="sec-head"><span class="sec-num">09</span><h2>Boucles : Typographie et bonnes pratiques</h2><span class="sec-tag">Style et conseils</span></div>
             <div>
                 <p>
                     Voici les <b>règles de typographie</b> et les <b>bonnes pratiques</b> pour écrire des boucles claires et maintenables.
@@ -619,9 +937,8 @@ for i in range(5):
             </div>
         </section>
 
-        <!-- Fonctions -->
         <section id="fonctions">
-            <div class="sec-head"><span class="sec-num">07</span><h2>Les fonctions en Python</h2><span class="sec-tag">Modularité et réutilisabilité</span></div>
+            <div class="sec-head"><span class="sec-num">10</span><h2>Les fonctions en Python</h2><span class="sec-tag">Modularité et réutilisabilité</span></div>
             <div>
                 <p>
                     Les fonctions permettent de <b>structurer votre code</b> en blocs réutilisables.
@@ -780,70 +1097,8 @@ def calculer_moyenne(notes):
             </div>
         </section>
 
-        <!-- Portée des variables -->
-        <section id="portee-variables">
-            <div class="sec-head"><span class="sec-num">08</span><h2>Portée des variables</h2><span class="sec-tag">Locale vs Globale</span></div>
-            <div>
-                <p>
-                    La <b>portée d'une variable</b> détermine où cette variable peut être <b>accédée</b> dans votre code.
-                </p>
-
-                <h3>🌍 Variables locales</h3>
-                <p>
-                    Une variable <b>locale</b> est déclarée <b>à l'intérieur d'une fonction</b> et n'est accessible <b>que dans cette fonction</b>.
-                </p>
-                <div class="callout">
-                    <span class="lbl">Exemple</span>
-                    <pre>
-def ma_fonction():
-    x = 10  # Variable locale
-    print(x)  # ✅ OK : x est accessible ici
-
-ma_fonction()  # Affiche : 10
-print(x)       # ❌ Erreur : x n'est pas défini ici (hors de la fonction)</pre>
-                </div>
-
-                <h3>🌐 Variables globales</h3>
-                <p>
-                    Une variable <b>globale</b> est déclarée <b>en dehors des fonctions</b> et est accessible <b>partout</b> dans le fichier.
-                </p>
-                <div class="callout">
-                    <span class="lbl">Exemple</span>
-                    <pre>
-x = 10  # Variable globale
-
-def ma_fonction():
-    print(x)  # ✅ OK : x est accessible ici
-
-ma_fonction()  # Affiche : 10
-print(x)       # ✅ OK : Affiche : 10</pre>
-                </div>
-
-                <div class="callout">
-                    <span class="lbl">Modifier une variable globale</span>
-                    <p>
-                        Pour modifier une variable globale <b>à l'intérieur d'une fonction</b>, utilisez le mot-clé <code>global</code> :
-                    </p>
-                    <pre>
-x = 10  # Variable globale
-
-def ma_fonction():
-    global x  # Indique que x est globale
-    x = 20     # Modifie la variable globale
-
-ma_fonction()
-print(x)  # Affiche : 20 (la variable globale a été modifiée)</pre>
-                    <p>
-                        <b>Attention</b> : L'utilisation de variables globales est <b>déconseillée</b> car elle rend le code plus difficile à maintenir.
-                        Préférez passer les variables en <b>paramètres</b> ou utiliser des <b>valeurs de retour</b>.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gestion des erreurs -->
-        <section id="gestion-erreurs">
-            <div class="sec-head"><span class="sec-num">08</span><h2>Gestion des erreurs en Python</h2><span class="sec-tag">try/except/raise</span></div>
+        <section id="erreurs">
+            <div class="sec-head"><span class="sec-num">11</span><h2>Gestion des erreurs en Python</h2><span class="sec-tag">try/except/raise</span></div>
             <div>
                 <p>
                     La <b>gestion des erreurs</b> permet de rendre votre code plus <b>robuste</b> et plus <b>user-friendly</b>.
@@ -1050,208 +1305,10 @@ except ErreurPersonnalisee as e:
             </div>
         </section>
 
-        <!-- Exercices pratiques -->
-        <section id="exercices">
-            <div class="sec-head"><span class="sec-num">09</span><h2>Exercices pratiques</h2><span class="sec-tag">À vous de jouer !</span></div>
-            <div>
-                <p>
-                    Voici quelques exercices pour <b>pratiquer</b> les concepts vus dans ce cours.
-                    Essayez de les résoudre avant de regarder les corrections !
-                </p>
-
-                <h3>🔁 Exercices sur les boucles</h3>
-                <div class="callout">
-                    <span class="lbl">Exercice 1 : Compter les nombres pairs</span>
-                    <p>
-                        Écrivez un programme qui demande à l'utilisateur de saisir 10 nombres, puis affiche combien de ces nombres sont pairs.
-                    </p>
-                    <details>
-                        <summary>Voir la correction</summary>
-                        <pre>
-nombres = []
-for _ in range(10):
-    nombres.append(int(input("Saisir un nombre : ")))
-
-compteur_pairs = 0
-for nombre in nombres:
-    if nombre % 2 == 0:
-        compteur_pairs += 1
-
-print(f"Nombre de pairs : {compteur_pairs}")</pre>
-                    </details>
-                </div>
-
-                <div class="callout">
-                    <span class="lbl">Exercice 3 : Jeu de devinette</span>
-                    <p>
-                        Écrivez un programme qui :
-                        <ol>
-                            <li>Génère un nombre aléatoire entre 1 et 100.</li>
-                            <li>Demande à l'utilisateur de deviner ce nombre.</li>
-                            <li>Indique si le nombre est trop grand ou trop petit.</li>
-                            <li>Félicite l'utilisateur quand il trouve le bon nombre et affiche le nombre d'essais.</li>
-                        </ol>
-                        <em>Indice : Utilisez <code>import random</code> et <code>random.randint(1, 100)</code>.</em>
-                    </p>
-                    <details>
-                        <summary>Voir la correction</summary>
-                        <pre>
-import random
-
-nombre_secret = random.randint(1, 100)
-essais = 0
-
-while True:
-    essai = int(input("Devinez le nombre (1-100) : "))
-    essais += 1
-    if essai == nombre_secret:
-        print(f"Bravo ! Vous avez trouvé en {essais} essais.")
-        break
-    elif essai < nombre_secret:
-        print("C'est plus grand.")
-    else:
-        print("C'est plus petit.")</pre>
-                    </details>
-                </div>
-
-                <h3>🎯 Exercices sur les fonctions</h3>
-                <div class="callout">
-                    <span class="lbl">Exercice 1 : Fonction pour calculer la moyenne</span>
-                    <p>
-                        Écrivez une fonction <code>calculer_moyenne(notes)</code> qui :
-                        <ol>
-                            <li>Prend en paramètre une liste de notes (nombres).</li>
-                            <li>Retourne la moyenne des notes.</li>
-                            <li>Lève une exception <code>ValueError</code> si la liste est vide.</li>
-                        </ol>
-                        <em>Documentez la fonction avec une docstring.</em>
-                    </p>
-                    <details>
-                        <summary>Voir la correction</summary>
-                        <pre>
-def calculer_moyenne(notes):
-    """Calcule la moyenne d'une liste de notes.
-
-    Args:
-        notes (list): Liste de nombres (float ou int).
-
-    Returns:
-        float: La moyenne des notes.
-
-    Raises:
-        ValueError: Si la liste est vide.
-    """
-    if len(notes) == 0:
-        raise ValueError("La liste de notes ne peut pas être vide.")
-    return sum(notes) / len(notes)
-
-# Exemple d'utilisation
-notes = [12, 15, 9, 18]
-print(f"Moyenne : {calculer_moyenne(notes)}")</pre>
-                    </details>
-                </div>
-
-                <div class="callout">
-                    <span class="lbl">Exercice 2 : Fonction pour vérifier un mot de passe</span>
-                    <p>
-                        Écrivez une fonction <code>verifier_mot_de_passe(mdp)</code> qui :
-                        <ol>
-                            <li>Prend en paramètre un mot de passe (chaîne de caractères).</li>
-                            <li>Retourne <code>True</code> si le mot de passe a au moins 8 caractères <b>et</b> contient au moins un chiffre.</li>
-                            <li>Retourne <code>False</code> sinon.</li>
-                        </ol>
-                        <em>Documentez la fonction avec une docstring.</em>
-                    </p>
-                    <details>
-                        <summary>Voir la correction</summary>
-                        <pre>
-def verifier_mot_de_passe(mdp):
-    """Vérifie si un mot de passe respecte les règles de sécurité.
-
-    Args:
-        mdp (str): Mot de passe à vérifier.
-
-    Returns:
-        bool: True si le mot de passe est valide, False sinon.
-    """
-    return len(mdp) >= 8 and any(char.isdigit() for char in mdp)
-
-# Exemple d'utilisation
-if verifier_mot_de_passe("MonMotDePasse123"):
-    print("Mot de passe valide")
-else:
-    print("Mot de passe invalide")</pre>
-                    </details>
-                </div>
-
-                <h3>⚠️ Exercices sur la gestion des erreurs</h3>
-                <div class="callout">
-                    <span class="lbl">Exercice 1 : Division sécurisée</span>
-                    <p>
-                        Écrivez un programme qui :
-                        <ol>
-                            <li>Demande à l'utilisateur de saisir deux nombres.</li>
-                            <li>Divise le premier nombre par le deuxième.</li>
-                            <li>Gère les erreurs de type <code>ValueError</code> (si l'utilisateur ne saisi pas un nombre) et <code>ZeroDivisionError</code> (si le deuxième nombre est zéro).</li>
-                        </ol>
-                    </p>
-                    <details>
-                        <summary>Voir la correction</summary>
-                        <pre>
-try:
-    a = int(input("Saisir le premier nombre : "))
-    b = int(input("Saisir le deuxième nombre : "))
-    resultat = a / b
-    print(f"Résultat : {resultat}")
-except ValueError:
-    print("Erreur : veuillez saisir des nombres valides.")
-except ZeroDivisionError:
-    print("Erreur : division par zéro.")</pre>
-                    </details>
-                </div>
-
-                <div class="callout">
-                    <span class="lbl">Exercice 2 : Lire un fichier en toute sécurité</span>
-                    <p>
-                        Écrivez une fonction <code>lire_fichier(nom_fichier)</code> qui :
-                        <ol>
-                            <li>Essaie de lire le contenu d'un fichier.</li>
-                            <li>Retourne le contenu si le fichier existe.</li>
-                            <li>Retourne <code>None</code> si le fichier n'existe pas (en gérant <code>FileNotFoundError</code>).</li>
-                        </ol>
-                    </p>
-                    <details>
-                        <summary>Voir la correction</summary>
-                        <pre>
-def lire_fichier(nom_fichier):
-    """Lit le contenu d'un fichier.
-
-    Args:
-        nom_fichier (str): Nom du fichier à lire.
-
-    Returns:
-        str: Contenu du fichier, ou None si le fichier n'existe pas.
-    """
-    try:
-        with open(nom_fichier, "r") as fichier:
-            return fichier.read()
-    except FileNotFoundError:
-        return None
-
-# Exemple d'utilisation
-contenu = lire_fichier("fichier_inexistant.txt")
-if contenu is None:
-    print("Fichier introuvable.")
-else:
-    print(f"Contenu : {contenu}")</pre>
-                    </details>
-                </div>
-            </div>
-        </section>
 
         <!-- Résumé -->
         <section id="resume">
-            <div class="sec-head"><span class="sec-num">10</span><h2>Résumé du cours</h2><span class="sec-tag">Synthèse</span></div>
+            <div class="sec-head"><span class="sec-num">12</span><h2>Résumé du cours</h2><span class="sec-tag">Synthèse</span></div>
             <div>
                 <p>
                     Voici les points clés à retenir de ce cours sur Python et l'algorithmique :
@@ -1305,6 +1362,16 @@ else:
                     </thead>
                     <tbody>
                         <tr>
+                            <td><b>Condition <code>if</code></b></td>
+                            <td><code>for var in sequence:</code></td>
+                            <td><pre>if [condition]:
+    [alors faire]
+elif [une condition sinon]:
+    [alors faire]
+else:
+    [alors faire]</pre></td>
+                        </tr>
+                        <tr>
                             <td><b>Boucle <code>for</code></b></td>
                             <td><code>for var in sequence:</code></td>
                             <td><code>for i in range(5): print(i)</code></td>
@@ -1352,42 +1419,6 @@ except ValueError:
                         </tr>
                     </tbody>
                 </table>
-
-                <h3>🎯 Prochaines étapes</h3>
-                <p>
-                    Pour aller plus loin avec Python :
-                </p>
-                <ul>
-                    <li>
-                        <b>Pratiquer avec des exercices</b> :
-                        <ul>
-                            <li><a href="https://www.codewars.com/" target="_blank">Codewars</a> (défis algorithmique).</li>
-                            <li><a href="https://exercism.org/tracks/python" target="_blank">Exercism</a> (exercices guidés).</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <b>Découvrir des bibliothèques utiles</b> :
-                        <ul>
-                            <li><code>requests</code> : Faire des requêtes HTTP.</li>
-                            <li><code>pandas</code> : Manipuler des données tabulaires.</li>
-                            <li><code>subprocess</code> : Exécuter des commandes système.</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <b>Apprendre la POO (Programmation Orientée Objet)</b> :
-                        <ul>
-                            <li>Classes et objets.</li>
-                            <li>Héritage et polymorphisme.</li>
-                        </ul>
-                    </li>
-                    <li>
-                        <b>Combiner Python et Git</b> :
-                        <ul>
-                            <li>Versionner vos scripts Python avec Git.</li>
-                            <li>Collaborer sur des projets avec GitHub.</li>
-                        </ul>
-                    </li>
-                </ul>
             </div>
         </section>
 

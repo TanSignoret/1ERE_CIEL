@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP CIEL - Révision des bases de Python</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function(e) {
+                        if (e.target.tagName === 'A') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+    <style>
+        :root {
+            --step-size: 2.1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <header class="hero col">
+            <div class="eyebrow">Séance 2 — Révision Python</div>
+            <h1>Révision des bases de Python pour RéseauPro</h1>
+            <div class="chips">
+                <span class="chip">Première Bac Pro CIEL</span>
+                <span class="chip">Durée : 2 h</span>
+                <span class="chip">IDE en ligne : OnlineIDE</span>
+                <span class="chip">Travail individuel</span>
+            </div>
+        </header>
+
+        <!-- Objectifs -->
+        <section id="objectifs">
+            <div class="sec-head"><span class="sec-num">01</span><h2>Contexte pro</h2><span class="sec-tag">Contexte</span></div>
+            <div class="col">
+                <p>Chez RéseauPro Solutions, votre tuteur vous demande de revoir les bases de Python pour automatiser des tâches simples : gestion de variables, entrées/sorties, conditions et boucles. Vous allez aussi découvrir un nouveau type de données : les listes.</p>
+            </div>
+            <div class="sec-head"><span class="sec-num">02</span><h2>Ce que tu vas apprendre</h2><span class="sec-tag">Objectifs</span></div>
+            <div class="col">
+                <ul class="plain">
+                    <li>Revoir les <b>variables</b> et les types <code>int</code>, <code>float</code> et <code>str</code>.</li>
+                    <li>Utiliser <code>input()</code> pour demander des entrées à l'utilisateur.</li>
+                    <li>Afficher des résultats avec <code>print()</code>.</li>
+                    <li>Écrire des <b>conditions</b> avec <code>if/elif/else</code>.</li>
+                    <li>Utiliser des <b>boucles</b> <code>for</code> et <code>while</code>.</li>
+                    <li>Découvrir les <b>listes</b> pour stocker plusieurs valeurs.</li>
+                </ul>
+            </div>
+
+            <!-- <h3>Compétences visées</h3>
+            <div class="skills">
+                <div class="skill">
+                    <span class="code">C1.1 · Unité E31</span>
+                    <b>Développer des scripts en Python</b>
+                    <span>Écrire un algorithme simple en utilisant des variables, des conditions et des boucles.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C1.2 · Unité E31</span>
+                    <b>Automatiser des tâches</b>
+                    <span>Utiliser Python pour automatiser des calculs ou des vérifications répétitives.</span>
+                </div>
+                <div class="skill">
+                    <span class="code">C4.1 · Unité E32</span>
+                    <b>Utiliser un environnement de développement</b>
+                    <span>Manipuler un IDE en ligne pour écrire et tester du code.</span>
+                </div>
+            </div>
+            <p class="note" style="margin-top:.9rem">Repères Vademecum Première TNE — activités « développer un algorithme simple » et « automatiser des tâches ».</p>-->
+
+        </section>
+
+        <!-- Introduction -->
+        <section id="introduction">
+            <div class="sec-head"><span class="sec-num">02</span><h2>Introduction</h2><span class="sec-tag">Prérequis</span></div>
+            <div class="col">
+                <p>Chez <b>RéseauPro Solutions</b>, votre équipe utilise Python pour automatiser des tâches d'administration réseau.</p>
+                <h3>Déroulé de la séance</h3>
+                <nav class="toc" aria-label="Sommaire">
+                    <ol>
+                        <li><a href="#introduction">Introduction</a></li>
+                        <li><a href="#tp2">TP 2 — Révision des bases de Python</a></li>
+                        <li><a href="#lexique">Lexique</a></li>
+                    </ol>
+                </nav>
+                <p>Vous allez utiliser <b><a href="https://www.onlineide.pro/playground/python" target="_blank">OnlineIDE</a></b>, un IDE en ligne qui ne nécessite pas d'installation.</p>
+
+                <div class="callout">
+                    <span class="lbl">Matériel nécessaire</span>
+                    <p>Pour suivre ce TP, tu auras besoin de :</p>
+                    <ul class="plain">
+                        <li>Un poste informatique avec accès à Internet.</li>
+                        <li>Un navigateur web (Firefox, Chrome, Edge).</li>
+                        <li>Un compte sur <a href="https://www.onlineide.pro/playground/python" target="_blank">OnlineIDE</a> (gratuit, pas d'inscription nécessaire).</li>
+                    </ul>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Faire un contre rendu de tp</span>
+                    <p>Tout au long du tp, vous allez compléter le fichier de contre rendu du TP.</p>
+                    <ul class="plain">
+                        <li>Respecter le format de nommage du fichier : <code>TP__[sujet ou numéro du TP]_[ma classe]_[nom]_[prénom].py</code>.<br><i>Pour rappel, on ne met pas d'espace, d'accent ou de caractère spécial dans le nom d'un fichier</i></li>
+                        <li>Une fois que vous avez réussi un exercice, mettre le code dans votre document.</li>
+                        <li>Noubliez pas de commenter votre code pour expliquer vos choix.<br>En Python, le symbole <code>#</code> permet de commenter du texte.</li>
+                    </ul>
+                </div>
+                <p>Il sera a déposer sur un répertoire git (public) à la fin de la séance (voir cahier de texte)</p>
+            </div>
+        </section>
+
+        <!-- TP2 -->
+        <section id="tp2">
+            <div class="sec-head"><span class="sec-num">03</span><h2>TP 2 — Révision des bases de Python</h2><span class="sec-tag">5 exercices</span></div>
+            <div class="col">
+                <p>Dans ce TP, tu vas écrire <b>5 scripts Python</b> pour automatiser des tâches simples chez RéseauPro. Chaque script doit être <b>testé et fonctionnel</b> avant de passer à l'exercice suivant.</p>
+            </div>
+
+            <ol class="steps">
+                <!-- Exercice 1 : Variables et entrée/sortie -->
+                <li class="step">
+                    <div class="step-num">1</div>
+                    <div class="step-head">
+                        <span class="step-title">Gestion des variables et entrée/sortie</span>
+                        <label class="tick"><input type="checkbox" data-step="e1"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : Ton tuteur te demande de créer un script pour enregistrer les informations d'un nouveau serveur.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Demander à l'utilisateur de saisir :
+                                <ul class="plain">
+                                    <li>Le <b>nom du serveur</b> (ex: <code>"SRV-WEB-01"</code>).</li>
+                                    <li>L'<b>adresse IP</b> du serveur (ex: <code>"192.168.1.1"</code>).</li>
+                                    <li>Le <b>nombre de ports ouverts</b> (ex: <code>3</code>).</li>
+                                </ul>
+                            </li>
+                            <li>Afficher un message de confirmation avec les informations saisies :
+                                <pre class="tree">Le serveur [nom] a pour adresse IP [IP] et a [ports] ports ouverts.</pre>
+                            </li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple</span>
+                            <p>Si l'utilisateur saisi <code>SRV-WEB-01</code>, <code>192.168.1.1</code> et <code>3</code>, le script doit afficher :</p>
+                            <pre class="tree">Le serveur SRV-WEB-01 a pour adresse IP 192.168.1.1 et a 3 ports ouverts.</pre>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Exercice 2 : Conditions (if/elif/else) -->
+                <li class="step">
+                    <div class="step-num">2</div>
+                    <div class="step-head">
+                        <span class="step-title">Vérification de configuration avec conditions</span>
+                        <label class="tick"><input type="checkbox" data-step="e2"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : RéseauPro impose des règles pour les mots de passe des serveurs : ils doivent faire <b>au moins 8 caractères</b>.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Demander à l'utilisateur de se créer un compte (<b>saisir un nom et mot de passe</b>). Stocker ces informations dans 2 variables.</li>
+                            <li>Demander à l'utilisateur de saisir un <b>nom et un mot de passe</b>.</li>
+                            <li>Pour se connecter, il faut que :
+                                <ul class="plain">
+                                    <li>Le mot de passe et le nom correspond aux informations préalablement enregistrée. Si c'est bien le cas, afficher : <code>"Connexion effectué"</code></li>
+                                    <li>Si c'est le mot de passe qui n'est pas bon, afficher : <code>"Mot de passe incorect"</code></li>
+                                    <li>Si c'est le nom qui n'est pas bon, afficher : <code>"Nom incorect"</code></li>
+                                    <li>Sinon, afficher : <code>"Connexion impossible."</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
+                <!-- Exercice 3 : Boucle for -->
+                <li class="step">
+                    <div class="step-num">3</div>
+                    <div class="step-head">
+                        <span class="step-title">Simuler un scan de ports avec une boucle <code>for</code></span>
+                        <label class="tick"><input type="checkbox" data-step="e3"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : Ton tuteur te demande de simuler un scan des ports 22, 80 et 443 sur un serveur.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Utiliser une boucle <code>for</code> pour parcourir les ports <code>22</code>, <code>80</code> et <code>443</code>.</li>
+                            <li>Pour chaque port, afficher :
+                                <pre class="tree">Scanne le port [port]...</pre>
+                            </li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple</span>
+                            <p>Le script doit afficher :</p>
+                            <pre class="tree">Scanne le port 22...
+Scanne le port 80...
+Scanne le port 443...</pre>
+                        </div>
+                        <div class="callout">
+                            <span class="lbl">Astuce</span>
+                            <p>Utilisez une liste pour stocker les ports : <code>ports = [22, 80, 443]</code>, puis parcours-la avec <code>for port in ports:</code>.</p>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Exercice 4 : Boucle while -->
+                <li class="step">
+                    <div class="step-num">4</div>
+                    <div class="step-head">
+                        <span class="step-title">Vérification de connexion avec une boucle <code>while</code></span>
+                        <label class="tick"><input type="checkbox" data-step="e4"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : Ton tuteur te demande de créer un script qui demande à l'utilisateur de saisir un code de connexion valide.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Le code de connexion valide est <code>"CIEL2026"</code>.</li>
+                            <li>Utiliser une boucle <code>while</code> pour demander à l'utilisateur de saisir un code <b>jusqu'à ce qu'il soit valide</b>.</li>
+                            <li>Si le code est incorrect, afficher : <code>"Code incorrect. Réessayez."</code></li>
+                            <li>Si le code est correct, afficher : <code>"Accès autorisé."</code> et quitter la boucle.</li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple</span>
+                            <p>Si l'utilisateur saisi <code>"ABC123"</code>, puis <code>"CIEL2026"</code>, le script doit afficher :</p>
+                            <pre class="tree">Code incorrect. Réessayez.
+Accès autorisé.</pre>
+                        </div>
+                    </div>
+                </li>
+
+                <!-- Exercice 5 : Découverte des listes -->
+                <li class="step">
+                    <div class="step-num">5</div>
+                    <div class="step-head">
+                        <span class="step-title">Gestion d'une liste d'adresses IP</span>
+                        <label class="tick"><input type="checkbox" data-step="e5"><span>Fait</span></label>
+                    </div>
+                    <div class="step-body">
+                        <p><b>Contexte</b> : Ton tuteur te demande de gérer une liste d'adresses IP pour un réseau local.</p>
+                        <p><b>Consignes</b> :</p>
+                        <ul class="plain">
+                            <li>Créer une liste avec les adresses IP suivantes : <code>["192.168.1.1", "192.168.1.2", "192.168.1.3"]</code>.</li>
+                            <li>Afficher la <b>deuxième adresse IP</b> de la liste.</li>
+                            <li>Ajouter une <b>quatrième adresse IP</b> (<code>"192.168.1.4"</code>) à la liste.</li>
+                            <li>Afficher toute la liste mise à jour.</li>
+                        </ul>
+                        <div class="callout">
+                            <span class="lbl">Exemple</span>
+                            <p>Le script doit afficher :</p>
+                            <pre class="tree">Deuxième adresse IP : 192.168.1.2
+Liste complète : ['192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4']</pre>
+                        </div>
+                        <div class="callout">
+                            <span class="lbl">Astuce</span>
+                            <p>Pour accéder à un élément d'une liste, utilisez son <b>index</b> entre crochets : <code>ma_liste[1]</code> (l'index commence à 0).</p>
+                            <p>Pour ajouter un élément à une liste, utilisez <code>ma_liste.append("valeur")</code>.</p>
+                        </div>
+                    </div>
+                </li>
+            </ol>
+        </section>
+
+        <!-- Lexique -->
+        <section id="lexique">
+            <div class="sec-head"><span class="sec-num">04</span><h2>Lexique</h2><span class="sec-tag">Vocabulaire</span></div>
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Mot</th>
+                            <th>Définition</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Variable</b></td>
+                            <td>Espace de stockage pour une valeur (ex: <code>nom = "SRV-01"</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b><code>int</code></b></td>
+                            <td>Type de variable pour les nombres entiers (ex: <code>age = 25</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b><code>float</code></b></td>
+                            <td>Type de variable pour les nombres à virgule (ex: <code>pi = 3.14</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b><code>str</code></b></td>
+                            <td>Type de variable pour les chaînes de caractères (ex: <code>nom = "CIEL"</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b><code>input()</code></b></td>
+                            <td>Fonction pour demander une entrée à l'utilisateur.</td>
+                        </tr>
+                        <tr>
+                            <td><b><code>print()</code></b></td>
+                            <td>Fonction pour afficher un texte ou une variable.</td>
+                        </tr>
+                        <tr>
+                            <td><b>Condition (<code>if</code>)</b></td>
+                            <td>Structure qui exécute du code en fonction d'une condition (ex: <code>if x > 0:</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b>Boucle <code>for</code></b></td>
+                            <td>Structure qui répète une action pour chaque élément d'une séquence (ex: <code>for i in range(5):</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b>Boucle <code>while</code></b></td>
+                            <td>Structure qui répète une action tant qu'une condition est vraie (ex: <code>while x < 10:</code>).</td>
+                        </tr>
+                        <tr>
+                            <td><b>Liste</b></td>
+                            <td>Collection ordonnée de valeurs (ex: <code>ips = ["192.168.1.1", "192.168.1.2"]</code>).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <footer class="col">
+            <p>TP 2 — Révision Python — Première Bac Pro CIEL — Lycée Charlie Chaplin — T. Signoret</p>
+            <p>Septembre 2026.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projet Labyrinthe — Première Bac Pro CIEL | Tanguy Signoret</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+</head>
+<body>
+    <div class="wrap">
+        <!-- En-tête -->
+        <header class="hero">
+            <div class="eyebrow">Première Bac Pro CIEL — Développement et Réseau</div>
+            <h1>Projet : Créer un jeu de labyrinthe</h1>
+            <div class="chips">
+                <span class="chip">Python</span>
+                <span class="chip">Bac Pro CIEL</span>
+                <span class="chip">Travail bonnus</span>
+            </div>
+        </header>
+
+        <h3>Déroulé du document</h3>
+        <nav class="toc" aria-label="Sommaire">
+            <ol>
+                <li><a href="#autonome">Le projet faiblement guidé</a></li>
+                <li><a href="#guide">Le projet guidé</a></li>
+                <li><a href="#conclu">Fin</a></li>
+                <li><a href="#bonus">Des améliorations possibles</a></li>
+            </ol>
+        </nav>
+
+        <!-- Contenu principal -->
+        <main>
+            <section id="autonome">
+                <div class="sec-head"><span class="sec-num">01</span><h2>Projet faiblement guidé</h2><span class="sec-tag">1h30</span></div>
+                <di class="col">
+                    <p><b>Fonctionnalité du jeu</b> :</p>
+                    <ul class="plain">
+                        <li>Afficher un labyrinthe.</li>
+                        <li>Permettre au joueur de se déplacer avec les flèches du clavier.</li>
+                        <li>Détecter les collisions avec les murs.</li>
+                        <li>Vérifier si le joueur a atteint la sortie.</li>
+                    </ul>
+                </di>
+
+                <ol class="steps">
+                    <li class="step">
+                        <div class="step-num">0</div>
+                        <div class="step-head">
+                            <span class="step-title">Créer un organigramme</span>
+                            <label class="tick"><input type="checkbox" data-step="s1e4"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Consignes</b> : Dessinez un <strong>logigramme</strong> qui représente le fonctionnement du jeu.</p>
+                            <p>Cela vous permettra de visualiser les différentes étapes de développement.</p>
+                        </div>
+                    </li>
+
+                    <!-- Étape 1 -->
+                    <li class="step">
+                        <div class="step-num">1</div>
+                        <div class="step-head">
+                            <span class="step-title">Fonctionnalité 1 : Afficher la grille</span>
+                            <label class="tick"><input type="checkbox" data-step="s1e1"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Afficher une grille de labyrinthe</p>
+                            <p>Voici un exemple de labyrinthe en texte :</p>
+                            <pre class="tree">X X X X X X X X S X
+X . . . X X . . . X
+X . X . X . . X . X
+X . X . . X . X . X
+X . . X . . . X . X
+X . . . . X . . . X
+X P X X X X X X X X</pre>
+                            <p><code>X</code> = Mur | <code>.</code> = Chemin | <code>P</code> = Joueur | <code>S</code> = Sortie</p>
+                            <p><b>Aide</b> :</p>
+                            <ul class="plain">
+                                <li>A l'aide de la fonction <code>print</code> afficher le labyrinthe</li>
+                                <li>Il faut l'utiliser plusieurs fois ou utiliser une boucle <code>for</code>.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Étape 2 -->
+                    <li class="step">
+                        <div class="step-num">2</div>
+                        <div class="step-head">
+                            <span class="step-title">Permettre au joueur de se déplacer</span>
+                            <label class="tick"><input type="checkbox" data-step="s1e2"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Étape 1</b> :</p>
+                            <ul class="plain">
+                                <li>Quel type vous permet de stocker la position (les coordonnées) du joueur ?</li>
+                                <li>Affichez un labyrinthe en faisant déplacer le personnage, en saissisant sa futur position au clavier</li>
+                            </ul>
+                            <p><b>Étape 2</b> :</p>
+                            <ul class="plain">
+                                <li>Comment récupérer le déplacement du joueur via le clavier ? <i>On utilise souvent les touches Z, Q, S, et D à place des flèches de direction.</i></li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Étape 3 -->
+                    <li class="step">
+                        <div class="step-num">3</div>
+                        <div class="step-head">
+                            <span class="step-title">Vérifier si le déplacement est possible</span>
+                            <label class="tick"><input type="checkbox" data-step="s1e2"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Étape 1</b> :</p>
+                            <ul class="plain">
+                                <li>Avant un déplacement vérifier si le personnage va contre un mur.</li>
+                                <li>Afficher un message si le déplcament ne peut pas se faire.</li>
+                            </ul>
+                            <p><b>Étape 2</b> :</p>
+                            <ul class="plain">
+                                <li>Pour afficher la visctoire, vérifier que le personnage arrive sur la sortie.</i></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="step">
+                        <div class="step-num">4</div>
+                        <div class="step-head">
+                            <span class="step-title">Assemblage</span>
+                            <label class="tick"><input type="checkbox" data-step="s1e2"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Aide</b> :</p>
+                            <ul class="plain">
+                                <li>Réunissez toutes vos briques de développement en une seul fois.</li>
+                                <li>Répéter les fonctionalités tant que le joueur n'a pas gagné.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">5</div>
+                        <div class="step-head">
+                            <span class="step-title">Interface graphique avancée</span>
+                            <label class="tick"><input type="checkbox" data-step="s1e2"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Aide</b> :</p>
+                            <ul class="plain">
+                                <li>Installez la librairie <code>Pygame</code> à l'aide la commande <code>pip install pygame</code>.</li>
+                                <li>Utiliser cette librairie pour afficher la grille du labyrinthe</li>
+                            </ul>
+                        </div>
+                    </li>
+
+
+                </ol>
+            </section>
+
+            <section id="guide">
+                <div class="sec-head"><span class="sec-num">02</span><h2>Créer un labyrinthe - Accompagné</h2><span class="sec-tag">2h</span></div>
+                <div class="col">
+                    <p>Dans cette séance, vous allez <b>représenter un labyrinthe</b> avec une liste 2D et l'afficher en console.
+                    Vous allez également permettre au joueur de se déplacer dans ce labyrinthe.</p>
+                </div>
+
+                <ol class="steps">
+                    <!-- Exercice 1 -->
+                    <li class="step">
+                        <div class="step-num">1</div>
+                        <div class="step-head">
+                            <span class="step-title">Créer une grille 2D</span>
+                            <label class="tick"><input type="checkbox" data-step="s3e1"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Un labyrinthe peut être représenté par une liste de listes en Python.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Créer une variable <code>labyrinthe</code> qui contient une grille 2D.</li>
+                                <li>Utiliser <code>1</code> pour les murs et <code>0</code> pour les chemins.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Déclarer une variable <code>labyrinthe</code>.</li>
+                                <li>Remplir cette variable avec une grille 2D (exemple : 5x5).</li>
+                            </ul>
+                            <div class="callout">
+                                <span class="lbl">Exemple</span>
+                                <p>Voici un exemple de grille 2D :</p>
+                                <pre class="tree"><code>labyrinthe = [
+    [1, 1, 1, 1, 1],
+    [1, 0, 0, 0, 1],
+    [1, 0, 1, 0, 1],
+    [1, 0, 0, 0, 1],
+    [1, 1, 1, 1, 1]
+]</code></pre>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Exercice 2 -->
+                    <li class="step">
+                        <div class="step-num">2</div>
+                        <div class="step-head">
+                            <span class="step-title">Afficher le labyrinthe</span>
+                            <label class="tick"><input type="checkbox" data-step="s3e2"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez afficher le labyrinthe en console.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Parcourir chaque ligne et chaque colonne de la grille.</li>
+                                <li>Afficher <code>X</code> pour les murs et <code>.</code> pour les chemins.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Utiliser une boucle <code>for</code> pour parcourir les lignes.</li>
+                                <li>Utiliser une boucle <code>for</code> imbriquée pour parcourir les colonnes.</li>
+                                <li>Afficher <code>X</code> si la case vaut <code>1</code>, sinon afficher <code>.</code>.</li>
+                            </ul>
+                            <div class="callout">
+                                <span class="lbl">Exemple</span>
+                                <p>Pour la grille de l'exercice précédent, le script doit afficher :</p>
+                                <pre class="tree">X X X X X
+X . . . X
+X . X . X
+X . . . X
+X X X X X</pre>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Exercice 3 -->
+                    <li class="step">
+                        <div class="step-num">3</div>
+                        <div class="step-head">
+                            <span class="step-title">Ajouter le joueur</span>
+                            <label class="tick"><input type="checkbox" data-step="s3e3"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez ajouter le joueur dans le labyrinthe et permettre son déplacement.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Ajouter une variable <code>joueur</code> pour représenter sa position (ex : <code>(1, 1)</code>).</li>
+                                <li>Modifier l'affichage pour afficher <code>P</code> à la position du joueur.</li>
+                                <li>Demander à l'utilisateur de saisir une direction (<code>haut</code>, <code>bas</code>, <code>gauche</code>, <code>droite</code>).</li>
+                                <li>Mettre à jour la position du joueur en fonction de la direction.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Déclarer une variable <code>joueur = (1, 1)</code>.</li>
+                                <li>Modifier la boucle d'affichage pour afficher <code>P</code> à la position du joueur.</li>
+                                <li>Utiliser <code>input()</code> pour demander une direction.</li>
+                                <li>Mettre à jour les coordonnées du joueur en fonction de la direction.</li>
+                            </ul>
+                            <div class="callout">
+                                <span class="lbl">Exemple</span>
+                                <p>Si le joueur est en <code>(1, 1)</code>, le labyrinthe doit s'afficher comme ceci :</p>
+                                <pre class="tree">X X X X X
+X P . . X
+X . X . X
+X . . . X
+X X X X X</pre>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Exercice 4 -->
+                    <li class="step">
+                        <div class="step-num">4</div>
+                        <div class="step-head">
+                            <span class="step-title">Gérer les limites</span>
+                            <label class="tick"><input type="checkbox" data-step="s3e4"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez empêcher le joueur de sortir des limites du labyrinthe.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Vérifier que la nouvelle position du joueur est dans les limites de la grille.</li>
+                                <li>Si ce n'est pas le cas, ne pas mettre à jour la position.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Avant de mettre à jour la position, vérifier que <code>x</code> et <code>y</code> sont dans les limites de la grille.</li>
+                                <li>Si la position est invalide, afficher un message d'erreur.</li>
+                            </ul>
+                            <div class="callout deliver">
+                                <span class="lbl">Test</span>
+                                <p>Est-ce que votre script empêche le joueur de sortir des limites du labyrinthe ?</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">5</div>
+                        <div class="step-head">
+                            <span class="step-title">Détecter les collisions</span>
+                            <label class="tick"><input type="checkbox" data-step="s4e1"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez empêcher le joueur de traverser les murs.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Avant de déplacer le joueur, vérifier si la nouvelle case est un mur (<code>1</code>).</li>
+                                <li>Si c'est le cas, ne pas mettre à jour la position et afficher un message.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Calculer la nouvelle position du joueur.</li>
+                                <li>Vérifier si la nouvelle case est un mur (<code>labyrinthe[nouvelle_y][nouvelle_x] == 1</code>).</li>
+                                <li>Si c'est un mur, afficher un message du type : <code>Collision ! Vous ne pouvez pas aller là.</code>.</li>
+                                <li>Sinon, mettre à jour la position du joueur.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">6</div>
+                        <div class="step-head">
+                            <span class="step-title">Ajouter une sortie</span>
+                            <label class="tick"><input type="checkbox" data-step="s4e2"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez ajouter une sortie au labyrinthe.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Ajouter une variable <code>sortie</code> pour représenter la position de la sortie (ex : <code>(3, 3)</code>).</li>
+                                <li>Si le joueur atteint cette position, afficher un message de victoire et arrêter le jeu.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Déclarer une variable <code>sortie = (3, 3)</code>.</li>
+                                <li>Après chaque déplacement, vérifier si la position du joueur est égale à la position de la sortie.</li>
+                                <li>Si c'est le cas, afficher un message du type : <code>Félicitations, vous avez gagné !</code>.</li>
+                                <li>Arrêter le jeu (ex : avec <code>break</code>).</li>
+                            </ul>
+                            <div class="callout">
+                                <span class="lbl">Exemple</span>
+                                <p>Si le joueur atteint la sortie, le script doit afficher :</p>
+                                <pre class="tree">Félicitations, vous avez gagné !</pre>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">7</div>
+                        <div class="step-head">
+                            <span class="step-title">Ajouter un compteur de coups</span>
+                            <label class="tick"><input type="checkbox" data-step="s4e3"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez ajouter un compteur pour suivre le nombre de déplacements du joueur.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Ajouter une variable <code>compteur_coups</code> initialisée à <code>0</code>.</li>
+                                <li>Incrémenter cette variable à chaque déplacement valide.</li>
+                                <li>Afficher le compteur après chaque déplacement.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Déclarer une variable <code>compteur_coups = 0</code>.</li>
+                                <li>Incrémenter <code>compteur_coups</code> de 1 à chaque déplacement valide.</li>
+                                <li>Afficher le compteur avec un message du type : <code>Nombre de coups : [compteur_coups]</code>.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">8</div>
+                        <div class="step-head">
+                            <span class="step-title">Installer et initialiser Pygame</span>
+                            <label class="tick"><input type="checkbox" data-step="s5e1"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez installer Pygame et créer une fenêtre graphique.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Installer Pygame avec la commande <code>pip install pygame</code>.</li>
+                                <li>Créer une fenêtre graphique de 400x400 pixels.</li>
+                                <li>Ajouter une boucle principale pour garder la fenêtre ouverte.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Importer la librairie <code>pygame</code>.</li>
+                                <li>Initialiser Pygame avec <code>pygame.init()</code>.</li>
+                                <li>Créer une fenêtre avec <code>pygame.display.set_mode((400, 400))</code>.</li>
+                                <li>Ajouter une boucle <code>while</code> pour gérer les événements.</li>
+                            </ul>
+                            <div class="callout">
+                                <span class="lbl">Exemple</span>
+                                <p>Voici un exemple de code pour créer une fenêtre :</p>
+                                <pre class="tree"><code>import pygame
+
+pygame.init()
+screen = pygame.display.set_mode((400, 400))
+pygame.display.set_caption("Labyrinthe")
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill((255, 255, 255))
+    pygame.display.flip()
+
+pygame.quit()</code></pre>
+                            </div>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>Votre script ouvre une fenêtre graphique sans erreur.</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">9</div>
+                        <div class="step-head">
+                            <span class="step-title">Dessiner le labyrinthe</span>
+                            <label class="tick"><input type="checkbox" data-step="s5e2"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez dessiner le labyrinthe en utilisant des rectangles pour les murs et un cercle pour le joueur.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Utiliser <code>pygame.draw.rect</code> pour dessiner les murs.</li>
+                                <li>Utiliser <code>pygame.draw.circle</code> pour dessiner le joueur.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Parcourir la grille du labyrinthe.</li>
+                                <li>Pour chaque case :
+                                    <ul class="plain">
+                                        <li>Si c'est un mur (<code>1</code>), dessiner un rectangle gris.</li>
+                                        <li>Si c'est un chemin (<code>0</code>), dessiner un rectangle blanc.</li>
+                                    </ul>
+                                </li>
+                                <li>Dessiner un cercle rouge à la position du joueur.</li>
+                            </ul>
+                            <div class="callout">
+                                <span class="lbl">Exemple</span>
+                                <p>Voici un exemple de code pour dessiner un mur :</p>
+                                <pre class="tree"><code>pygame.draw.rect(screen, (100, 100, 100), (x * 50, y * 50, 50, 50))</code></pre>
+                                <p>Et pour dessiner le joueur :</p>
+                                <pre class="tree"><code>pygame.draw.circle(screen, (255, 0, 0), (joueur_x * 50 + 25, joueur_y * 50 + 25), 20)</code></pre>
+                            </div>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>Votre script affiche correctement le labyrinthe et le joueur en version graphique.</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">10</div>
+                        <div class="step-head">
+                            <span class="step-title">Gérer les entrées clavier</span>
+                            <label class="tick"><input type="checkbox" data-step="s5e3"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez permettre au joueur de se déplacer avec les flèches du clavier.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Utiliser <code>pygame.key.get_pressed()</code> pour détecter les touches directionnelles.</li>
+                                <li>Mettre à jour la position du joueur en fonction des touches pressées.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Récupérer les touches pressées avec <code>keys = pygame.key.get_pressed()</code>.</li>
+                                <li>Vérifier si une touche directionnelle est pressée :
+                                    <ul class="plain">
+                                        <li><code>keys[pygame.K_UP]</code> pour la flèche haut.</li>
+                                        <li><code>keys[pygame.K_DOWN]</code> pour la flèche bas.</li>
+                                        <li><code>keys[pygame.K_LEFT]</code> pour la flèche gauche.</li>
+                                        <li><code>keys[pygame.K_RIGHT]</code> pour la flèche droite.</li>
+                                    </ul>
+                                </li>
+                                <li>Mettre à jour les coordonnées du joueur en fonction de la touche pressée.</li>
+                            </ul>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>Votre script permet de déplacer le joueur avec les flèches du clavier.</p>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="step">
+                        <div class="step-num">11</div>
+                        <div class="step-head">
+                            <span class="step-title">Intégrer les collisions graphiques</span>
+                            <label class="tick"><input type="checkbox" data-step="s6e1"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez intégrer la détection des collisions dans la version graphique.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Utiliser la même logique qu'en console pour détecter les collisions.</li>
+                                <li>Empêcher le joueur de se déplacer vers une case qui est un mur.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Avant de mettre à jour la position du joueur, vérifier si la nouvelle case est un mur.</li>
+                                <li>Si c'est un mur, ne pas mettre à jour la position.</li>
+                            </ul>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>Votre script empêche le joueur de traverser les murs en version graphique.</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Exercice 2 -->
+                    <li class="step">
+                        <div class="step-num">12</div>
+                        <div class="step-head">
+                            <span class="step-title">Ajouter un compteur de coups</span>
+                            <label class="tick"><input type="checkbox" data-step="s6e2"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez ajouter un compteur pour suivre le nombre de déplacements du joueur.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Ajouter une variable <code>compteur_coups</code> initialisée à <code>0</code>.</li>
+                                <li>Incrémenter cette variable à chaque déplacement valide.</li>
+                                <li>Afficher le compteur en haut de l'écran.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Déclarer une variable <code>compteur_coups = 0</code>.</li>
+                                <li>Incrémenter <code>compteur_coups</code> de 1 à chaque déplacement valide.</li>
+                                <li>Utiliser <code>pygame.font</code> pour afficher le compteur :
+                                    <pre class="tree"><code>font = pygame.font.SysFont(None, 36)
+texte = font.render(f"Coups: {compteur_coups}", True, (0, 0, 0))
+screen.blit(texte, (10, 10))</code></pre>
+                                </li>
+                            </ul>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>Votre script affiche correctement le nombre de coups en haut de l'écran.</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <!-- Exercice 3 -->
+                    <li class="step">
+                        <div class="step-num">13</div>
+                        <div class="step-head">
+                            <span class="step-title">Ajouter un chronomètre</span>
+                            <label class="tick"><input type="checkbox" data-step="s6e3"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez ajouter un chronomètre pour mesurer le temps écoulé.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Utiliser <code>pygame.time.Clock()</code> pour mesurer le temps écoulé.</li>
+                                <li>Afficher le temps en haut de l'écran.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Créer un objet <code>clock = pygame.time.Clock()</code>.</li>
+                                <li>Initialiser une variable <code>temps_ecoule = 0</code>.</li>
+                                <li>Dans la boucle principale, incrémenter <code>temps_ecoule</code> :
+                                    <pre class="tree"><code>temps_ecoule += clock.tick(60) / 1000</code></pre>
+                                </li>
+                                <li>Convertir <code>temps_ecoule</code> en minutes et secondes.</li>
+                                <li>Afficher le temps avec <code>pygame.font</code>.</li>
+                            </ul>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>Votre script affiche correctement le temps écoulé en haut de l'écran.</p>
+                            </div>
+                        </div>
+                    </li>
+                    
+                    <li class="step">
+                        <div class="step-num">14</div>
+                        <div class="step-head">
+                            <span class="step-title">Créer une fonction pour initialiser le labyrinthe</span>
+                            <label class="tick"><input type="checkbox" data-step="s7e1"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez créer une fonction qui retourne une grille 2D représentant le labyrinthe.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Créer une fonction <code>initialiser_labyrinthe()</code>.</li>
+                                <li>Cette fonction doit retourner une grille 2D.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Définir la fonction avec <code>def initialiser_labyrinthe():</code>.</li>
+                                <li>Retourner une grille 2D (ex : 5x5).</li>
+                            </ul>
+                            <div class="callout">
+                                <span class="lbl">Exemple</span>
+                                <p>Voici un exemple de fonction :</p>
+                                <pre class="tree"><code>def initialiser_labyrinthe():
+    return [
+        [1, 1, 1, 1, 1],
+        [1, 0, 0, 0, 1],
+        [1, 0, 1, 0, 1],
+        [1, 0, 0, 0, 1],
+        [1, 1, 1, 1, 1]
+    ]</code></pre>
+                            </div>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>Votre fonction retourne correctement une grille 2D.</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">15</div>
+                        <div class="step-head">
+                            <span class="step-title">Créer une fonction pour afficher le labyrinthe</span>
+                            <label class="tick"><input type="checkbox" data-step="s7e2"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez créer une fonction qui affiche le labyrinthe et le joueur à l'écran.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Créer une fonction <code>afficher_labyrinthe(screen, labyrinthe, joueur)</code>.</li>
+                                <li>Cette fonction doit dessiner le labyrinthe et le joueur.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Définir la fonction avec les paramètres <code>screen</code>, <code>labyrinthe</code> et <code>joueur</code>.</li>
+                                <li>Parcourir la grille et dessiner les murs et les chemins.</li>
+                                <li>Dessiner le joueur à sa position.</li>
+                            </ul>
+                            <div class="callout">
+                                <span class="lbl">Exemple</span>
+                                <p>Voici un exemple de fonction :</p>
+                                <pre class="tree"><code>def afficher_labyrinthe(screen, labyrinthe, joueur):
+    for y in range(len(labyrinthe)):
+        for x in range(len(labyrinthe[y])):
+            if labyrinthe[y][x] == 1:
+                pygame.draw.rect(screen, (100, 100, 100), (x * 50, y * 50, 50, 50))
+            else:
+                pygame.draw.rect(screen, (255, 255, 255), (x * 50, y * 50, 50, 50))
+    pygame.draw.circle(screen, (255, 0, 0), (joueur[0] * 50 + 25, joueur[1] * 50 + 25), 20)</code></pre>
+                            </div>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>Votre fonction affiche correctement le labyrinthe et le joueur.</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    <li class="step">
+                        <div class="step-num">16</div>
+                        <div class="step-head">
+                            <span class="step-title">Créer une fonction pour déplacer le joueur</span>
+                            <label class="tick"><input type="checkbox" data-step="s7e3"><span>Fait</span></label>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Contexte</b> : Vous allez créer une fonction qui met à jour la position du joueur.</p>
+                            <p><b>Consignes</b> :</p>
+                            <ul class="plain">
+                                <li>Créer une fonction <code>deplacer_joueur(labyrinthe, joueur, direction)</code>.</li>
+                                <li>Cette fonction doit retourner la nouvelle position du joueur si le déplacement est valide.</li>
+                            </ul>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Définir la fonction avec les paramètres <code>labyrinthe</code>, <code>joueur</code> et <code>direction</code>.</li>
+                                <li>Calculer la nouvelle position en fonction de la direction.</li>
+                                <li>Vérifier si la nouvelle position est valide (pas de mur, pas de sortie des limites).</li>
+                                <li>Retourner la nouvelle position si elle est valide, sinon retourner l'ancienne position.</li>
+                            </ul>
+                            <div class="callout">
+                                <span class="lbl">Exemple</span>
+                                <p>Voici un exemple de fonction :</p>
+                                <pre class="tree"><code>def deplacer_joueur(labyrinthe, joueur, direction):
+    x, y = joueur
+    if direction == "haut" and y > 0 and labyrinthe[y-1][x] != 1:
+        return (x, y-1)
+    elif direction == "bas" and y < len(labyrinthe)-1 and labyrinthe[y+1][x] != 1:
+        return (x, y+1)
+    elif direction == "gauche" and x > 0 and labyrinthe[y][x-1] != 1:
+        return (x-1, y)
+    elif direction == "droite" and x < len(labyrinthe[0])-1 and labyrinthe[y][x+1] != 1:
+        return (x+1, y)
+    return joueur</code></pre>
+                            </div>
+                            <div class="callout deliver">
+                                <span class="lbl">Validation</span>
+                                <p>Votre fonction met à jour correctement la position du joueur.</p>
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+
+            <section id="conclu">
+                <div class="sec-head"><span class="sec-num">08</span><h2>Fin</h2></div>
+                <div class="col">
+                    <p>Ce travail était un projet bonus. Si vous voulez partager le travail à votre enseignant, il saura le valoriser dans la notation et votre  moyenne.</p>
+                    <p>Nouvliez pas de commenter votre code pour que la compréhension soit facile</p>
+                </div>
+            </section>
+
+            <!-- Bonus : Améliorations possibles -->
+            <section id="bonus">
+                <div class="sec-head"><span class="sec-num">Bonus</span><h2>Améliorations possibles</h2></div>
+                <div class="col">
+                    <p>Si vous avez fini avant la fin du projet, voici quelques idées pour aller plus loin :</p>
+                </div>
+
+                <ol class="steps">
+                    <!-- Amélioration 1 -->
+                    <li class="step">
+                        <div class="step-num">1</div>
+                        <div class="step-head">
+                            <span class="step-title">Ajouter des ennemis</span>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Description</b> : Ajoutez des ennemis qui se déplacent aléatoirement dans le labyrinthe.
+                            Si le joueur entre en collision avec un ennemi, il perd une vie.</p>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Créer une liste de positions pour les ennemis.</li>
+                                <li>Dessiner les ennemis avec <code>pygame.draw.circle</code>.</li>
+                                <li>Déplacer les ennemis aléatoirement à chaque itération de la boucle.</li>
+                                <li>Vérifier les collisions entre le joueur et les ennemis.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Amélioration 2 -->
+                    <li class="step">
+                        <div class="step-num">2</div>
+                        <div class="step-head">
+                            <span class="step-title">Ajouter des objets à collecter</span>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Description</b> : Placez des objets (ex : clés, pièces) dans le labyrinthe.
+                            Le joueur doit les collecter pour débloquer la sortie.</p>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Ajouter une liste de positions pour les objets.</li>
+                                <li>Dessiner les objets avec <code>pygame.draw.circle</code>.</li>
+                                <li>Vérifier si le joueur est sur une case contenant un objet.</li>
+                                <li>Supprimer l'objet de la liste s'il est collecté.</li>
+                            </ul>
+                        </div>
+                    </li>
+
+                    <!-- Amélioration 3 -->
+                    <li class="step">
+                        <div class="step-num">3</div>
+                        <div class="step-head">
+                            <span class="step-title">Créer plusieurs niveaux</span>
+                        </div>
+                        <div class="step-body">
+                            <p><b>Description</b> : Ajoutez plusieurs labyrinthes de difficulté croissante.
+                            Le joueur passe au niveau suivant lorsqu'il trouve la sortie.</p>
+                            <p><b>Étapes</b> :</p>
+                            <ul class="plain">
+                                <li>Créer une liste de labyrinthes.</li>
+                                <li>Ajouter une variable pour suivre le niveau actuel.</li>
+                                <li>Charger le labyrinthe correspondant au niveau actuel.</li>
+                                <li>Passer au niveau suivant lorsque le joueur trouve la sortie.</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p><strong>Première Bac Pro CIEL — Lycée Charlie Chaplin</strong></p>
+            <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+            <p>Mise à jour : septembre 2026</p>
+        </footer>
+    </div>
+</body>
+</html>
