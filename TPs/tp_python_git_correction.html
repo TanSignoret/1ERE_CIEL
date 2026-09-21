@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correction — TP Git/Python : Collaboration en binôme</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+    <style>
+        /* Commandes Git */
+        .git-command {
+            background: var(--surface-2);
+            border: 1px solid var(--line);
+            border-radius: var(--radius);
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            font-family: "IBM Plex Mono", monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <header class="hero">
+        <div class="eyebrow">TP Git/Python — Collaboration en binôme</div>
+        <h1>Correction : TP Git/Python</h1>
+        <p class="lede">Voici les solutions détaillées pour chaque exercice du TP Git/Python, ainsi que les commandes Git à utiliser.</p>
+    </header>
+
+    <!-- Introduction Git -->
+    <section id="introduction-git">
+        <div class="sec-head">
+            <span class="sec-num">00</span>
+            <h2>Rappel des commandes Git</h2>
+            <span class="sec-tag">Ligne de commande</span>
+        </div>
+        <div class="exercice">
+            <p>Voici les commandes Git essentielles pour ce TP :</p>
+
+            <div class="git-command">git clone https://github.com/utilisateur/TP_CIEL_Git_Python_[Nom1]_[Nom2].git</div>
+            <p><b>Cloner un dépôt</b> : Copie un dépôt distant en local.</p>
+
+            <div class="git-command">git status</div>
+            <p><b>Voir l'état</b> : Affiche les fichiers modifiés ou non suivis.</p>
+
+            <div class="git-command">git add scripts_reseau.py</div>
+            <p><b>Ajouter un fichier</b> : Ajoute un fichier à l'index (staging area).</p>
+
+            <div class="git-command">git add .</div>
+            <p><b>Ajouter tous les fichiers</b> : Ajoute tous les fichiers modifiés/nouveaux à l'index.</p>
+
+            <div class="git-command">git commit -m "Ajout des exercices"</div>
+            <p><b>Faire un commit</b> : Valide les modifications avec un message.</p>
+
+            <div class="git-command">git push</div>
+            <p><b>Pousser sur GitHub</b> : Envoie les commits locaux vers GitHub.</p>
+
+            <div class="git-command">git pull</div>
+            <p><b>Récupérer les modifications</b> : Récupère les dernières modifications du dépôt distant.</p>
+        </div>
+    </section>
+
+    <!-- Exercice 1 -->
+    <section id="exercice-1">
+        <div class="sec-head">
+            <span class="sec-num">01</span>
+            <h2>Exercice 1 — Manipulation de variables</h2>
+            <span class="sec-tag">Variables</span>
+        </div>
+        <div class="exercice">
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Créer deux variables <code>ip1</code> et <code>ip2</code> avec les valeurs <code>"192.168.1.1"</code> et <code>"10.0.0.1"</code>.</li>
+                <li>Échanger leurs valeurs (pour que <code>ip1</code> contienne <code>"10.0.0.1"</code> et <code>ip2</code> contienne <code>"192.168.1.1"</code>).</li>
+                <li>Afficher les valeurs finales de <code>ip1</code> et <code>ip2</code> avec <code>print()</code>.</li>
+            </ul>
+            <p><b>Exemple</b> :</p>
+            <pre class="tree">Avant échange : ip1 = 192.168.1.1, ip2 = 10.0.0.1
+Après échange : ip1 = 10.0.0.1, ip2 = 192.168.1.1</pre>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Déclarer les variables
+ip1 = "192.168.1.1"
+ip2 = "10.0.0.1"
+
+# Afficher les valeurs avant échange
+print("Avant échange : ip1 = " + ip1 + ", ip2 = " + ip2)
+
+# Échanger les valeurs
+tmp = ip1
+ip1 = ip2
+ip2 = ip1
+
+# Afficher les valeurs après échange
+print("Après échange : ip1 = " + ip1 + ", ip2 = " + ip2)</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li>On utilise une variable temporaire <code>tmp</code> pour stocker temporairement la valeur de <code>ip1</code>.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercice 2 -->
+    <section id="exercice-2">
+        <div class="sec-head">
+            <span class="sec-num">02</span>
+            <h2>Exercice 2 — Calcul de somme et moyenne</h2>
+            <span class="sec-tag">Calculs</span>
+        </div>
+        <div class="exercice">
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Demander à l'utilisateur de saisir <b>deux nombres entiers</b> (un par un) avec <code>input()</code>.</li>
+                <li>Stocker ces nombres dans deux variables : <code>nombre1</code> et <code>nombre2</code>.</li>
+                <li>Calculer la <b>somme</b> et la <b>moyenne</b> de ces deux nombres.</li>
+                <li>Afficher les résultats sous la forme :
+                    <pre class="tree">La somme de [nombre1] et [nombre2] est [somme].
+La moyenne de [nombre1] et [nombre2] est [moyenne].</pre>
+                </li>
+            </ul>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Demander les deux nombres
+nombre1 = input("Saisis le premier nombre : ")
+nombre2 = input("Saisis le deuxième nombre : ")
+
+# Convertir en nombres
+nombre1 = int(nombre1)
+nombre2 = int(nombre2)
+
+# Calculer la somme et la moyenne
+somme = nombre1 + nombre2
+moyenne = somme / 2
+
+# Afficher les résultats
+print("La somme de " + str(nombre1) + " et " + str(nombre2) + " est " + str(somme) + ".")
+print("La moyenne de " + str(nombre1) + " et " + str(nombre2) + " est " + str(moyenne) + ".")</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li><code>input()</code> retourne toujours un <code>str</code>, donc il faut utiliser <code>int()</code> pour convertir les entrées en nombres.</li>
+                        <li>La <b>somme</b> est calculée avec <code>nombre1 + nombre2</code>.</li>
+                        <li>La <b>moyenne</b> est calculée en divisant la somme par 2.</li>
+                        <li><code>str()</code> est utilisé pour convertir les nombres en chaînes de caractères pour l'affichage.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercice 3 -->
+    <section id="exercice-3">
+        <div class="sec-head">
+            <span class="sec-num">03</span>
+            <h2>Exercice 3 — Message de bienvenue</h2>
+            <span class="sec-tag">Entrées/Sorties</span>
+        </div>
+        <div class="exercice">
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Demander à l'utilisateur de saisir son <b>nom</b> et son <b>prénom</b>.</li>
+                <li>Afficher un message de bienvenue sous la forme :
+                    <pre class="tree">Bonjour, [prénom] [nom] !</pre>
+                </li>
+            </ul>
+            <p><b>Exemple</b> :</p>
+            <pre class="tree">>> Quel est ton nom ? Jolly
+>> Quel est ton prénom ? Thomas
+Bonjour, Thomas Jolly !</pre>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Demander le nom et le prénom
+nom = input("Quel est ton nom ? ")
+prenom = input("Quel est ton prénom ? ")
+
+# Afficher le message de bienvenue
+print("Bonjour, " + prenom + " " + nom + " !")</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li><code>input()</code> est utilisé pour demander le nom et le prénom.</li>
+                        <li>Les variables <code>nom</code> et <code>prenom</code> sont concaténées avec <code>+</code> pour former le message final.</li>
+                        <li>Un espace <code>" "</code> est ajouté entre <code>prenom</code> et <code>nom</code> pour séparer les deux.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercice 4 -->
+    <section id="exercice-4">
+        <div class="sec-head">
+            <span class="sec-num">04</span>
+            <h2>Exercice 4 — Vérifier l'âge</h2>
+            <span class="sec-tag">Conditions</span>
+        </div>
+        <div class="exercice">
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Demander à l'utilisateur de saisir son <b>âge</b> (en tant que <code>str</code>).</li>
+                <li>Le convertir en <code>int</code>.</li>
+                <li>Afficher :
+                    <ul class="plain">
+                        <li><code>"Accès autorisé."</code> si l'âge est <b>supérieur ou égal à 18</b>.</li>
+                        <li><code>"Accès refusé."</code> sinon.</li>
+                    </ul>
+                </li>
+            </ul>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Demander l'âge
+age = input("Quel est ton âge ? ")
+
+# Convertir en nombre
+age = int(age)
+
+# Vérifier l'âge
+if age >= 18:
+    print("Accès autorisé.")
+else:
+    print("Accès refusé.")</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li><code>input()</code> retourne un <code>str</code>, donc il faut utiliser <code>int()</code> pour convertir l'âge en nombre.</li>
+                        <li>La condition <code>if age >= 18:</code> vérifie si l'âge est supérieur ou égal à 18.</li>
+                        <li>Si la condition est vraie, <code>"Accès autorisé."</code> est affiché. Sinon, c'est <code>"Accès refusé."</code>.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercice 5 -->
+    <section id="exercice-5">
+        <div class="sec-head">
+            <span class="sec-num">05</span>
+            <h2>Exercice 5 — Vérifier la longueur du mot de passe</h2>
+            <span class="sec-tag">Conditions</span>
+        </div>
+        <div class="exercice">
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Demander à l'utilisateur de saisir un <b>mot de passe</b>.</li>
+                <li>Afficher :
+                    <ul class="plain">
+                        <li><code>"Mot de passe valide."</code> si le mot de passe contient <b>au moins 8 caractères</b>.</li>
+                        <li><code>"Mot de passe invalide."</code> sinon.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><b>Utilisez <code>len()</code> pour vérifier la longueur.</b></p>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Demander le mot de passe
+mot_de_passe = input("Saisis un mot de passe : ")
+
+# Vérifier la longueur
+if len(mot_de_passe) >= 8:
+    print("Mot de passe valide.")
+else:
+    print("Mot de passe invalide.")</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li><code>len(mot_de_passe)</code> retourne le nombre de caractères dans le mot de passe.</li>
+                        <li>La condition <code>if len(mot_de_passe) >= 8:</code> vérifie si le mot de passe fait au moins 8 caractères.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercice 6 -->
+    <section id="exercice-6">
+        <div class="sec-head">
+            <span class="sec-num">06</span>
+            <h2>Exercice 6 — Afficher les 10 premiers nombres pairs</h2>
+            <span class="sec-tag">Boucles</span>
+        </div>
+        <div class="exercice">
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Utiliser une boucle <code>for</code> pour afficher les <b>10 premiers nombres pairs</b> (de 0 à 18).</li>
+            </ul>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Afficher les 10 premiers nombres pairs (0 à 18)
+# option 1
+for i in range(0, 20, 2):
+    print(i)
+
+# option 2
+for i in range(0, 20):
+    if i % 2 == 0:
+        print(i)</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li><code>range(0, 20, 2)</code> génère les nombres de 0 à 18 avec un pas de 2 (0, 2, 4, ..., 18).</li>
+                        <li>La boucle <code>for</code> parcourt chaque nombre généré et l'affiche avec <code>print()</code>.</li>
+                        <li><code>i % 2 == 0</code> vérifie si <code>i</code> est pair (le reste de la division par 2 est égal à 0).</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercice 7 -->
+    <section id="exercice-7">
+        <div class="sec-head">
+            <span class="sec-num">07</span>
+            <h2>Exercice 7 — Afficher la table de multiplication</h2>
+            <span class="sec-tag">Boucles</span>
+        </div>
+        <div class="exercice">
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Demander à l'utilisateur de saisir un <b>nombre</b> (en tant que <code>str</code>).</li>
+                <li>Le convertir en <code>int</code>.</li>
+                <li>Afficher la <b>table de multiplication</b> de ce nombre (de 1 à 10) avec une boucle <code>for</code>.</li>
+            </ul>
+            <p><b>Exemple</b> : Si l'utilisateur saisi <code>5</code>, le script doit afficher :</p>
+            <pre class="tree">Table de 5 :
+5 x 1 = 5
+5 x 2 = 10
+...
+5 x 10 = 50</pre>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Demander le nombre
+nombre = input("Saisis un nombre : ")
+nombre = int(nombre)
+
+# Afficher la table de multiplication
+print("Table de " + str(nombre) + " :")
+for i in range(1, 11):
+    resultat = nombre * i
+    print(str(nombre) + " x " + str(i) + " = " + str(resultat))</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li><code>range(1, 11)</code> génère les nombres de 1 à 10.</li>
+                        <li>À chaque itération, <code>resultat = nombre * i</code> calcule le produit.</li>
+                        <li>Le résultat est affiché sous la forme <code>"5 x 1 = 5"</code> avec <code>+</code> pour concaténer.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="col">
+        <p>TP 3 — Python/Git — Première Bac Pro CIEL — Lycée Charlie Chaplin — T. Signoret</p>
+        <p>Septembre 2026.</p>
+    </footer>
+</body>
+</html>

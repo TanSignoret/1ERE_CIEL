@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correction — TP 2 : Révision des bases de Python</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+</head>
+<body>
+    <header class="hero">
+        <div class="eyebrow">TP 2 — Python</div>
+        <h1>Correction : Révision des bases de Python</h1>
+        <p class="lede">Voici les solutions détaillées pour chaque exercice du TP 2.</p>
+    </header>
+
+    <!-- Exercice 1 -->
+    <section id="exercice-1">
+        <div class="sec-head">
+            <span class="sec-num">01</span>
+            <h2>Exercice 1 — Gestion des variables et entrée/sortie</h2>
+            <span class="sec-tag">Variables</span>
+        </div>
+        <div class="exercice">
+            <p><b>Contexte</b> : Votre tuteur vous demande de créer un script pour enregistrer les informations d'un nouveau serveur.</p>
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Demander à l'utilisateur de saisir :
+                    <ul class="plain">
+                        <li>Le <b>nom du serveur</b> (ex: <code>"SRV-WEB-01"</code>).</li>
+                        <li>L'<b>adresse IP</b> du serveur (ex: <code>"192.168.1.1"</code>).</li>
+                        <li>Le <b>nombre de ports ouverts</b> (ex: <code>3</code>).</li>
+                    </ul>
+                </li>
+                <li>Afficher un message de confirmation avec les informations saisies :
+                    <pre class="tree">Le serveur [nom] a pour adresse IP [IP] et a [ports] ports ouverts.</pre>
+                </li>
+            </ul>
+            <p><b>Exemple</b> : Si l'utilisateur saisit <code>SRV-WEB-01</code>, <code>192.168.1.1</code> et <code>3</code>, le script doit afficher :</p>
+            <pre class="tree">Le serveur SRV-WEB-01 a pour adresse IP 192.168.1.1 et a 3 ports ouverts.</pre>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Demander les informations du serveur
+nom_serveur = input("Quel est le nom du serveur ? ")
+adresse_ip = input("Quel est l'adresse IP du serveur ? ")
+ports_ouverts = input("Combien de ports sont ouverts ? ")
+
+# Afficher le message de confirmation
+print("Le serveur " + nom_serveur + " a pour adresse IP " + adresse_ip + " et a " + ports_ouverts + " ports ouverts.")</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li>Chaque information est demandée avec <code>input()</code> et stockée dans une variable.</li>
+                        <li>Le message final est construit avec <code>+</code> pour additionner le contenu des variables.</li>
+                        <li>Les variables sont de type <code>str</code> (chaîne de caractères), car <code>input()</code> retourne toujours un <code>str</code>.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercice 2 -->
+    <section id="exercice-2">
+        <div class="sec-head">
+            <span class="sec-num">02</span>
+            <h2>Exercice 2 — Vérification de configuration avec conditions</h2>
+            <span class="sec-tag">Conditions</span>
+        </div>
+        <div class="exercice">
+            <p><b>Contexte</b> : RéseauPro impose des règles pour les mots de passe des serveurs.</p>
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Demander à l'utilisateur de saisir un <b>nom</b> et un <b>mot de passe</b> pour créer un compte. Stocker ces informations dans 2 variables.</li>
+                <li>Demander à l'utilisateur de saisir à nouveau un <b>nom</b> et un <b>mot de passe</b> pour se connecter.</li>
+                <li>Vérifier si :
+                    <ul class="plain">
+                        <li>Le nom saisi correspond au nom enregistré.</li>
+                        <li>Le mot de passe saisi correspond au mot de passe enregistré.</li>
+                    </ul>
+                </li>
+                <li>Afficher :
+                    <ul class="plain">
+                        <li><code>"Connexion effectuée"</code> si le nom <b>et</b> le mot de passe correspondent.</li>
+                        <li><code>"Nom incorrect"</code> si seul le nom est incorrect.</li>
+                        <li><code>"Mot de passe incorrect"</code> si seul le mot de passe est incorrect.</li>
+                        <li><code>"Connexion impossible."</code> sinon.</li>
+                    </ul>
+                </li>
+            </ul>
+            <p><b>Exemple</b> :</p>
+            <ul class="plain">
+                <li>Si l'utilisateur enregistre <code>Alice</code> et <code>Pass123</code>, puis saisit <code>Alice</code> et <code>Pass123</code> → <code>Connexion effectuée</code>.</li>
+                <li>Si l'utilisateur saisit <code>Bob</code> et <code>Pass123</code> → <code>Nom incorrect</code>.</li>
+            </ul>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Enregistrer un compte
+nom_enregistre = input("Saisis un nom pour t'enregistrer : ")
+mot_de_passe_enregistre = input("Saisis un mot de passe pour t'enregistrer : ")
+
+# Demander les informations de connexion
+nom_saisi = input("Saisis ton nom pour te connecter : ")
+mot_de_passe_saisi = input("Saisis ton mot de passe pour te connecter : ")
+
+# Vérifier les informations
+if nom_saisi == nom_enregistre and mot_de_passe_saisi == mot_de_passe_enregistre:
+    print("Connexion effectuée")
+elif nom_saisi != nom_enregistre and mot_de_passe_saisi == mot_de_passe_enregistre:
+    print("Nom incorrect")
+elif nom_saisi == nom_enregistre and mot_de_passe_saisi != mot_de_passe_enregistre:
+    print("Mot de passe incorrect")
+else:
+    print("Connexion impossible.")</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li>Les informations enregistrées et saisies sont comparées avec <code>==</code>.</li>
+                        <li>La structure <code>if/elif/else</code> permet de vérifier plusieurs conditions dans l'ordre.</li>
+                        <li>Chaque <code>elif</code> vérifie un cas spécifique (nom incorrect ou mot de passe incorrect).</li>
+                        <li>Le <code>else</code> est exécuté si aucune des conditions précédentes n'est vraie.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercice 3 -->
+    <section id="exercice-3">
+        <div class="sec-head">
+            <span class="sec-num">03</span>
+            <h2>Exercice 3 — Simuler un scan de ports avec une boucle <code>for</code></h2>
+            <span class="sec-tag">Boucles</span>
+        </div>
+        <div class="exercice">
+            <p><b>Contexte</b> : Votre tuteur vous demande de simuler un scan des ports 22, 80 et 443 sur un serveur.</p>
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Utiliser une boucle <code>for</code> pour parcourir les ports <code>22</code>, <code>80</code> et <code>443</code>.</li>
+                <li>Pour chaque port, afficher :
+                    <pre class="tree">Scanne le port [port]...</pre>
+                </li>
+            </ul>
+            <p><b>Exemple</b> : Le script doit afficher :</p>
+            <pre class="tree">Scanne le port 22...
+Scanne le port 80...
+Scanne le port 443...</pre>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Liste des ports à scanner
+ports = [22, 80, 443]
+
+# Parcourir les ports
+for port in ports:
+    print("Scanne le port " + str(port) + "...")</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li>La liste <code>ports</code> contient les trois ports à scanner : <code>22</code>, <code>80</code> et <code>443</code>.</li>
+                        <li>La boucle <code>for port in ports:</code> parcourt chaque élément de la liste.</li>
+                        <li>À chaque itération, la variable <code>port</code> prend la valeur du prochain élément de la liste.</li>
+                        <li><code>str(port)</code> convertit le nombre en chaîne de caractères pour l'affichage.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercice 4 -->
+    <section id="exercice-4">
+        <div class="sec-head">
+            <span class="sec-num">04</span>
+            <h2>Exercice 4 — Vérification de connexion avec une boucle <code>while</code></h2>
+            <span class="sec-tag">Boucles</span>
+        </div>
+        <div class="exercice">
+            <p><b>Contexte</b> : Votre tuteur vous demande de créer un script qui demande à l'utilisateur de saisir un code de connexion valide.</p>
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Le code de connexion valide est <code>"CIEL2026"</code>.</li>
+                <li>Utiliser une boucle <code>while</code> pour demander à l'utilisateur de saisir un code <b>jusqu'à ce qu'il soit valide</b>.</li>
+                <li>Si le code est incorrect, afficher :
+                    <pre class="tree">Code incorrect. Réessayez.</pre>
+                </li>
+                <li>Si le code est correct, afficher :
+                    <pre class="tree">Accès autorisé.</pre>
+                </li>
+            </ul>
+            <p><b>Exemple</b> : Si l'utilisateur saisi <code>"ABC123"</code>, puis <code>"CIEL2026"</code>, le script doit afficher :</p>
+            <pre class="tree">Code incorrect. Réessayez.
+Accès autorisé.</pre>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Code de connexion valide
+code_valide = "CIEL2026"
+
+# Demander le code à l'utilisateur
+code_saisi = input("Saisis le code de connexion : ")
+
+# Vérifier le code
+while code_saisi != code_valide:
+    print("Code incorrect. Réessayez.")
+    code_saisi = input("Saisis le code de connexion : ")
+
+# Si le code est correct
+print("Accès autorisé.")</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li>La boucle <code>while code_saisi != code_valide:</code> continue <b>tant que</b> le code saisi est différent du code valide.</li>
+                        <li>À chaque itération, le message <code>"Code incorrect. Réessayez."</code> est affiché.</li>
+                        <li>L'utilisateur est invité à saisir un nouveau code avec <code>input()</code>.</li>
+                        <li>Dès que le code est correct, la boucle s'arrête et le message <code>"Accès autorisé."</code> est affiché.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Exercice 5 -->
+    <section id="exercice-5">
+        <div class="sec-head">
+            <span class="sec-num">05</span>
+            <h2>Exercice 5 — Gestion d'une liste d'adresses IP</h2>
+            <span class="sec-tag">Listes</span>
+        </div>
+        <div class="exercice">
+            <p><b>Contexte</b> : Votre tuteur vous demande de gérer une liste d'adresses IP pour un réseau local.</p>
+            <p><b>Consignes</b> :</p>
+            <ul class="plain">
+                <li>Créer une liste avec les adresses IP suivantes : <code>["192.168.1.1", "192.168.1.2", "192.168.1.3"]</code>.</li>
+                <li>Afficher la <b>deuxième adresse IP</b> de la liste (index 1).</li>
+                <li>Ajouter une <b>quatrième adresse IP</b> (<code>"192.168.1.4"</code>) à la liste.</li>
+                <li>Afficher toute la liste mise à jour.</li>
+            </ul>
+            <p><b>Exemple</b> : Le script doit afficher :</p>
+            <pre class="tree">Deuxième adresse IP : 192.168.1.2
+Liste complète : ['192.168.1.1', '192.168.1.2', '192.168.1.3', '192.168.1.4']</pre>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree"># Créer la liste d'adresses IP
+ips = ["192.168.1.1", "192.168.1.2", "192.168.1.3"]
+
+# Afficher la deuxième adresse IP (index 1)
+print("Deuxième adresse IP : " + ips[1])
+
+# Ajouter une quatrième adresse IP
+ips.append("192.168.1.4")
+
+# Afficher toute la liste
+print("Liste complète : " + str(ips))</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul class="plain">
+                        <li>La liste <code>ips</code> est créée avec les trois adresses IP initiales.</li>
+                        <li><code>ips[1]</code> accède à la deuxième adresse IP (l'index commence à 0).</li>
+                        <li><code>ips.append("192.168.1.4")</code> ajoute une nouvelle adresse à la fin de la liste.</li>
+                        <li><code>str(ips)</code> convertit la liste en chaîne de caractères pour l'affichage.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="col">
+        <p>TP 2 — Python — Première Bac Pro CIEL — Lycée Charlie Chaplin — T. Signoret</p>
+        <p>Septembre 2026.</p>
+    </footer>
+</body>
+</html>

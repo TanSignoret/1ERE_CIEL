@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correction — TP 1 : Révision des bases de Python</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+</head>
+<body>
+    <div class="wrap">
+        <header class="hero col">
+            <div class="eyebrow">TP 1 — Python</div>
+            <h1>Correction : Révision des bases de Python</h1>
+        </header>
+    </div>
+
+    <!-- TP1 -->
+    <section id="tp1">
+        <div class="sec-head"><span class="sec-num">01</span><h2>Exercice 1 — Calculer la moyenne de temps de réponse</h2><span class="sec-tag">4 exercices</span></div>
+        <div class="col">
+            <div class="exercice-block">
+                <p><b>Contexte</b> : Votre tuteur vous demande de calculer la moyenne des temps de réponse de 5 serveurs (en ms).</p>
+                <p><b>Consignes</b> :</p>
+                <ol>
+                    <li>Demander à l'utilisateur de saisir <b>5 temps de réponse</b> (un par un).</li>
+                    <li>Stocker chaque temps dans une variable distincte.</li>
+                    <li>Convertir les valeurs en nombres avec <code>int()</code>.</li>
+                    <li>Calculer la somme et la moyenne.</li>
+                    <li>Afficher : <code>Moyenne des temps de réponse : XX ms</code>.</li>
+                </ol>
+                <p><b>Exemple</b> : Si l'utilisateur saisit <code>10, 20, 30, 40, 50</code>, le script doit afficher :</p>
+                <pre>Moyenne des temps de réponse : 30 ms</pre>
+            </div>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree">
+# Demander les 5 temps de réponse
+temps1 = input("Saisis le temps de réponse 1 (ms) : ")
+temps2 = input("Saisis le temps de réponse 2 (ms) : ")
+temps3 = input("Saisis le temps de réponse 3 (ms) : ")
+temps4 = input("Saisis le temps de réponse 4 (ms) : ")
+temps5 = input("Saisis le temps de réponse 5 (ms) : ")
+
+# Convertir les temps en nombres
+temps1 = int(temps1)
+temps2 = int(temps2)
+temps3 = int(temps3)
+temps4 = int(temps4)
+temps5 = int(temps5)
+
+# Calculer la somme et la moyenne
+somme = temps1 + temps2 + temps3 + temps4 + temps5
+moyenne = somme / 5
+
+# Afficher le résultat
+print("Moyenne des temps de réponse : " + str(moyenne) + " ms")</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul>
+                        <li><code>input()</code> permet de demander une valeur à l'utilisateur. Le résultat est toujours un <code>str</code>.</li>
+                        <li><code>int()</code> convertit une chaîne de caractères en nombre entier pour permettre les calculs.</li>
+                        <li>La <b>moyenne</b> est calculée en divisant la <b>somme</b> des valeurs par le nombre de valeurs (5).</li>
+                        <li><code>str(moyenne)</code> convertit la moyenne en chaîne de caractères pour l'affichage.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercice 2 -->
+    <div class="exercice">
+        <div class="sec-head">
+            <span class="sec-num">02</span>
+            <h2>Exercice 2 — Vérifier un mot de passe</h2>
+            <span class="sec-tag">Conditions</span>
+        </div>
+        <div class="col">
+            <div class="exercice-block">
+                <p><b>Contexte</b> : ProgPro impose des règles strictes pour les mots de passe : <b>au moins 8 caractères</b>.</p>
+                <p><b>Consignes</b> :</p>
+                <ol>
+                    <li>Demander à l'utilisateur de saisir un <b>nom</b> et un <b>mot de passe</b>.</li>
+                    <li>Vérifier si le mot de passe fait <b>au moins 8 caractères</b> avec <code>len()</code>.</li>
+                    <li>Afficher :
+                        <ul>
+                            <li><code>Accès autorisé pour [nom]</code> si le mot de passe est valide.</li>
+                            <li><code>Accès refusé pour [nom]</code> sinon.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p><b>Exemple</b> : Si l'utilisateur saisit <code>Alice</code> et <code>Pass123</code>, le script doit afficher :</p>
+                <pre>Accès autorisé pour Alice</pre>
+            </div>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree">
+# Demander le nom et le mot de passe
+nom = input("Quel est ton nom ? ")
+mot_de_passe = input("Quel est ton mot de passe ? ")
+
+# Vérifier la longueur du mot de passe
+if len(mot_de_passe) >= 8:
+    print("Accès autorisé pour " + nom)
+else:
+    print("Accès refusé pour " + nom)</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul>
+                        <li><code>len(mot_de_passe)</code> retourne le nombre de caractères dans le mot de passe.</li>
+                        <li>La condition <code>if len(mot_de_passe) >= 8:</code> vérifie si le mot de passe fait au moins 8 caractères.</li>
+                        <li>Si la condition est vraie, le message <code>"Accès autorisé"</code> est affiché. Sinon, c'est <code>"Accès refusé"</code>.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercice 3 -->
+    <div class="exercice">
+        <div class="sec-head">
+            <span class="sec-num">03</span>
+            <h2>Exercice 3 — Simuler un ping</h2>
+            <span class="sec-tag">Boucles</span>
+        </div>
+        <div class="col">
+            <div class="exercice-block">
+                <p><b>Contexte</b> : Vous devez simuler un test de connectivité (ping) vers 10 adresses IP (192.168.1.1 à 192.168.1.10).
+                On considère que le ping réussit si le dernier chiffre de l'IP est <b>pair</b>.</p>
+                <p><b>Consignes</b> :</p>
+                <ol>
+                    <li>Utiliser une boucle <code>for</code> pour parcourir les IP de 1 à 10.</li>
+                    <li>Pour chaque IP, afficher :
+                        <ul>
+                            <li><code>Ping réussi vers 192.168.1.[X]</code> si X est pair.</li>
+                            <li><code>Ping échoué vers 192.168.1.[X]</code> si X est impair.</li>
+                        </ul>
+                    </li>
+                </ol>
+                <p><b>Exemple</b> : Le script doit afficher :</p>
+                <pre class="tree">
+Ping échoué vers 192.168.1.1
+Ping réussi vers 192.168.1.2
+...
+Ping réussi vers 192.168.1.10</pre>
+            </div>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree">
+# Parcourir les IP de 1 à 10
+for i in range(1, 11):
+    if i % 2 == 0:
+        print("Ping réussi vers 192.168.1." + str(i))
+    else:
+        print("Ping échoué vers 192.168.1." + str(i))</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul>
+                        <li><code>range(1, 11)</code> génère les nombres de 1 à 10.</li>
+                        <li><code>i % 2 == 0</code> vérifie si <code>i</code> est pair (le reste de la division par 2 est égal à 0).</li>
+                        <li>Si la condition est vraie, le ping est <b>réussi</b>. Sinon, il est <b>échoué</b>.</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercice 4 -->
+    <div class="exercice">
+        <div class="sec-head">
+            <span class="sec-num">04</span>
+            <h2>Exercice 4 — Analyser des valeurs de bande passante</h2>
+            <span class="sec-tag">Boucles et calculs</span>
+        </div>
+        <div class="col">
+            <div class="exercice-block">
+                <p><b>Contexte</b> : Votre tuteur vous donne 10 valeurs de bande passante (en Mbps) et vous demande d'analyser ces données.</p>
+                <p><b>Consignes</b> :</p>
+                <ol>
+                    <li>Demander à l'utilisateur de saisir <b>10 valeurs de bande passante</b> (une par une).</li>
+                    <li>Calculer :
+                        <ul>
+                            <li>La <b>valeur maximale</b>.</li>
+                            <li>La <b>valeur minimale</b>.</li>
+                            <li>La <b>moyenne</b>.</li>
+                        </ul>
+                    </li>
+                    <li>Afficher les résultats sous la forme :</li>
+                        <pre class="tree">Valeur maximale : [max] Mbps
+Valeur minimale : [min] Mbps
+Moyenne : [moyenne] Mbps</pre>
+                    </li>
+                </ol>
+                <p><b>Exemple</b> : Si l'utilisateur saisit <code>10, 20, 30, 40, 50, 60, 70, 80, 90, 100</code>, le script doit afficher :</p>
+                <pre class="tree">Valeur maximale : 100 Mbps
+Valeur minimale : 10 Mbps
+Moyenne : 55 Mbps</pre>
+            </div>
+
+            <div class="solution">
+                <div class="solution-title">✅ Solution :</div>
+                <pre class="tree">
+# Demander les 10 valeurs
+valeur1 = int(input("Saisis la valeur 1 (Mbps) : "))
+valeur2 = int(input("Saisis la valeur 2 (Mbps) : "))
+valeur3 = int(input("Saisis la valeur 3 (Mbps) : "))
+valeur4 = int(input("Saisis la valeur 4 (Mbps) : "))
+valeur5 = int(input("Saisis la valeur 5 (Mbps) : "))
+valeur6 = int(input("Saisis la valeur 6 (Mbps) : "))
+valeur7 = int(input("Saisis la valeur 7 (Mbps) : "))
+valeur8 = int(input("Saisis la valeur 8 (Mbps) : "))
+valeur9 = int(input("Saisis la valeur 9 (Mbps) : "))
+valeur10 = int(input("Saisis la valeur 10 (Mbps) : "))
+
+# Calculer la somme et la moyenne
+somme = valeur1 + valeur2 + valeur3 + valeur4 + valeur5 + valeur6 + valeur7 + valeur8 + valeur9 + valeur10
+moyenne = somme / 10
+
+# Trouver le max et le min
+max_val = valeur1
+if valeur2 > max_val:
+    max_val = valeur2
+if valeur3 > max_val:
+    max_val = valeur3
+if valeur4 > max_val:
+    max_val = valeur4
+if valeur5 > max_val:
+    max_val = valeur5
+if valeur6 > max_val:
+    max_val = valeur6
+if valeur7 > max_val:
+    max_val = valeur7
+if valeur8 > max_val:
+    max_val = valeur8
+if valeur9 > max_val:
+    max_val = valeur9
+if valeur10 > max_val:
+    max_val = valeur10
+
+min_val = valeur1
+if valeur2 < min_val:
+    min_val = valeur2
+if valeur3 < min_val:
+    min_val = valeur3
+if valeur4 < min_val:
+    min_val = valeur4
+if valeur5 < min_val:
+    min_val = valeur5
+if valeur6 < min_val:
+    min_val = valeur6
+if valeur7 < min_val:
+    min_val = valeur7
+if valeur8 < min_val:
+    min_val = valeur8
+if valeur9 < min_val:
+    min_val = valeur9
+if valeur10 < min_val:
+    min_val = valeur10
+
+# Afficher les résultats
+print("Valeur maximale : " + str(max_val) + " Mbps")
+print("Valeur minimale : " + str(min_val) + " Mbps")
+print("Moyenne : " + str(moyenne) + " Mbps")</pre>
+            </div>
+
+            <div class="explication">
+                <div class="explication-title">💡 Explications :</div>
+                <p>
+                    <ul>
+                        <li>Chaque valeur est demandée avec <code>input()</code> et convertie en <code>int</code>.</li>
+                        <li>La <b>somme</b> est calculée en additionnant toutes les valeurs.</li>
+                        <li>La <b>moyenne</b> est calculée en divisant la somme par 10.</li>
+                        <li>Le <b>max</b> et le <b>min</b> sont trouvés en comparant chaque valeur avec une variable temporaire (<code>max_val</code> et <code>min_val</code>).</li>
+                    </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="col">
+        <p>TP 1 — Python — Première Bac Pro CIEL — Lycée Charlie Chaplin — T. Signoret</p>
+        <p>Septembre 2026.</p>
+    </footer>
+</body>
+</html>
