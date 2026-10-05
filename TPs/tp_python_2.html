@@ -163,13 +163,13 @@
                         <p><b>Contexte</b> : RéseauPro impose des règles pour les mots de passe des serveurs : ils doivent faire <b>au moins 8 caractères</b>.</p>
                         <p><b>Consignes</b> :</p>
                         <ul class="plain">
-                            <li>Demander à l'utilisateur de se créer un compte (<b>saisir un nom et mot de passe</b>). Stocker ces informations dans 2 variables.</li>
+                            <li>Créer 2 varibales : <code>nom = "DUPONT"</code> et <code>mdp = "abcd"</code></li>
                             <li>Demander à l'utilisateur de saisir un <b>nom et un mot de passe</b>.</li>
                             <li>Pour se connecter, il faut que :
                                 <ul class="plain">
-                                    <li>Le mot de passe et le nom correspond aux informations préalablement enregistrée. Si c'est bien le cas, afficher : <code>"Connexion effectué"</code></li>
-                                    <li>Si c'est le mot de passe qui n'est pas bon, afficher : <code>"Mot de passe incorect"</code></li>
-                                    <li>Si c'est le nom qui n'est pas bon, afficher : <code>"Nom incorect"</code></li>
+                                    <li>Le mot de passe et le nom correspondent, afficher : <code>"Connexion effectué"</code></li>
+                                    <li>Sinon si le <code>mot de passe</code> n'est pas bon, afficher : <code>"Mot de passe incorect"</code></li>
+                                    <li>Sinon si le <code>nom</code> n'est pas bon, afficher : <code>"Nom incorect"</code></li>
                                     <li>Sinon, afficher : <code>"Connexion impossible."</code></li>
                                 </ul>
                             </li>
@@ -188,6 +188,7 @@
                         <p><b>Contexte</b> : Ton tuteur te demande de simuler un scan des ports 22, 80 et 443 sur un serveur.</p>
                         <p><b>Consignes</b> :</p>
                         <ul class="plain">
+                            <li>Créer une variable contenant les valeurs : <code>22</code>, <code>80</code> et <code>443</code>.</li>
                             <li>Utiliser une boucle <code>for</code> pour parcourir les ports <code>22</code>, <code>80</code> et <code>443</code>.</li>
                             <li>Pour chaque port, afficher :
                                 <pre class="tree">Scanne le port [port]...</pre>

@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP CIEL — Raccorder et configurer un poste au réseau</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function (e) {
+                        if (e.target.tagName === 'A' || e.target.tagName === 'INPUT') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header class="hero col">
+        <div class="eyebrow">Séquence Réseau — Séance 1 · Mission n°1</div>
+        <h1>Raccorder et configurer un poste au réseau</h1>
+        <p class="lede">Un client vient de faire câbler son local technique. Vous êtes le technicien chargé de la mise
+            en service du premier poste : l'identifier, le configurer, et <strong>prouver qu'il communique</strong>.
+            Suivez les étapes, cochez au fur et à mesure, remplissez votre compte rendu.</p>
+        <div class="chips">
+            <span class="chip">1ʳᵉ Bac Pro CIEL</span>
+            <span class="chip">Durée : 2 h</span>
+            <span class="chip">Poste Windows / Linux</span>
+            <span class="chip">Travail en binôme</span>
+        </div>
+    </header>
+
+    <section id="objectifs">
+        <div class="sec-head"><span class="sec-num">01</span>
+            <h2>Ce que vous allez apprendre</h2><span class="sec-tag">Objectifs</span>
+        </div>
+        <ul class="plain">
+            <li>Identifier une carte réseau et ses paramètres (MAC, IP, masque, passerelle, DNS).</li>
+            <li>Configurer l'adressage d'un poste en IP statique, puis en DHCP.</li>
+            <li>Expliquer le rôle de chaque paramètre de configuration.</li>
+            <li>Tester le raccordement avec une démarche progressive et interpréter un échec.</li>
+        </ul>
+
+        <h3>Compétences visées</h3>
+        <div class="skills">
+            <div class="skill">
+                <span class="code">Mission 1 · Séquence Réseau</span>
+                <b>Raccorder et configurer un poste</b>
+                <span>Identifier la carte réseau, saisir une configuration IP imposée, vérifier sa prise en
+                    compte.</span>
+            </div>
+            <div class="skill">
+                <span class="code">Mission 1 · Séquence Réseau</span>
+                <b>Prouver la communication</b>
+                <span>Appliquer une démarche de test ordonnée (localhost → passerelle → Internet) et formuler un
+                    diagnostic simple.</span>
+            </div>
+        </div>
+        <p class="note">Séquence « Mise en réseau d'un poste et communication locale » — conforme aux Repères pour la
+            formation CIEL (pédagogie de la mission professionnelle).</p>
+    </section>
+
+    <section id="prerequis">
+        <div class="sec-head"><span class="sec-num">02</span>
+            <h2>Ce qu'il faut savoir avant de commencer</h2><span class="sec-tag">Prérequis</span>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Notion</th>
+                        <th>L'essentiel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Binaire et hexadécimal</b></td>
+                        <td>Un octet = 8 bits = valeur de 0 à 255. L'adresse MAC s'écrit en <b>hexadécimal</b>,
+                            l'adresse IPv4 en <b>décimal</b>.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Adresse IPv4 / IPv6</b></td>
+                        <td>IPv4 : 4 octets séparés par des points (ex. <code>192.168.50.10</code>) — identifie un
+                            équipement sur un réseau. IPv6 : 128 bits, écriture hexadécimale.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Masque de sous-réseau</b></td>
+                        <td>Sépare la partie <b>réseau</b> et la partie <b>hôte</b> de l'adresse.
+                            <code>255.255.255.0</code> se note aussi <code>/24</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Passerelle</b></td>
+                        <td>La « porte de sortie » du réseau local : sans elle, impossible de joindre un autre réseau
+                            (Internet).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur DNS</b></td>
+                        <td>L'annuaire qui traduit un nom de domaine (<code>www.education.gouv.fr</code>) en adresse IP.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="callout">
+            <span class="lbl">Matériel nécessaire</span>
+            <ul class="plain">
+                <li>Un poste en binôme, avec droits administrateur.</li>
+                <li>Un câble RJ45 et un accès au switch de l'atelier.</li>
+                <li>Une invite de commandes (Windows : <kbd>Windows</kbd> + <kbd>R</kbd> → <code>cmd</code>).</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="tp1">
+        <div class="sec-head"><span class="sec-num">03</span>
+            <h2>Étape 1 — Identifier la carte réseau</h2><span class="sec-tag">15 min</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Repérer le matériel</span>
+                    <label class="tick"><input type="checkbox" data-step="a1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Repérez à l'arrière du poste le <b>port RJ45</b> et branchez le câble.</li>
+                        <li>Observez le <b>voyant de liaison</b> (au poste et/ou au switch). Que se passe-t-il quand on
+                            branche le câble ?</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Lire la configuration actuelle</span>
+                    <label class="tick"><input type="checkbox" data-step="a2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Ouvrez l'invite de commandes et saisissez :</p>
+                    <pre class="tree">ipconfig /all        (Windows)
+ip a                 (Linux)</pre>
+                    <p>Relevez dans votre compte rendu :</p>
+                    <ul class="plain">
+                        <li>Le <b>nom de la carte réseau</b></li>
+                        <li>L'<b>adresse MAC</b></li>
+                        <li>L'<b>adresse IP</b> actuelle, le <b>masque</b>, la <b>passerelle</b> et les <b>DNS</b></li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Tester son propre poste</span>
+                    <label class="tick"><input type="checkbox" data-step="a3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Saisissez la commande :</p>
+                    <pre class="tree">ping 127.0.0.1</pre>
+                    <div class="question">
+                        <span class="lbl">Questions — compte rendu</span>
+                        <p>1. Parmi toutes les informations relevées, laquelle <b>ne peut pas être changée</b> ?
+                            Justifiez.</p>
+                        <p>2. Que prouve le succès du <code>ping 127.0.0.1</code> ?</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <!-- <section id="tp2">
+        <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Étape 2 — Configurer en IP statique</h2><span class="sec-tag">25 min</span>
+        </div>
+        <p>Le chef de projet vous impose le plan d'adressage suivant <em>(X = n° de votre binôme)</em> :</p>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Paramètre</th>
+                        <th>Valeur</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Adresse IP</td>
+                        <td><code>192.168.50.X</code></td>
+                    </tr>
+                    <tr>
+                        <td>Masque</td>
+                        <td><code>255.255.255.0</code> (<code>/24</code>)</td>
+                    </tr>
+                    <tr>
+                        <td>Passerelle</td>
+                        <td><code>192.168.50.254</code></td>
+                    </tr>
+                    <tr>
+                        <td>DNS</td>
+                        <td><code>192.168.50.254</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Saisir la configuration</span>
+                    <label class="tick"><input type="checkbox" data-step="b1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain collapsible">
+                        <li>Comment accéder aux paramètres IPv4 ?
+                            <ul class="plain">
+                                <li>Panneau de configuration → <b>Réseau et Internet</b> → <b>Connexions réseau</b></li>
+                                <li>Clic droit sur la carte → <b>Propriétés</b> → <b>Protocole Internet version 4
+                                        (TCP/IPv4)</b></li>
+                                <li>Cochez « Utiliser l'adresse IP suivante » et saisissez les 4 valeurs.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>Vérifiez avec <code>ipconfig</code> que la configuration est bien prise en compte.</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">La démarche de test progressive</span>
+                    <label class="tick"><input type="checkbox" data-step="b2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Réalisez chaque test <b>dans l'ordre</b> et documentez le tableau dans votre compte rendu :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Test</th>
+                                    <th>Résultat ✔ / ✘</th>
+                                    <th>Que prouve-t-il ?</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><code>ping 127.0.0.1</code></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><code>ping 192.168.50.X</code> <em>(votre IP)</em></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><code>ping 192.168.50.254</code> <em>(passerelle)</em></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><code>ping 192.168.50.Y</code> <em>(binôme voisin)</em></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><code>ping 8.8.8.8</code></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td><code>ping www.education.gouv.fr</code></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="callout">
+                        <span class="lbl">À retenir</span>
+                        <p>On ne teste jamais au hasard : <b>chaque test réussi prouve quelque chose de précis</b>, et
+                            un échec nous dit où chercher la panne. Cette démarche sera réutilisée en séance 3
+                            (diagnostic).</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Interroger le DNS</span>
+                    <label class="tick"><input type="checkbox" data-step="b3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <pre class="tree">nslookup www.education.gouv.fr</pre>
+                    <div class="question">
+                        <span class="lbl">Questions — compte rendu</span>
+                        <p>3. Quelle information le serveur DNS a-t-il fournie ?</p>
+                        <p>4. Pourquoi tester dans cet ordre ? Si <b>seul le test n°5 échoue</b>, que suspectez-vous ?
+                        </p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="tp3">
+        <div class="sec-head"><span class="sec-num">05</span>
+            <h2>Étape 3 — Basculer en DHCP</h2><span class="sec-tag">15 min</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Obtenir une adresse automatiquement</span>
+                    <label class="tick"><input type="checkbox" data-step="c1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Dans les propriétés IPv4, repassez en « <b>Obtenir une adresse IP automatiquement</b> » (DHCP),
+                        puis relevez la nouvelle configuration avec <code>ipconfig</code>.</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Statique (étape 2)</th>
+                                    <th>DHCP (maintenant)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>IP</b></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Masque</b></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Passerelle</b></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>DNS</b></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question — compte rendu</span>
+                        <p>5. Que le serveur DHCP a-t-il attribué ? L'adresse obtenue est-elle dans la même plage qu'à
+                            l'étape 2 ? Est-ce normal ? Pourquoi ?</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="tp4">
+        <div class="sec-head"><span class="sec-num">06</span>
+            <h2>Étape 4 — Simuler des pannes</h2><span class="sec-tag">25 min</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Panne A — passerelle erronée</span>
+                    <label class="tick"><input type="checkbox" data-step="d1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Repassez en IP statique et définissez la passerelle sur <code>192.168.50.99</code> (elle n'existe
+                        pas), puis testez :</p>
+                    <ul class="plain">
+                        <li><code>ping 8.8.8.8</code> → résultat dans le compte rendu</li>
+                        <li><code>ping www.education.gouv.fr</code> → résultat dans le compte rendu</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Panne B — DNS erroné</span>
+                    <label class="tick"><input type="checkbox" data-step="d2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Gardez une <b>passerelle correcte</b> (<code>192.168.50.254</code>) mais définissez le DNS sur
+                        <code>192.168.50.98</code>, puis testez :</p>
+                    <ul class="plain">
+                        <li><code>ping 8.8.8.8</code> → résultat dans le compte rendu</li>
+                        <li><code>ping www.education.gouv.fr</code> → résultat dans le compte rendu</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question — compte rendu</span>
+                        <p>6. Comparez les deux symptômes : pourquoi, dans la panne B, l'adresse IP fonctionne mais pas
+                            le nom ? Notez votre conclusion : <b>deux pannes différentes = deux symptômes
+                                différents</b>.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Remise en état</span>
+                    <label class="tick"><input type="checkbox" data-step="d3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Repassez la carte en <b>DHCP</b> et vérifiez que tout refonctionne (tests n°5 et 6 de la démarche
+                        progressive).</p>
+                    <div class="callout">
+                        <span class="lbl">Règles à respecter</span>
+                        <p>On ne modifie la configuration <b>que du poste confié au binôme</b> · on remet
+                            <b>toujours</b> le poste en DHCP avant de partir · tout câble ou équipement endommagé est
+                            signalé immédiatement à l'enseignant.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section> -->
+
+    <section id="synthese">
+        <div class="sec-head"><span class="sec-num">07</span>
+            <h2>Synthèse à compléter</h2><span class="sec-tag">Trace écrite</span>
+        </div>
+        <p>Complétez dans votre compte rendu (une synthèse par élève) :</p>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Texte à trous n°1 — IP et MAC</span>
+                    <label class="tick"><input type="checkbox" data-step="s1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>« L'adresse <code>............</code> est gravée en usine sur la carte réseau et ne change pas.
+                        L'adresse <code>............</code>, elle, est configurable : elle est attribuée automatiquement
+                        par un serveur <code>............</code>. »</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Texte à trous n°2 — Les paramètres</span>
+                    <label class="tick"><input type="checkbox" data-step="s2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>« L'adresse IP permet d'............ de manière unique un équipement sur un ............ . Le
+                        ............ sépare la partie réseau et la partie hôte de l'adresse. La ............ est la
+                        porte de sortie du réseau local. Le ............ traduit les noms de domaine en adresses IP. »
+                    </p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Ma démarche de test</span>
+                    <label class="tick"><input type="checkbox" data-step="s3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>« Ma démarche de test dans l'ordre : localhost → ............ → ............ → ............ →
+                        Internet. Symptôme d'un DNS en panne : on peut pinger une ............ mais pas un ............
+                        . »</p>
+                    <p>Ajoutez le <b>schéma du raccordement</b> : poste — prise murale — switch — passerelle — Internet,
+                        avec les adresses reportées.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="rendre">
+        <div class="sec-head"><span class="sec-num">08</span>
+            <h2>Ce que je dois rendre</h2><span class="sec-tag">Checklist</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Compte rendu complété</span>
+                    <label class="tick"><input type="checkbox" data-step="r1"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Relevés de l'étape 1 (carte réseau, MAC, IP).</li>
+                        <!-- <li>Tableau de la démarche de test (6 tests, résultats + que ça prouve).</li> -->
+                        <!-- <li>Réponses aux questions 1 à 6 (dont comparaison des pannes A et B).</li> -->
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Synthèses à trous complétées</span>
+                    <label class="tick"><input type="checkbox" data-step="r2"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Les trois textes à trous + le schéma du raccordement avec les adresses.</p>
+                </div>
+            </li>
+            <!-- <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Poste remis en état</span>
+                    <label class="tick"><input type="checkbox" data-step="r3"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p>La carte est repassée en <b>DHCP</b> et le poste communique à nouveau.</p>
+                </div>
+            </li> -->
+        </ol>
+    </section>
+
+    <section id="lexique">
+        <div class="sec-head"><span class="sec-num">09</span>
+            <h2>Lexique</h2><span class="sec-tag">Vocabulaire</span>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mot</th>
+                        <th>Définition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Carte réseau</b></td>
+                        <td>Composant qui raccorde un poste au réseau ; possède une adresse MAC gravée en usine.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Adresse MAC</b></td>
+                        <td>Identifiant physique unique de la carte réseau, en hexadécimal (ex.
+                            <code>A4:5E:60:C3:11:8B</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Adresse IP</b></td>
+                        <td>Identifiant logique d'un équipement sur un réseau ; configurable (statique ou DHCP).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Masque de sous-réseau</b></td>
+                        <td>Sépare la partie réseau et la partie hôte d'une adresse IP (ex. <code>255.255.255.0</code> =
+                            <code>/24</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Passerelle</b></td>
+                        <td>Équipement qui fait communiquer le réseau local avec d'autres réseaux (dont Internet).</td>
+                    </tr>
+                    <tr>
+                        <td><b>DNS</b></td>
+                        <td>Domain Name System : annuaire qui traduit les noms de domaine en adresses IP.</td>
+                    </tr>
+                    <tr>
+                        <td><b>DHCP</b></td>
+                        <td>Protocole qui attribue automatiquement la configuration IP aux postes qui se connectent.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Ping / ICMP</b></td>
+                        <td>Outil de test de connectivité : il envoie une requête et attend une réponse.</td>
+                    </tr>
+                    <tr>
+                        <td><b>localhost</b></td>
+                        <td>Le poste lui-même : <code>127.0.0.1</code>. Le pinger teste sa propre pile réseau.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Réseau — Lycée Charlie Chaplin</strong></p>
+        <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
+                href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+        <p>Prochaine mission (Séance 2) : construire le réseau complet de l'atelier</p>
+    </footer>
+</body>
+
+</html>
