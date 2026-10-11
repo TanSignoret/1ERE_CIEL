@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP CIEL — Construire un réseau local et prouver la communication</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function (e) {
+                        if (e.target.tagName === 'A' || e.target.tagName === 'INPUT') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header class="hero col">
+        <div class="eyebrow">Séquence Réseau — Séance 2 · Mission n°2</div>
+        <h1>Construire un réseau local et prouver la communication</h1>
+        <p class="lede">Le local technique est câblé, le premier poste est en service. Aujourd'hui, vous équipez
+            l'atelier complet : vous définissez le plan d'adressage, câblez les postes sur le switch de votre îlot, et
+            vous <strong>prouvez que tout le monde communique</strong>. Puis vous réutiliserez vos réflexes (DHCP,
+            pannes simulées) sur des machines virtuelles, sans risque pour le réseau du lycée.</p>
+        <div class="chips">
+            <span class="chip">1ʳᵉ Bac Pro CIEL</span>
+            <span class="chip">Durée : 2 × 2 h</span>
+            <span class="chip">Postes + switch + VM</span>
+            <span class="chip">Travail en îlots</span>
+        </div>
+    </header>
+
+    <section id="objectifs">
+        <div class="sec-head"><span class="sec-num">01</span>
+            <h2>Ce que vous allez apprendre</h2><span class="sec-tag">Objectifs</span>
+        </div>
+        <ul class="plain">
+            <li>Définir et justifier un plan d'adressage pour un réseau local.</li>
+            <li>Câbler plusieurs postes en étoile sur un switch.</li>
+            <li>Vérifier la communication inter-postes et documenter la topologie (schéma + tableau IP).</li>
+            <li>Comparer configuration statique et DHCP sur des machines virtuelles.</li>
+            <li>Réinvestir la démarche de diagnostic sur des pannes simulées en toute sécurité.</li>
+        </ul>
+
+        <h3>Compétences visées</h3>
+        <div class="skills">
+            <div class="skill">
+                <span class="code">Mission 2 · Séquence Réseau</span>
+                <b>Construire un réseau local</b>
+                <span>Choisir un adressage cohérent, câbler l'îlot, prouver la communication de bout en bout.</span>
+            </div>
+            <div class="skill">
+                <span class="code">Mission 2 · Séquence Réseau</span>
+                <b>Documenter et rendre compte</b>
+                <span>Produire le schéma de topologie et le tableau d'adressage de l'installation réalisée.</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="tp1">
+        <div class="sec-head"><span class="sec-num">01</span>
+            <h2>TP 1 — Construire votre îlot (séance 1, 1 h 30)</h2><span class="sec-tag">Matériel réel</span>
+        </div>
+        <p><b>Contexte mission :</b> votre chef de projet vous confie l'équipement de l'îlot n°<em>N</em> de l'atelier
+            (3 à 4 postes + 1 imprimante si disponible). À vous de décider de l'adressage — mais tout doit être justifié
+            et documenté.</p>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Définir votre plan d'adressage</span>
+                    <label class="tick"><input type="checkbox" data-step="a1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Choisissez un réseau IP pour votre îlot (on vous conseille un réseau privé en
+                        <code>192.168.N.0/24</code>, où N est le n° de votre îlot, mais c'est <b>vous</b> qui décidez).
+                        Remplissez le plan :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Équipement</th>
+                                    <th>Adresse IP</th>
+                                    <th>Masque</th>
+                                    <th>Rôle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Adresse du réseau</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>Poste 1</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Poste 2</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Poste 3</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Adresse de diffusion</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td>—</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question — compte rendu</span>
+                        <p>1. Justifiez votre choix : pourquoi ce réseau ? Pourquoi ces adresses pour les postes ?
+                            Quelles adresses avez-vous volontairement <b>évité</b> et pourquoi ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Câbler l'îlot en étoile</span>
+                    <label class="tick"><input type="checkbox" data-step="a2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Reliez chaque poste au switch par son propre câble RJ45 : vous construisez une
+                            <b>étoile</b>.</li>
+                        <li>Vérifiez le voyant de liaison à chaque branchement (au poste <b>et</b> au switch).</li>
+                        <li>Notez sur quel port du switch est branché chaque poste : ce sera utile en séance 3
+                            (diagnostic).</li>
+                    </ul>
+                    <div class="callout deliver">
+                        <span class="lbl">Validation</span>
+                        <p>Tous les voyants de liaison sont allumés.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Configurer les postes selon votre plan</span>
+                    <label class="tick"><input type="checkbox" data-step="a3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Sur chaque poste, saisissez <b>en statique</b> l'adresse prévue dans votre plan d'adressage.
+                        Vérifiez avec <code>ipconfig</code>.</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head">
+                    <span class="step-title">Prouver la communication</span>
+                    <label class="tick"><input type="checkbox" data-step="a4"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Depuis le poste 1, testez chaque poste (et l'imprimante si présente) :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Test</th>
+                                    <th>Résultat ✔ / ✘</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>ping</code> poste 2</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><code>ping</code> poste 3</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><code>ping</code> l'adresse de diffusion</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question — compte rendu</span>
+                        <p>2. Que constatez-vous sur le ping vers l'adresse de diffusion ? Combien de réponses
+                            recevez-vous, et de qui ?</p>
+                        <p>3. Un binôme voisin a choisi le <b>même</b> réseau que vous : que se passerait-il si vos deux
+                            îlots étaient reliés par un simple câble ? Testez la théorie avec l'enseignant avant de
+                            manipuler.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">5</div>
+                <div class="step-head">
+                    <span class="step-title">Documenter la topologie</span>
+                    <label class="tick"><input type="checkbox" data-step="a5"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Réalisez le <b>dossier technique</b> de votre îlot : schéma de topologie (étoile, avec les ports
+                        du switch et les adresses IP reportées) + tableau d'adressage complété. C'est le livrable
+                        principal de la mission.</p>
+                    <div class="callout deliver">
+                        <span class="lbl">Livrable</span>
+                        <p>Schéma de topologie + tableau d'adressage de votre îlot, intégrés au compte rendu.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="tp2">
+        <div class="sec-head"><span class="sec-num">02</span>
+            <h2>TP 2 — Environnement virtuel : DHCP et pannes (2ᵉ séance, 1 h 30)</h2><span class="sec-tag">Machines
+                virtuelles</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Pourquoi des VM ?</span>
+            <p>À partir d'ici, vous manipulez des <b>machines virtuelles</b> sur le réseau virtuel interne de
+                l'hyperviseur (mode « réseau interne / host-only »). Avantage : vous pouvez tout casser, tout réparer,
+                sans jamais dégrader le réseau du lycée. C'est aussi la méthode de travail du professionnel : on teste
+                sur maquette avant de toucher la production.</p>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Prendre en main les VM</span>
+                    <label class="tick"><input type="checkbox" data-step="b1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Démarrez vos VM et identifiez leur carte réseau avec <code>ipconfig</code> (ou
+                            <code>ip a</code>).</li>
+                        <li>Vérifiez que les VM de votre îlot peuvent se pinger entre elles (réutilisez la démarche de
+                            test progressive de la séance 1).</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Basculer en DHCP et comparer</span>
+                    <label class="tick"><input type="checkbox" data-step="b2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Activez un serveur DHCP sur le réseau interne (l'enseignant vous indique la VM qui joue ce rôle
+                        ou la plage à configurer). Puis, sur un poste client :</p>
+                    <ul class="plain">
+                        <li>Passez la carte en « obtenir une adresse automatiquement ».</li>
+                        <li>Relevez la configuration obtenue : IP, masque, passerelle, DNS.</li>
+                    </ul>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Statique (TP 1)</th>
+                                    <th>DHCP (maintenant)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>IP</b></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Masque</b></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Passerelle</b></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>DNS</b></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Questions — compte rendu</span>
+                        <p>4. Le serveur DHCP distribue la même adresse à chaque connexion ou une adresse différente ?
+                            Comment le vérifier (indice : renouvelez le bail avec <code>ipconfig /release</code> puis
+                            <code>ipconfig /renew</code>) ?</p>
+                        <p>5. Débranchez le câble de la VM serveur DHCP (ou arrêtez-la), forcez un renouvellement :
+                            quelle adresse le client affiche-t-il ? Que signifie-t-elle ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Simuler une panne de passerelle</span>
+                    <label class="tick"><input type="checkbox" data-step="b3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Configurez une passerelle (ou routeur virtuel) entre votre réseau interne et un second réseau (ou
+                        Internet simulé). Puis <b>désactivez</b> cette passerelle et testez :</p>
+                    <ul class="plain">
+                        <li><code>ping</code> un poste de votre réseau → résultat attendu ?</li>
+                        <li><code>ping</code> une adresse de l'autre réseau → résultat attendu ?</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head">
+                    <span class="step-title">Simuler une panne de DNS</span>
+                    <label class="tick"><input type="checkbox" data-step="b4"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Configurez un serveur DNS sur le réseau interne (VM dédiée ou service sur la passerelle). Puis
+                        <b>arrêtez-le</b> et testez depuis le client :</p>
+                    <ul class="plain">
+                        <li><code>ping</code> une adresse IP de l'autre réseau → résultat ?</li>
+                        <li><code>nslookup</code> / navigation vers un nom → résultat ?</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question — compte rendu</span>
+                        <p>6. Comparez les deux symptômes observés avec ceux des pannes A et B de la séance 1 : la
+                            configuration d'une machine réelle et celle d'une VM se diagnostiquent-elles de la même
+                            façon ? Concluez en une phrase.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">✚</div>
+                <div class="step-head">
+                    <span class="step-title">Bonus — Interconnecter deux îlots (différenciation)</span>
+                    <label class="tick"><input type="checkbox" data-step="b5"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Avec l'enseignant, reliez deux îlots (ou deux réseaux internes de VM) via un <b>routeur</b>
+                        (physique ou VM) :</p>
+                    <ul class="plain">
+                        <li>Configurez les deux interfaces du routeur : une adresse dans chaque réseau.</li>
+                        <li>Sur chaque poste, définissez la passerelle = l'adresse du routeur dans <b>son</b> réseau.
+                        </li>
+                        <li>Ajoutez si besoin les routes statiques sur le routeur.</li>
+                        <li>Testez : <code>ping</code> d'un poste de l'îlot A vers un poste de l'îlot B. Puis refaites
+                            un <code>ping</code> vers l'adresse de diffusion de l'autre îlot.</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question bonus</span>
+                        <p>7. Le ping inter-îlots fonctionne-t-il ? Et le ping vers l'adresse de diffusion de l'autre
+                            îlot ? Que vient de démontrer ce résultat sur le domaine de diffusion ?</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="rendre">
+        <div class="sec-head"><span class="sec-num">03</span>
+            <h2>Ce que je dois rendre</h2><span class="sec-tag">Checklist</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Dossier technique de l'îlot</span>
+                    <label class="tick"><input type="checkbox" data-step="r1"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Schéma de topologie (étoile, ports du switch, adresses IP) + tableau d'adressage complété.</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Réponses aux questions 1 à 6</span>
+                    <label class="tick"><input type="checkbox" data-step="r2"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Dans le compte rendu : justification du plan d'adressage, comportement du broadcast, DHCP (bail,
+                        renouvellement), comparaison des pannes réelle/virtuelle.</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Postes et VM remis en état</span>
+                    <label class="tick"><input type="checkbox" data-step="r3"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Postes de l'îlot repassés en DHCP, câbles rangés, VM restaurées à l'état initial (snapshot).</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="lexique">
+        <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Lexique</h2><span class="sec-tag">Vocabulaire</span>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mot</th>
+                        <th>Définition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Topologie en étoile</b></td>
+                        <td>Chaque poste est relié par son propre câble à un équipement central (switch).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Switch</b></td>
+                        <td>Commutateur : apprend les adresses MAC et envoie chaque trame uniquement sur le bon port.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Hub</b></td>
+                        <td>Équipement obsolète qui recopie tout sur tous ses ports, sans lire les adresses.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Routeur</b></td>
+                        <td>Équipement qui relie des réseaux différents entre eux ; joue le rôle de passerelle.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Domaine de diffusion</b></td>
+                        <td>Ensemble des postes qui reçoivent les messages de broadcast. Le switch l'étend, le routeur
+                            le limite.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Plan d'adressage</b></td>
+                        <td>Document qui définit le réseau, le masque et l'attribution des adresses avant
+                            l'installation.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Machine virtuelle (VM)</b></td>
+                        <td>Ordinateur logiciel qui s'exécute sur un poste physique ; permet de tester sans risque.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Bail DHCP</b></td>
+                        <td>Durée pendant laquelle un client garde l'adresse IP attribuée par le serveur DHCP.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Route statique</b></td>
+                        <td>Chemin vers un réseau, saisi manuellement sur un routeur.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Réseau — Lycée Charlie Chaplin</strong></p>
+        <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
+                href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+        <p>Prochaine mission (Séance 3) : diagnostiquer une liaison qui ne passe pas</p>
+    </footer>
+</body>
+
+</html>

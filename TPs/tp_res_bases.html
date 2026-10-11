@@ -25,14 +25,14 @@
     <header class="hero col">
         <div class="eyebrow">Séquence Réseau — Séance 1 · Mission n°1</div>
         <h1>Raccorder et configurer un poste au réseau</h1>
-        <p class="lede">Un client vient de faire câbler son local technique. Vous êtes le technicien chargé de la mise
-            en service du premier poste : l'identifier, le configurer, et <strong>prouver qu'il communique</strong>.
-            Suivez les étapes, cochez au fur et à mesure, remplissez votre compte rendu.</p>
+        <p class="lede">Un client vient de faire câbler son local technique.</p>
+        <p class="lede">Vous êtes le technicien chargé de la mise en service du premier poste, c'est à vous de : l'identifier, le configurer, et <strong>prouver qu'il communique</strong>.</p>
+        <p class="lede">Suivez les étapes, cochez au fur et à mesure, remplissez votre compte rendu.</p>
+
         <div class="chips">
             <span class="chip">1ʳᵉ Bac Pro CIEL</span>
             <span class="chip">Durée : 2 h</span>
-            <span class="chip">Poste Windows / Linux</span>
-            <span class="chip">Travail en binôme</span>
+            <span class="chip">Poste Windows</span>
         </div>
     </header>
 
@@ -47,7 +47,7 @@
             <li>Tester le raccordement avec une démarche progressive et interpréter un échec.</li>
         </ul>
 
-        <h3>Compétences visées</h3>
+        <!-- <h3>Compétences visées</h3>
         <div class="skills">
             <div class="skill">
                 <span class="code">Mission 1 · Séquence Réseau</span>
@@ -61,7 +61,7 @@
                 <span>Appliquer une démarche de test ordonnée (localhost → passerelle → Internet) et formuler un
                     diagnostic simple.</span>
             </div>
-        </div>
+        </div> -->
         <p class="note">Séquence « Mise en réseau d'un poste et communication locale » — conforme aux Repères pour la
             formation CIEL (pédagogie de la mission professionnelle).</p>
     </section>
@@ -112,7 +112,7 @@
             <span class="lbl">Matériel nécessaire</span>
             <ul class="plain">
                 <li>Un poste en binôme, avec droits administrateur.</li>
-                <li>Un câble RJ45 et un accès au switch de l'atelier.</li>
+                <!-- <li>Un câble RJ45 et un accès au switch de l'atelier.</li> -->
                 <li>Une invite de commandes (Windows : <kbd>Windows</kbd> + <kbd>R</kbd> → <code>cmd</code>).</li>
             </ul>
         </div>
@@ -122,6 +122,7 @@
         <div class="sec-head"><span class="sec-num">03</span>
             <h2>Étape 1 — Identifier la carte réseau</h2><span class="sec-tag">15 min</span>
         </div>
+        <p>Créer un <a href="../Ressources/">contre rendu de TP</a>. Il faudra le déposer sur Pronote au format PDF à la fin de la séance. Il servira de support d'évaluation.</p>
         <ol class="steps">
             <li class="step">
                 <div class="step-num">1</div>
@@ -132,9 +133,12 @@
                 <div class="step-body">
                     <ul class="plain">
                         <li>Repérez à l'arrière du poste le <b>port RJ45</b> et branchez le câble.</li>
-                        <li>Observez le <b>voyant de liaison</b> (au poste et/ou au switch). Que se passe-t-il quand on
-                            branche le câble ?</li>
+                        <li>Observez le <b>voyant de liaison</b> (au poste et/ou au switch).</li>
                     </ul>
+                    <div class="question">
+                        <span class="lbl">Question 1</span>
+                        <p><strong>Que se passe-t-il quand on branche le câble ?</strong></p>
+                    </div>
                 </div>
             </li>
             <li class="step">
@@ -147,12 +151,14 @@
                     <p>Ouvrez l'invite de commandes et saisissez :</p>
                     <pre class="tree">ipconfig /all        (Windows)
 ip a                 (Linux)</pre>
-                    <p>Relevez dans votre compte rendu :</p>
-                    <ul class="plain">
-                        <li>Le <b>nom de la carte réseau</b></li>
-                        <li>L'<b>adresse MAC</b></li>
-                        <li>L'<b>adresse IP</b> actuelle, le <b>masque</b>, la <b>passerelle</b> et les <b>DNS</b></li>
-                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 2</span>
+                        <ul class="plain">
+                            <li>Le <b>nom de la carte réseau</b></li>
+                            <li>L'<b>adresse MAC</b></li>
+                            <li>L'<b>adresse IP</b> actuelle, le <b>masque</b>, la <b>passerelle</b> et les <b>DNS</b></li>
+                        </ul>
+                    </div>
                 </div>
             </li>
             <li class="step">
@@ -165,20 +171,24 @@ ip a                 (Linux)</pre>
                     <p>Saisissez la commande :</p>
                     <pre class="tree">ping 127.0.0.1</pre>
                     <div class="question">
-                        <span class="lbl">Questions — compte rendu</span>
+                        <span class="lbl">Question 3</span>
                         <p>1. Parmi toutes les informations relevées, laquelle <b>ne peut pas être changée</b> ?
                             Justifiez.</p>
                         <p>2. Que prouve le succès du <code>ping 127.0.0.1</code> ?</p>
+                        <p>3. Quel est l'adresse ip de google ? <code>ping google.com</code></p>
+                        <p>4. Est-elle identique à celle de votre voisin ? Si non pourquoi ?</p>
+                        <p>5. Que donne le <code>ping 178.237.110.235</code> ?</p>
                     </div>
                 </div>
             </li>
         </ol>
     </section>
 
-    <!-- <section id="tp2">
+    <section id="tp2">
         <div class="sec-head"><span class="sec-num">04</span>
             <h2>Étape 2 — Configurer en IP statique</h2><span class="sec-tag">25 min</span>
         </div>
+        <p><strong>Appeler l'enseignant avant de commencer !</strong></p>
         <p>Le chef de projet vous impose le plan d'adressage suivant <em>(X = n° de votre binôme)</em> :</p>
         <div class="tw">
             <table>
@@ -191,19 +201,19 @@ ip a                 (Linux)</pre>
                 <tbody>
                     <tr>
                         <td>Adresse IP</td>
-                        <td><code>192.168.50.X</code></td>
+                        <td><code>A donner par l'enseignant</code></td>
                     </tr>
                     <tr>
                         <td>Masque</td>
-                        <td><code>255.255.255.0</code> (<code>/24</code>)</td>
+                        <td><code>A donner par l'enseignant</code></td>
                     </tr>
                     <tr>
                         <td>Passerelle</td>
-                        <td><code>192.168.50.254</code></td>
+                        <td><code>A donner par l'enseignant</code></td>
                     </tr>
                     <tr>
                         <td>DNS</td>
-                        <td><code>192.168.50.254</code></td>
+                        <td>Essayer de trouver son IP avant la venue de votre enseignant.<br><code>A donner par l'enseignant.</code></td>
                     </tr>
                 </tbody>
             </table>
@@ -236,56 +246,59 @@ ip a                 (Linux)</pre>
                     <label class="tick"><input type="checkbox" data-step="b2"><span>Fait</span></label>
                 </div>
                 <div class="step-body">
-                    <p>Réalisez chaque test <b>dans l'ordre</b> et documentez le tableau dans votre compte rendu :</p>
-                    <div class="tw">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>N°</th>
-                                    <th>Test</th>
-                                    <th>Résultat ✔ / ✘</th>
-                                    <th>Que prouve-t-il ?</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td><code>ping 127.0.0.1</code></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td><code>ping 192.168.50.X</code> <em>(votre IP)</em></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td><code>ping 192.168.50.254</code> <em>(passerelle)</em></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td><code>ping 192.168.50.Y</code> <em>(binôme voisin)</em></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td><code>ping 8.8.8.8</code></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                <tr>
-                                    <td>6</td>
-                                    <td><code>ping www.education.gouv.fr</code></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <p>Réalisez chaque test <b>dans l'ordre</b> et documentez le tableau dans votre compte rendu.</p>
+                    <div class="question">
+                        <span class="lbl">Question 4</span>
+                        <div class="tw">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>N°</th>
+                                        <th>Test</th>
+                                        <th>Résultat ✔ / ✘</th>
+                                        <th>Que prouve-t-il ?</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td><code>ping 127.0.0.1</code></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td><code>ping 192.168.50.X</code> <em>(votre IP)</em></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td><code>ping 192.168.50.254</code> <em>(passerelle)</em></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td><code>ping 192.168.50.Y</code> <em>(binôme voisin)</em></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td><code>ping 8.8.8.8</code></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td><code>ping www.education.gouv.fr</code></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <div class="callout">
                         <span class="lbl">À retenir</span>
@@ -430,7 +443,7 @@ ip a                 (Linux)</pre>
                 </div>
             </li>
         </ol>
-    </section> -->
+    </section>
 
     <section id="synthese">
         <div class="sec-head"><span class="sec-num">07</span>
