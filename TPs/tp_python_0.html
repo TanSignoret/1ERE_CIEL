@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP Python — Découverte : premier contact avec Python</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+</head>
+
+<body>
+
+    <header class="hero">
+        <p class="eyebrow">TP Programmation — Découverte</p>
+        <h1>TP 0 — Premier contact avec Python</h1>
+        <p class="lede">Bienvenue chez <b>RéseauPro Solutions</b> ! Vous êtes stagiaire au support technique, et votre
+            tutrice vous confie vos premières missions… en Python. Pas de panique : chaque étape vous donne <b>le code à
+                copier-coller</b>, l'<b>écran attendu</b>, puis une petite question pour vérifier que vous avez compris.
+            Avancez dans l'ordre, ne sautez rien.</p>
+        <div class="chips">
+            <span class="chip">⏱ 45–60 min</span>
+            <span class="chip">🎯 print · variables · input · int · if · for</span>
+            <span class="chip">💻 OnlineIDE ou VS Code</span>
+        </div>
+    </header>
+
+    <section id="demarrage">
+        <div class="sec-head"><span class="sec-num">01</span>
+            <h2>Avant de commencer</h2><span class="sec-tag">Préparation</span>
+        </div>
+        <p>Vous aurez besoin d'un poste avec un navigateur et l'accès à <b>OnlineIDE</b> (ou VS Code + terminal au
+            choix).</p>
+        <p>La documentation officielle peut vous sauver la vie : <a
+                href="https://docs.python.org/fr/3/">https://docs.python.org/fr/3/</a></p>
+        <div class="callout">
+            <span class="lbl">Comment fonctionne ce TP</span>
+            <ul class="plain">
+                <li>🎯 <b>Copie-colle</b> : le code à recopier, tel quel, dans votre éditeur.</li>
+                <li>🖥️ <b>Écran attendu</b> : ce que vous devez voir quand ça marche.</li>
+                <li>✏️ <b>À toi de jouer</b> : une petite modification à faire seul avant de cocher la case.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="exercices">
+        <div class="sec-head"><span class="sec-num">02</span>
+            <h2>Exercices</h2><span class="sec-tag">Pratique</span>
+        </div>
+        <p>Vous allez écrire <b>4 scripts</b>.<br> Testez chaque script <b>avant</b> de passer au suivant, et cochez
+            les cases au fur et à mesure.</p>
+
+        <ol class="steps">
+
+            <!-- ============ EXERCICE 1 ============ -->
+            <li class="step">
+                <span class="step-num">1</span>
+                <div class="step-head">
+                    <span class="step-title">Mission 1 — La carte de visite du technicien</span>
+                    <label class="tick"><input type="checkbox"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <div class="callout">
+                        <span class="lbl">Contexte pro</span>
+                        <p>C'est votre première journée de stage au support technique de <b>RéseauPro Solutions</b>.
+                            Votre tutrice, <b>Mme Bertrand</b>, reçoit jusqu'à 40 appels par jour, et à chaque fois elle
+                            recopie à la main le nom du technicien et le numéro de poste sur un papier. Elle vous
+                            demande : « Tu ne pourrais pas me faire un petit programme qui fabrique la carte de visite
+                            tout seul ? »</p>
+                        <p><b>Votre mission</b> : livrer le script <code>mission1.py</code> qui fabrique la carte à
+                            partir des saisies de l'utilisateur.</p>
+                    </div>
+                    <p><b>Étape 1.1</b> — Ouvrez un fichier <code>mission1.py</code> et copiez-collez :</p>
+                    <pre class="tree">print("=== RéseauPro Solutions ===")
+print("Hotline niveau 1")</pre>
+                    <p>🖥️ <b>Écran attendu</b> :</p>
+                    <pre class="tree">=== RéseauPro Solutions ===
+Hotline niveau 1</pre>
+
+                    <p><b>Étape 1.2</b> — On range maintenant le nom dans une <b>variable</b>.
+                        Copiez-collez à la suite :</p>
+                    <pre class="tree">technicien = "Paul"
+print("Technicien : " + technicien)</pre>
+                    <p>🖥️ <b>Écran attendu</b> (ligne supplémentaire) :</p>
+                    <pre class="tree">Technicien : Paul</pre>
+
+                    <p><b>Étape 1.3</b> — Le <code>+</code> colle deux textes. Changez la valeur de
+                        <code>technicien</code> par votre prénom et relancez : l'affichage doit suivre tout seul. La
+                        boîte <code>technicien</code> a changé de contenu, le <code>print</code> n'a pas bougé.</p>
+
+                    <p><b>Étape 1.4</b> — Maintenant, on demande le nom à l'utilisateur. La fonction <code>input</code>
+                        permet de récupérer une saisie clavier :</p>
+                    <pre class="tree">technicien = input("Nom du technicien ? ")</pre>
+                    <p>Les caractères tapés après la question seront alors sauvegardés dans la variable
+                        <code>technicien</code>. Dans le terminal cela donne :</p>
+                    <pre class="tree">&gt;&gt; Nom du technicien ? Thomas</pre>
+                    <p>La valeur <code>Thomas</code> est donc stockée dans la variable <code>technicien</code>.</p>
+                    <p>Remplacez la ligne de l'étape 1.2 par cette ligne, et gardez le <code>print</code> dessous.
+                        Testez !</p>
+
+                    <p><b>Étape 1.5</b> — Ajoutez une question pour le <b>numéro de poste</b>, puis affichez la carte
+                        complète :</p>
+                    <div class="callout">
+                        <span class="lbl">Résultat attendu</span>
+                        <pre class="tree">&gt;&gt; Nom du technicien ? Léa
+&gt;&gt; Numero de poste ? 214
+Carte : Léa / poste 214</pre>
+                    </div>
+                    <p>✏️ <b>À toi de jouer</b> : ajoutez une question <code>Site ?</code> et affichez
+                        <code>Carte : Léa / poste 214 / site Lyon</code> (le site doit venir de la variable, pas être
+                        écrit en dur !).</p>
+                    <div class="callout">
+                        <span class="lbl">Résultat attendu</span>
+                        <p>Le script pose les 3 questions et affiche une carte complète avec les valeurs saisies.</p>
+                        <pre class="tree">&gt;&gt; Nom du technicien ? Léa
+&gt;&gt; Numero de poste ? 214
+&gt;&gt; Quel est le site ? Lyon
+=== RéseauPro Solutions ===
+Carte : Léa | Poste 214 | Site : Lyon</pre>
+                    </div>
+                </div>
+            </li>
+
+            <!-- ============ EXERCICE 2 ============ -->
+            <li class="step">
+                <span class="step-num">2</span>
+                <div class="step-head">
+                    <span class="step-title">Mission 2 — Le convertisseur de débits</span>
+                    <label class="tick"><input type="checkbox"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <div class="callout">
+                        <span class="lbl">Contexte pro</span>
+                        <p>Le commercial <b>M. Diallo</b> vous appelle en panique : il doit envoyer un devis à un
+                            client, mais les offres de RéseauPro Solutions sont en <b>mégabits (Mb)</b> alors que le
+                            client travaille en <b>kilobits (kb)</b> et en <b>gigabits (Gb)</b>. Il vous passe les
+                            débits au téléphone, un par un, et il faudrait convertir sans se tromper : 1 Mb = 1000 kb,
+                            et 1000 Mb = 1 Gb.</p>
+                        <p><b>Votre mission</b> : livrer le convertisseur <code>mission2.py</code> qui affiche les
+                            conversions correctes pour n'importe quel débit saisi.</p>
+                    </div>
+                    <p><b>Étape 2.1</b> — Copiez-collez dans <code>mission2.py</code> :</p>
+                    <pre class="tree">debit = 8
+print(str(debit) + " Mb = " + str(debit * 1000) + " kb")</pre>
+                    <p>🖥️ <b>Écran attendu</b> :</p>
+                    <pre class="tree">8 Mb = 8000 kb</pre>
+
+                    <p><b>Étape 2.2</b> — Attention, gros piège : remplacez la 1re ligne par :</p>
+                    <pre class="tree">debit = input("Débit en Mb ? ")   # on tape 8
+print(debit * 1000)</pre>
+                    <p>Lancez… <b>ça ne marche pas</b> (ou ça affiche <code>888...</code> sans fin). Pourquoi ? Parce
+                        que <code>input()</code> range <b>du texte</b> (<code>"8"</code>), pas un nombre. Multiplier du
+                        texte par 1000 le répète 1000 fois !</p>
+
+                    <p><b>Étape 2.3</b> — La solution : <b>convertir</b> le texte en nombre entier avec
+                        <code>int()</code> :</p>
+                    <pre class="tree">debit = int(input("Débit en Mb ? "))
+print(str(debit) + " Mb = " + str(debit * 1000) + " kb")</pre>
+                    <p>🖥️ <b>Écran attendu</b> :</p>
+                    <pre class="tree">&gt;&gt; Débit en Mb ? 8
+8 Mb = 8000 kb</pre>
+                    <p>Remarquez : <code>int()</code> sert à <b>entrer</b> un nombre, <code>str()</code> sert à le
+                        <b>ressortir</b> collé à du texte.</p>
+
+                    <p>✏️ <b>À toi de jouer</b> : ajoutez la conversion vers les gigabits (1 Gb = 1000 Mb) sur le même
+                        modèle : <code>8 Mb = 0.008 Gb</code>. Attention à la division : <code>debit / 1000</code> donne
+                        un nombre à virgule, pas besoin de le convertir davantage.</p>
+                    <div class="callout">
+                        <span class="lbl">Exemple</span>
+                        <pre class="tree">&gt;&gt; Débit en Mb ? 8
+8 Mb = 8000 kb
+8 Mb = 0.008 Gb</pre>
+                    </div>
+                    <div class="callout">
+                        <span class="lbl">Validation</span>
+                        <p>Le script fonctionne avec n'importe quelle valeur saisie (essayez 25, 100, 3).</p>
+                    </div>
+                </div>
+            </li>
+
+            <!-- ============ EXERCICE 3 ============ -->
+            <li class="step">
+                <span class="step-num">3</span>
+                <div class="step-head">
+                    <span class="step-title">Mission 3 — Le contrôle de latence</span>
+                    <label class="tick"><input type="checkbox"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <div class="callout">
+                        <span class="lbl">Contexte pro</span>
+                        <p>La nuit dernière, le serveur <b>SRV-WEB</b> d'un client a été saturé sans que personne ne
+                            s'en aperçoive. Le chef d'équipe, <b>M. Roux</b>, a analysé l'incident : la latence
+                            dépassait 100 ms et personne n'a réagi. Il a décidé de nouvelles règles : au-delà de <b>100
+                                ms</b>, on déclenche une <b>alerte</b> ; entre <b>50 et 100 ms</b>, on met le serveur
+                            <b>sous surveillance</b> ; en dessous, tout est normal. Il vous confie le tri : « Les
+                            techniciens vérifient les latences au tableau, à la main. Automatise-moi ça. »</p>
+                        <p><b>Votre mission</b> : livrer le script <code>mission3.py</code> qui affiche le bon verdict
+                            pour n'importe quelle latence saisie.</p>
+                    </div>
+                    <p><b>Étape 3.1</b> — Copiez-collez dans <code>mission3.py</code> :</p>
+                    <pre class="tree">latence = int(input("Temps de réponse en ms ? "))
+
+if latence &gt; 100:
+    print("ALERTE : latence trop élevée !")
+else:
+    print("Latence normale.")</pre>
+                    <p>🖥️ <b>Écran attendu</b> avec 150, puis avec 40 :</p>
+                    <pre class="tree">&gt;&gt; Temps de réponse en ms ? 150
+ALERTE : latence trop élevée !
+
+&gt;&gt; Temps de réponse en ms ? 40
+Latence normale.</pre>
+                    <div class="callout">
+                        <span class="lbl">Rappel — les 2 règles d'or du if</span>
+                        <p>1. Les deux-points <code>:</code> à la fin de la ligne <code>if</code>.<br>
+                            2. <b>Quatre espaces d'indentation</b> devant tout ce qui est « à l'intérieur » du if ou du
+                            else. Sans indentation, Python refuse de démarrer.</p>
+                    </div>
+
+                    <p><b>Étape 3.2</b> — Testez la valeur exacte 100. Que se passe-t-il ? <code>Latence normale.</code>
+                        car 100 n'est pas <b>strictement</b> supérieur à 100. La comparaison est <code>&gt;</code>, pas
+                        <code>&gt;=</code>.</p>
+
+                    <p><b>Étape 3.3</b> — On ajoute un niveau intermédiaire avec <code>elif</code> (sinon si). Remplacez
+                        tout le bloc if/else par :</p>
+                    <pre class="tree">if latence &gt; 100:
+    print("ALERTE : latence trop élevée !")
+elif latence &gt; 50:
+    print("Mise en surveillance du serveur.")
+else:
+    print("Latence normale.")</pre>
+                    <p>🖥️ <b>Écran attendu</b> avec 75 :</p>
+                    <pre class="tree">&gt;&gt; Temps de réponse en ms ? 75
+Mise en surveillance du serveur.</pre>
+                    <p>L'ordre est important : Python teste <code>if</code> d'abord, puis <code>elif</code>, et le
+                        <code>else</code> attrape tout le reste.</p>
+
+                    <p>✏️ <b>À toi de jouer</b> : une latence <b>négative</b> est impossible (capteur débranché).
+                        Ajoutez un test <b>avant</b> les autres qui affiche
+                        <code>ERREUR CAPTEUR : valeur impossible.</code> quand <code>latence &lt; 0</code>. Indice : un
+                        seul <code>if</code> avec un <code>else</code> suffit, ou ajoutez ce test comme premier
+                        <code>if</code> imbriqué.</p>
+                    <div class="callout">
+                        <span class="lbl">Exemple</span>
+                        <pre class="tree">&gt;&gt; Temps de réponse en ms ? -5
+ERREUR CAPTEUR : valeur impossible.</pre>
+                    </div>
+                    <div class="callout">
+                        <span class="lbl">Validation</span>
+                        <p>Votre script donne la bonne réponse pour -5, 40, 75 et 150. Testez les 4 !</p>
+                    </div>
+                </div>
+            </li>
+
+            <!-- ============ EXERCICE 4 ============ -->
+            <li class="step">
+                <span class="step-num">4</span>
+                <div class="step-head">
+                    <span class="step-title">Mission 4 — La ronde des serveurs</span>
+                    <label class="tick"><input type="checkbox"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <div class="callout">
+                        <span class="lbl">Contexte pro</span>
+                        <p>Chaque nuit à 2h, l'équipe d'exploitation doit « pinguer » les serveurs des clients pour
+                            vérifier qu'ils répondent vite. Ce travail est fait à la main, ligne par ligne, et la nuit
+                            dernière, le technicien de garde s'est endormi avant la fin de la ronde… <b>Mme Bertrand</b>
+                            veut vous tester : « Si tu me fais un programme qui enchaîne la ronde tout seul, qui relève
+                            les latences une par une et qui compte les alertes, je te confie la supervision de nos plus
+                            gros clients. »</p>
+                        <p><b>Votre mission</b> : livrer le script <code>mission4.py</code> qui interroge tous les
+                            serveurs et affiche le bilan de la ronde (nombre d'alertes).</p>
+                    </div>
+                    <p><b>Étape 4.1</b> — Copiez-collez dans <code>mission4.py</code> :</p>
+                    <pre class="tree">for i in range(5):
+    print("Ping du serveur " + str(i + 1) + " ... OK")</pre>
+                    <p>🖥️ <b>Écran attendu</b> :</p>
+                    <pre class="tree">Ping du serveur 1 ... OK
+Ping du serveur 2 ... OK
+Ping du serveur 3 ... OK
+Ping du serveur 4 ... OK
+Ping du serveur 5 ... OK</pre>
+                    <p>À lire : « pour <code>i</code> allant de 0 à 4, faire le print ». La boucle tourne <b>5 fois</b>
+                        et <code>i</code> vaut successivement 0, 1, 2, 3, 4 (jamais 5 !). D'où le <code>i + 1</code>
+                        pour afficher 1 à 5.</p>
+
+                    <p><b>Étape 4.2</b> — Remplacez tout par :</p>
+                    <pre class="tree">for i in range(3):
+    latence = int(input("Latence du serveur " + str(i + 1) + " ? "))
+    if latence &gt; 100:
+        print("Serveur " + str(i + 1) + " : HORS LIMITE")
+    else:
+        print("Serveur " + str(i + 1) + " : OK")</pre>
+                    <p>🖥️ <b>Écran attendu</b> :</p>
+                    <pre class="tree">&gt;&gt; Latence du serveur 1 ? 20
+Serveur 1 : OK
+&gt;&gt; Latence du serveur 2 ? 120
+Serveur 2 : HORS LIMITE
+&gt;&gt; Latence du serveur 3 ? 55
+Serveur 3 : OK</pre>
+                    <p>Observez l'indentation : tout ce qui est répété (question + if) a <b>4 espaces</b> ; l'intérieur
+                        du if en a <b>8</b>.</p>
+
+                    <p><b>Étape 4.3</b> — On garde un souvenir de la tournée avec un <b>compteur</b> : une variable qui
+                        part de 0 et augmente de 1 à chaque alerte :</p>
+                    <pre class="tree">alertes = 0
+
+for i in range(3):
+    latence = int(input("Latence du serveur " + str(i + 1) + " ? "))
+    if latence &gt; 100:
+        print("Serveur " + str(i + 1) + " : HORS LIMITE")
+        alertes = alertes + 1
+    else:
+        print("Serveur " + str(i + 1) + " : OK")
+
+print("Bilan de la ronde : " + str(alertes) + " alerte(s)")</pre>
+                    <p>🖥️ <b>Écran attendu</b> (avec les mêmes valeurs) :</p>
+                    <pre class="tree">...
+Bilan de la ronde : 1 alerte(s)</pre>
+
+                    <p>✏️ <b>À toi de jouer</b> : demandez d'abord <b>combien de serveurs</b> il faut visiter
+                        (<code>nb = int(input("Combien de serveurs ? "))</code>) et utilisez <code>range(nb)</code> au
+                        lieu de <code>range(3)</code>. Bonus : affichez <code>TOUT VA BIEN</code> à la fin s'il n'y a
+                        aucune alerte (indice : <code>if alertes == 0:</code>).</p>
+                    <div class="callout">
+                        <span class="lbl">Validation</span>
+                        <p>La ronde fonctionne pour n'importe quel nombre de serveurs et le bilan compte juste les
+                            alertes. Testez avec 2 serveurs, puis 5.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="lexique">
+        <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Lexique</h2><span class="sec-tag">Vocabulaire</span>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mot</th>
+                        <th>Définition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>variable</b></td>
+                        <td>Boîte étiquetée qui range une valeur (<code>latence = 40</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><b>input()</b></td>
+                        <td>Pose une question, la réponse est stockée dans une variable — toujours du texte !</td>
+                    </tr>
+                    <tr>
+                        <td><b>int()</b></td>
+                        <td>Convertit du texte en nombre entier (indispensable après <code>input()</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><b>str()</b></td>
+                        <td>Convertit un nombre en texte pour le coller avec <code>+</code></td>
+                    </tr>
+                    <tr>
+                        <td><b>if / elif / else</b></td>
+                        <td>Prendre une décision : « si… sinon si… sinon »</td>
+                    </tr>
+                    <tr>
+                        <td><b>for / range()</b></td>
+                        <td>Répéter des instructions un nombre de fois connu</td>
+                    </tr>
+                    <tr>
+                        <td><b>compteur</b></td>
+                        <td>Variable qui part de 0 et augmente de 1 (<code>alertes = alertes + 1</code>)</td>
+                    </tr>
+                    <tr>
+                        <td><b>indentation</b></td>
+                        <td>Les 4 espaces qui marquent l'intérieur d'un if ou d'une boucle</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p>TP 0 — Séquence « Découvrir la programmation » — RéseauPro Solutions ©</p>
+    </footer>
+
+</body>
+
+</html>
