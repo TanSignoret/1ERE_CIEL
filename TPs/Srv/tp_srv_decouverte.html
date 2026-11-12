@@ -26,10 +26,9 @@
         <div class="eyebrow">Séquence Web — Séance 1 · Mission n°1</div>
         <h1>Le voyage d'une requête web</h1>
         <p class="lede">Vous tapez une adresse dans un navigateur et, en moins d'une seconde, la page s'affiche.</p>
-        <p class="lede">Pourtant, derrière ce simple clic, des dizaines d'équipements ont travaillé ensemble. Vous êtes
-            le technicien chargé d'enquêter : <strong>identifier chaque acteur du trajet et prouver ce qui
-                circule</strong>.</p>
-        <p class="lede">Suivez les étapes, cochez au fur et à mesure, remplissez votre compte rendu.</p>
+        <p class="lede">Derrière ce simple clic, des dizaines d'équipements ont travaillé ensemble. Vous êtes le
+            technicien chargé d'enquêter : <strong>identifier chaque acteur du trajet, prouver ce qui circule, et
+                expliquer pourquoi</strong>.</p>
 
         <div class="chips">
             <span class="chip">1ʳᵉ Bac Pro CIEL</span>
@@ -47,6 +46,10 @@
             <li>Décrire le modèle <b>client-serveur</b> et le rôle de chaque acteur (client, serveur, DNS, FAI).</li>
             <li>Observer une requête et une réponse <b>HTTP</b> dans le navigateur.</li>
             <li>Interpréter les codes de statut HTTP (200, 404, 403…) et les ports associés (80 / 443).</li>
+            <li>Maîtriser les outils de diagnostic en ligne de commande : <code>ping</code>, <code>nslookup</code>,
+                <code>tracert</code>.
+            </li>
+            <li><b>Chercher par vous-même</b> : retrouver une information technique à partir d'une observation.</li>
         </ul>
 
         <h3>Compétences visées</h3>
@@ -60,13 +63,14 @@
             <div class="skill">
                 <span class="code">Bloc 2 · U31 — Exploiter un réseau informatique</span>
                 <b>Prouver le dialogue client-serveur</b>
-                <span>Utiliser les outils de diagnostic (<code>ping</code>, <code>nslookup</code>, outils de
-                    développement) pour relier un nom de domaine à une adresse IP et valider la communication.</span>
+                <span>Utiliser les outils de diagnostic (<code>ping</code>, <code>nslookup</code>, <code>tracert</code>,
+                    outils de développement) pour relier un nom de domaine à une adresse IP et valider la
+                    communication.</span>
             </div>
             <div class="skill">
                 <span class="code">Bloc 3 · U32 — Coder</span>
                 <b>Se préparer à publier</b>
-                <span>Comprendre la structure du web (documents échangés, langage HTML) pour aborder la séance 4 :
+                <span>Comprendre la structure du web (documents échangés, langage HTML) pour aborder la séance 3 :
                     produire puis publier sa propre page.</span>
             </div>
         </div>
@@ -120,99 +124,74 @@
         <div class="callout">
             <span class="lbl">Matériel nécessaire</span>
             <ul class="plain">
-                <li>Un poste en binôme, connecté à Internet.</li>
-                <li>Un navigateur (Firefox ou Chrome/Edge) et son éditeur de texte.</li>
+                <li>Un navigateur.</li>
+                <li>Un éditeur de texte.</li>
                 <li>Une invite de commandes (Windows : <kbd>Windows</kbd> + <kbd>R</kbd> → <code>cmd</code>).</li>
             </ul>
         </div>
     </section>
 
-    <section id="tp1">
+    <section id="phase1">
         <div class="sec-head"><span class="sec-num">03</span>
-            <h2>Étape 1 — Décoder une URL</h2><span class="sec-tag">15 min</span>
+            <h2>Exercice 1</h2><span class="sec-tag">Guidé</span>
         </div>
-        <p>Créer un <a href="../Ressources/">compte rendu de TP</a>. Il faudra le déposer sur Pronote au format PDF à la
-            fin de la séance. Il servira de support d'évaluation.</p>
-        <ol class="steps">
-            <li class="step">
-                <div class="step-num">1</div>
-                <div class="step-head">
-                    <span class="step-title">Anatomie d'une URL</span>
-                    <label class="tick"><input type="checkbox" data-step="a1"><span>Fait</span></label>
-                </div>
-                <div class="step-body">
-                    <p>Recopiez dans votre compte rendu l'URL complète de <b>cette page de TP</b>, puis découpez-la :
-                    </p>
-                    <pre class="tree">https://tansignoret.github.io/1ERE_CIEL/TPs/tp_web_bases.html
-└─┬─┘   └──────────┬──────────┘└────┬────┘└─────────┬──────────┘
-schéma           domaine          dossier        fichier</pre>
-                    <div class="question">
-                        <span class="lbl">Question 1</span>
-                        <p>1. Pour chaque partie de l'URL, expliquez <b>qui la choisit</b> : l'utilisateur, le
-                            propriétaire du site, ou personne (imposée) ?</p>
-                        <p>2. Que signifie le <code>s</code> de <code>https</code> ? Quel port est utilisé, comparé au
-                            HTTP ?</p>
-                    </div>
-                </div>
-            </li>
-            <li class="step">
-                <div class="step-num">2</div>
-                <div class="step-head">
-                    <span class="step-title">Qui se cache derrière le nom ?</span>
-                    <label class="tick"><input type="checkbox" data-step="a2"><span>Fait</span></label>
-                </div>
-                <div class="step-body">
-                    <p>Le navigateur, lui, ne comprend que les adresses IP. Dans l'invite de commandes, saisissez :</p>
-                    <pre class="tree">nslookup tansignoret.github.io
-ping tansignoret.github.io</pre>
-                    <div class="question">
-                        <span class="lbl">Question 2</span>
-                        <p>1. Quelle information le DNS a-t-il fournie ? Recopiez l'adresse IP obtenue.</p>
-                        <p>2. Le ping réussit-il ? Pourquoi est-ce un « ping » sur un nom qui fonctionne alors que la
-                            commande n'accepte que des adresses ?</p>
-                    </div>
-                </div>
-            </li>
-        </ol>
-    </section>
-
-    <section id="tp2">
-        <div class="sec-head"><span class="sec-num">04</span>
-            <h2>Étape 2 — Surprendre la requête HTTP</h2><span class="sec-tag">25 min</span>
-        </div>
+        <p>Créer un <b>compte rendu de TP</b>. Il faudra le déposer sur Pronote au format PDF à la
+            fin de la séance. Il participera à l'évaluation.</p>
+        <p><b>Objectif de la phase :</b> savoir ouvrir les outils de développement et lire un échange HTTP. Suivez la
+            procédure à la lettre.</p>
         <ol class="steps">
             <li class="step">
                 <div class="step-num">1</div>
                 <div class="step-head">
                     <span class="step-title">Ouvrir les outils de développement</span>
-                    <label class="tick"><input type="checkbox" data-step="b1"><span>Fait</span></label>
+                    <label class="tick"><input type="checkbox" data-step="a1"><span>Fait</span></label>
                 </div>
                 <div class="step-body">
                     <ul class="plain">
+                        <li>Aller sur le site de <a href="https://charlie-chaplin.ent.auvergnerhonealpes.fr/">l'ent du
+                                lycée</a>.</li>
                         <li>Dans le navigateur : <kbd>F12</kbd> (ou menu → « Plus d'outils » → « Outils de
                             développement »).</li>
-                        <li>Ouvrez l'onglet <b>Réseau</b> (<i>Network</i>), puis rechargez la page
-                            (<kbd>F5</kbd>).</li>
-                        <li>La liste se remplit : ce sont <b>tous les échanges HTTP</b> nécessaires à l'affichage de la
-                            page.</li>
+                        <li>Ouvrez l'onglet <b>Réseau</b> (<i>Network</i>).</li>
+                        <li>Rechargez la page et le cache (<kbd>Ctrl + F5</kbd>) : la liste se remplit d'échanges HTTP.
+                        </li>
                     </ul>
-                    <div class="question">
-                        <span class="lbl">Question 3</span>
-                        <p>Combien de requêtes sont nécessaires pour afficher cette page du TP ? Pourquoi
-                            <b>plusieurs</b>, alors que vous n'avez tapi qu'une seule adresse ?
-                        </p>
-                    </div>
+                    <ul class="plain collapsible">
+                        <li>Je n'y arrive pas, à quoi doit ressembler l'écran ?
+                            <ul class="plain">
+                                <li>Un panneau s'ouvre à droite ou en bas de la fenêtre.</li>
+                                <li>Un tableau avec plusieurs colonnes : <b>Nom</b>, <b>Statut</b>, <b>Type</b>,
+                                    <b>Taille</b>, <b>Temps</b>.
+                                </li>
+                                <li>Si le tableau est vide : rechargez la page avec le panneau ouvert.</li>
+                            </ul>
+                        </li>
+                    </ul>
                 </div>
             </li>
             <li class="step">
                 <div class="step-num">2</div>
                 <div class="step-head">
-                    <span class="step-title">Lire la requête et la réponse</span>
-                    <label class="tick"><input type="checkbox" data-step="b2"><span>Fait</span></label>
+                    <span class="step-title">Compter les échanges</span>
+                    <label class="tick"><input type="checkbox" data-step="a2"><span>Fait</span></label>
                 </div>
                 <div class="step-body">
-                    <p>Cliquez sur la <b>première requête</b> de la liste (le document HTML), puis documentez dans votre
-                        compte rendu :</p>
+                    <p>Relevez dans votre compte rendu le <b>nombre de requêtes</b> nécessaires à l'affichage de la
+                        page.</p>
+                    <div class="question">
+                        <span class="lbl">Question 1</span>
+                        <p>Pourquoi <b>plusieurs</b> requêtes, alors que vous n'avez tapé qu'une seule adresse ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Lire la requête principale</span>
+                    <label class="tick"><input type="checkbox" data-step="a3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Cliquez sur la <b>première requête</b> de la liste (le document HTML), puis relevez :</p>
                     <div class="tw">
                         <table>
                             <thead>
@@ -235,7 +214,7 @@ ping tansignoret.github.io</pre>
                                 </tr>
                                 <tr>
                                     <td><b>Adresse du serveur</b> (IP distante)</td>
-                                    <td>panneau « Timer » ou « Remote address »</td>
+                                    <td>panneau « Remote address »</td>
                                     <td></td>
                                 </tr>
                                 <tr>
@@ -251,196 +230,307 @@ ping tansignoret.github.io</pre>
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head">
+                    <span class="step-title">Décoder l'URL de la page</span>
+                    <label class="tick"><input type="checkbox" data-step="a4"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Recopiez l'URL complète de cette page, puis découpez-la :</p>
+                    <pre class="tree">https://tansignoret.github.io/1ERE_CIEL/TPs/tp_web_bases.html
+└─┬─┘   └──────────┬──────────┘└────┬────┘└─────────┬──────────┘
+schéma           domaine          dossier        fichier</pre>
                     <div class="question">
-                        <span class="lbl">Question 4</span>
-                        <p>1. Que signifie le code <code>200</code> ? À votre avis, que signifient <code>404</code>
-                            et <code>403</code> ? Testez en tapant une adresse inexistante du site (ex.
-                            <code>tp_web_bases2.html</code>) et relevez le code obtenu.
-                        </p>
-                        <p>2. Comparez l'IP distante relevée ici avec celle obtenue à l'étape 1 avec
-                            <code>nslookup</code> : que remarquez-vous ?
-                        </p>
+                        <span class="lbl">Question 2</span>
+                        <p>Que signifie le <code>s</code> de <code>https</code> ? Quel port est utilisé, comparé au
+                            HTTP ? (indice : vos relevés du tableau ci-dessus)</p>
                     </div>
                 </div>
             </li>
             <li class="step">
-                <div class="step-num">3</div>
+                <div class="step-num">5</div>
                 <div class="step-head">
-                    <span class="step-title">Requête ≠ réponse</span>
-                    <label class="tick"><input type="checkbox" data-step="b3"><span>Fait</span></label>
+                    <span class="step-title">Tester la connectivité — découverte de <code>ping</code></span>
+                    <label class="tick"><input type="checkbox" data-step="a5"><span>Fait</span></label>
                 </div>
                 <div class="step-body">
-                    <p>Dans le panneau de la requête, observez les deux blocs d'<b>en-têtes</b> :</p>
+                    <p>Vous venez de relever l'adresse IP du serveur. Vérifions qu'elle est <b>joignable</b> avec
+                        l'outil <code>ping</code> : il envoie un petit message à la machine et attend sa réponse.</p>
+                    <p>Ouvrez l'invite de commandes (<kbd>Windows</kbd> + <kbd>R</kbd> → <code>cmd</code>) et
+                        saisissez, en remplaçant <code>ADRESSE</code> par l'IP relevée dans le tableau ci-dessus :</p>
+                    <pre class="tree">ping ADRESSE        (ex. ping 185.199.108.153)</pre>
                     <ul class="plain collapsible">
-                        <li>« En-têtes de requête » (envoyés <b>par le client</b>)
+                        <li>Mon IP contient des « : » (ex. <code>2606:50c0:8000::153</code>) — c'est une IPv6 !
                             <ul class="plain">
-                                <li><code>Host</code> : le site demandé</li>
-                                <li><code>User-Agent</code> : le navigateur utilisé</li>
+                                <li>Utilisez alors la commande : <code>ping -6 ADRESSE</code></li>
+                                <li><code>-6</code> force le ping en IPv6 ; sans option, Windows essaie en IPv4 et
+                                    peut échouer alors que le serveur répond très bien en IPv6.</li>
                             </ul>
                         </li>
-                        <li>« En-têtes de réponse » (envoyés <b>par le serveur</b>)
+                        <li>Comment lire le résultat ?
                             <ul class="plain">
-                                <li><code>Server</code> : le logiciel serveur</li>
-                                <li><code>Content-Type</code> : le type de document renvoyé</li>
+                                <li>Chaque ligne « Réponse de … » = un message aller-retour réussi, avec le temps en
+                                    millisecondes.</li>
+                                <li>« Délai d'attente dépassé » = pas de réponse : machine injoignable ou qui bloque
+                                    le ping.</li>
+                                <li>Les dernières lignes font le bilan (envoyés, reçus, perdus).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 3</span>
+                        <p>1. Quel temps de réponse obtenez-vous ? Testez aussi <code>ping 127.0.0.1</code> et
+                            comparez.</p>
+                        <p>2. Un ping réussi vers le serveur prouve-t-il que la page web s'affichera ? Justifiez.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+        <div class="callout">
+            <span class="lbl">Point de contrôle n°1</span>
+            <p>Présentez à l'enseignant vos réponses aux questions 1 à 3.</p>
+        </div>
+    </section>
+
+    <section id="phase2">
+        <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Exercice 2</h2><span class="sec-tag">Guidé</span>
+        </div>
+        <p><b>Objectif de la phase :</b> réutiliser ce que vous venez de découvrir, sur une cible différente.</p>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Enquête sur <a
+                            href="https://www.education.gouv.fr">www.education.gouv.fr</a></span>
+                    <label class="tick"><input type="checkbox" data-step="b1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Aller sur le site : <a href="https://www.education.gouv.fr">www.education.gouv.fr</a>.</p>
+                    <p>Faites un résumé des différentes requêtes que vous aurez observées (prenez 3 exemples
+                        différents) :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Requête</th>
+                                    <th>Méthode</th>
+                                    <th>Code de statut</th>
+                                    <th>Adresse IP</th>
+                                    <th>Type de contenu</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question 4</span>
+                        <p>Comparez les deux sites : le port est-il le même ? le type de contenu ? Que pouvez-vous en
+                            conclure sur le « langage » du web ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Outil — <code>nslookup</code> : « quel est ton numéro ? »</span>
+                    <label class="tick"><input type="checkbox" data-step="b2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Vous avez relevé les IP <b>après</b> le chargement des pages. Mais comment le navigateur les
+                        connaît-il <b>avant</b> ? C'est le travail du serveur DNS, interrogé avec l'outil
+                        <code>nslookup</code>. Dans l'invite de commandes, saisissez :
+                    </p>
+                    <pre class="tree">nslookup www.education.gouv.fr</pre>
+                    <ul class="plain collapsible">
+                        <li>Comment lire le résultat ?
+                            <ul class="plain">
+                                <li>La 1ʳᵉ partie indique <b>quel serveur DNS</b> a répondu (souvent celui du lycée ou
+                                    du FAI).</li>
+                                <li>La 2ᵉ partie donne la réponse : <b>Name</b> (le nom demandé) et
+                                    <b>Address</b> (l'IP trouvée).
+                                </li>
+                                <li>Plusieurs adresses peuvent être renvoyées : le site est hébergé sur plusieurs
+                                    serveurs.</li>
                             </ul>
                         </li>
                     </ul>
                     <div class="question">
                         <span class="lbl">Question 5</span>
-                        <p>Rangez dans un tableau à deux colonnes « envoyé par le client » / « envoyé par le serveur » :
-                            le nom du navigateur, le code de statut, le site demandé, le type de contenu. Justifiez
-                            chaque rangement.</p>
+                        <p>Quelle adresse IP le DNS a-t-il fournie pour <code>www.education.gouv.fr</code> ?
+                            Comparez avec celle relevée dans le navigateur : que remarquez-vous ?</p>
                     </div>
-                </div>
-            </li>
-        </ol>
-    </section>
-
-    <section id="tp3">
-        <div class="sec-head"><span class="sec-num">05</span>
-            <h2>Étape 3 — Identifier les acteurs du voyage</h2><span class="sec-tag">20 min</span>
-        </div>
-        <ol class="steps">
-            <li class="step">
-                <div class="step-num">1</div>
-                <div class="step-head">
-                    <span class="step-title">Relever la route</span>
-                    <label class="tick"><input type="checkbox" data-step="c1"><span>Fait</span></label>
-                </div>
-                <div class="step-body">
-                    <p>Saisissez la commande :</p>
-                    <pre class="tree">tracert tansignoret.github.io</pre>
-                    <p>Chaque ligne est un <b>routeur</b> traversé par votre requête.</p>
-                    <div class="question">
-                        <span class="lbl">Question 6</span>
-                        <p>1. Combien d'étapes environ séparent votre poste du serveur ? Recopiez les 3 premières.</p>
-                        <p>2. Le premier routeur de la liste est probablement la passerelle de l'atelier : pourquoi
-                            votre requête passe-t-elle d'abord par elle ?</p>
-                    </div>
-                </div>
-            </li>
-            <li class="step">
-                <div class="step-num">2</div>
-                <div class="step-head">
-                    <span class="step-title">Ping ne suffit pas !</span>
-                    <label class="tick"><input type="checkbox" data-step="c2"><span>Fait</span></label>
-                </div>
-                <div class="step-body">
-                    <p>Un serveur peut être <b>joignable</b> (le ping répond) mais <b>ne pas servir de pages</b> (le
-                        service web est arrêté). Testez :</p>
-                    <pre class="tree">ping tansignoret.github.io
-ping 127.0.0.1</pre>
-                    <div class="question">
-                        <span class="lbl">Question 7</span>
-                        <p>1. Que prouve le succès du ping vers le site ? Que ne prouve-t-il <b>pas</b> ?</p>
-                        <p>2. À quoi reconnaît-on, dans le navigateur, qu'un serveur est joignable mais que le service
-                            web ne répond pas ? (indice : codes de statut…)</p>
-                    </div>
-                </div>
-            </li>
-        </ol>
-    </section>
-
-    <section id="tp4">
-        <div class="sec-head"><span class="sec-num">06</span>
-            <h2>Étape 4 — Le schéma du voyage</h2><span class="sec-tag">20 min</span>
-        </div>
-        <ol class="steps">
-            <li class="step">
-                <div class="step-num">1</div>
-                <div class="step-head">
-                    <span class="step-title">Dessiner l'acheminement</span>
-                    <label class="tick"><input type="checkbox" data-step="d1"><span>Fait</span></label>
-                </div>
-                <div class="step-body">
-                    <p>Sur votre compte rendu, dessinez le trajet complet d'une requête tapée sur
-                        <code>https://tansignoret.github.io</code> :
-                    </p>
-                    <ul class="plain">
-                        <li>Poste (client) → switch → passerelle → routeurs du FAI → serveur DNS → serveur web.</li>
-                        <li>Reportez les adresses IP relevées pendant le TP (passerelle, serveur DNS, serveur web).</li>
-                        <li>Indiquez sur le schéma <b>où</b> le nom de domaine est traduit en IP et <b>où</b> le
-                            document HTML est fabriqué.</li>
-                    </ul>
-                    <div class="question">
-                        <span class="lbl">Question 8</span>
-                        <p>Sur votre schéma, fléchez en vert la requête HTTP (client → serveur) et en rouge la réponse
-                            (serveur → client). Quel acteur du schéma n'apparaît <b>qu'une seule fois</b> dans le
-                            dialogue, au tout début ? Justifiez.</p>
-                    </div>
-                </div>
-            </li>
-            <li class="step">
-                <div class="step-num">2</div>
-                <div class="step-head">
-                    <span class="step-title">Contrôle croisé</span>
-                    <label class="tick"><input type="checkbox" data-step="d2"><span>Fait</span></label>
-                </div>
-                <div class="step-body">
-                    <p>Échangez votre schéma avec le binôme voisin : chaque binôme doit retrouver sur le schéma de
-                        l'autre les 5 acteurs et les 2 flèches du dialogue. Toute erreur constatée est corrigée
-                        <b>avant</b> le rendu.
-                    </p>
-                    <div class="callout">
-                        <span class="lbl">À retenir</span>
-                        <p>Une page web n'est pas « téléchargée depuis le ciel » : c'est un <b>dialogue HTTP</b> entre
-                            un <b>client</b> (le navigateur) et un <b>serveur</b>, guidé par le <b>DNS</b>. La semaine
-                            prochaine, vous installerez ce serveur… sur votre propre poste.</p>
-                    </div>
-                </div>
-            </li>
-        </ol>
-    </section>
-
-    <section id="synthese">
-        <div class="sec-head"><span class="sec-num">07</span>
-            <h2>Synthèse à compléter</h2><span class="sec-tag">Trace écrite</span>
-        </div>
-        <p>Complétez dans votre compte rendu (une synthèse par élève) :</p>
-        <ol class="steps">
-            <li class="step">
-                <div class="step-num">1</div>
-                <div class="step-head">
-                    <span class="step-title">Texte à trous n°1 — Client-serveur</span>
-                    <label class="tick"><input type="checkbox" data-step="s1"><span>Fait</span></label>
-                </div>
-                <div class="step-body">
-                    <p>« Dans le modèle ............ , le ............ formule une requête et attend la réponse ; le
-                        ............ écoute en permanence sur un ............ (80 en HTTP, ............ en HTTPS). Le
-                        navigateur est un client, le site est hébergé par un ............ . »</p>
-                </div>
-            </li>
-            <li class="step">
-                <div class="step-num">2</div>
-                <div class="step-head">
-                    <span class="step-title">Texte à trous n°2 — L'URL et le trajet</span>
-                    <label class="tick"><input type="checkbox" data-step="s2"><span>Fait</span></label>
-                </div>
-                <div class="step-body">
-                    <p>« Une URL se décompose ainsi : <code>............</code> :// <code>............</code> /
-                        <code>............</code>. Avant d'envoyer la requête, le navigateur demande au serveur
-                        ............ l'adresse ............ du serveur web. La réponse ............ contient le document
-                        ............ que le navigateur affiche. »
-                    </p>
                 </div>
             </li>
             <li class="step">
                 <div class="step-num">3</div>
                 <div class="step-head">
-                    <span class="step-title">Les codes de statut</span>
-                    <label class="tick"><input type="checkbox" data-step="s3"><span>Fait</span></label>
+                    <span class="step-title">Provoquer une erreur</span>
+                    <label class="tick"><input type="checkbox" data-step="b3"><span>Fait</span></label>
                 </div>
                 <div class="step-body">
-                    <p>« 200 = la requête a ............ · 404 = la ressource ............ · 403 = accès ............ ·
-                        301 = la page a été ............ . Un ping qui répond prouve que le serveur est ............ ,
-                        mais pas que le ............ web fonctionne. »</p>
+                    <p>Sur le site du TP, tapez une adresse <b>inexistante</b> (ex.
+                        <code>tp_web_bases2.html</code>) et relevez le code de statut obtenu.
+                    </p>
+                    <div class="question">
+                        <span class="lbl">Question 6</span>
+                        <p>1. Quel est le code renvoyé et que signifie-t-il ?</p>
+                        <p>2. Le serveur est-il « en panne » quand il renvoie ce code ?</p>
+                    </div>
                 </div>
             </li>
         </ol>
+        <div class="callout">
+            <span class="lbl">Point de contrôle n°2</span>
+            <p>Présentez à l'enseignant vos réponses aux questions 4 à 6.</p>
+        </div>
+    </section>
+
+    <section id="phase4">
+        <div class="sec-head"><span class="sec-num">06</span>
+            <h2>Exercice 4</h2><span class="sec-tag">Autonome</span>
+        </div>
+        <p><b>Objectif de la phase :</b> répondre aux questions de l'enquête <b>sans procédure fournie</b>, en
+            choisissant
+            vous-même le bon outil parmi ceux découverts à l'exercice 3. Vous avez le droit d'utiliser la recherche
+            internet, la documentation en ligne et les outils <code>ping</code>, <code>nslookup</code>,
+            <code>tracert</code>, F12.
+        </p>
+        <ol class="steps">
+
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Outil — <code>tracert</code> : « par où es-tu passé ? »</span>
+                    <label class="tick"><input type="checkbox" data-step="c1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Le <code>tracert</code> liste tous les routeurs traversés par la requête, dans l'ordre. Saisissez
+                        :</p>
+                    <pre class="tree">tracert tansignoret.github.io</pre>
+                    <ul class="plain collapsible">
+                        <li>Comment lire le résultat ?
+                            <ul class="plain">
+                                <li>Chaque ligne = un <b>saut</b> (un routeur), avec 3 mesures de temps.</li>
+                                <li>Les <code>* * *</code> signifient qu'un routeur ne répond pas au tracert : ce n'est
+                                    pas une panne, beaucoup refusent délibérément.</li>
+                                <li>La commande peut prendre du temps : laissez-la se terminer.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 7</span>
+                        <p>Combien de sauts séparent votre poste du serveur ?</p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Le trajet complet</span>
+                    <label class="tick"><input type="checkbox" data-step="d1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Identifiez <b>quel acteur</b> a fourni l'adresse IP du site, prouvez que le serveur est
+                        joignable, et déterminez <b>par où</b> passe la requête. Recopiez les 3 premières étapes du
+                        trajet et identifiez-les.</p>
+                    <div class="question">
+                        <span class="lbl">Question 8</span>
+                        <p>Quel est le premier équipement traversé ? Pourquoi <b>toujours</b> lui ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Recherche documentaire</span>
+                    <label class="tick"><input type="checkbox" data-step="d2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Selon vous :</p>
+                    <div class="question">
+                        <span class="lbl">Question 9</span>
+                        <p>1. Que garantit <b>HTTPS</b> par rapport à HTTP ? Citez le mécanisme en jeu.</p>
+                        <p>2. Que fait le navigateur entre la réception du document HTML et l'affichage complet de la
+                            page ?</p>
+                    </div>
+                </div>
+            </li>
+
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Bilan des trois outils</span>
+                    <label class="tick"><input type="checkbox" data-step="c2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Complétez ce tableau dans votre compte rendu : pour chaque outil, ce qu'il prouve et ce qu'il
+                        ne prouve <b>pas</b>.</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Outil</th>
+                                    <th>Ce qu'il prouve</th>
+                                    <th>Ce qu'il ne prouve PAS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>ping</code></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><code>nslookup</code></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><code>tracert</code></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </ol>
+        <div class="callout">
+            <span class="lbl">Point de contrôle</span>
+            <p>Présentez à l'enseignant les réponses aux questions 7 à 9.</p>
+        </div>
     </section>
 
     <section id="rendre">
-        <div class="sec-head"><span class="sec-num">08</span>
+        <div class="sec-head"><span class="sec-num">07</span>
             <h2>Ce que je dois rendre</h2><span class="sec-tag">Checklist</span>
         </div>
         <ol class="steps">
@@ -452,27 +542,16 @@ ping 127.0.0.1</pre>
                 </div>
                 <div class="step-body">
                     <ul class="plain">
-                        <li>Découpage de l'URL et valeurs relevées (DNS, IP, code de statut, port).</li>
-                        <li>Réponses aux questions 1 à 8.</li>
+                        <li>Les réponses aux questions 1 à 9.</li>
+                        <li>Le tableau de bilan des trois outils</li>
                     </ul>
-                </div>
-            </li>
-            <li class="step">
-                <div class="step-num">✓</div>
-                <div class="step-head">
-                    <span class="step-title">Schéma du voyage validé par un pair</span>
-                    <label class="tick"><input type="checkbox" data-step="r2"><span>Rendu</span></label>
-                </div>
-                <div class="step-body">
-                    <p>Le schéma de l'acheminement (5 acteurs, adresses reportées, requête et réponse fléchées) + les
-                        trois textes à trous complétés.</p>
                 </div>
             </li>
         </ol>
     </section>
 
     <section id="lexique">
-        <div class="sec-head"><span class="sec-num">09</span>
+        <div class="sec-head"><span class="sec-num">08</span>
             <h2>Lexique</h2><span class="sec-tag">Vocabulaire</span>
         </div>
         <div class="tw">
@@ -520,11 +599,19 @@ ping 127.0.0.1</pre>
                     <tr>
                         <td><b>HTML</b></td>
                         <td>Langage de description des pages web ; le document échangé dans ce TP. On le produira
-                            en séance 4.</td>
+                            en séance 3.</td>
                     </tr>
                     <tr>
                         <td><b>FAI</b></td>
                         <td>Fournisseur d'accès à Internet : ses routeurs acheminent la requête jusqu'au serveur.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ping / ICMP</b></td>
+                        <td>Outil de test de connectivité : il envoie une requête et attend une réponse.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Tracert</b></td>
+                        <td>Outil qui liste les routeurs traversés par la requête, dans l'ordre (les « sauts »).</td>
                     </tr>
                 </tbody>
             </table>
@@ -535,7 +622,7 @@ ping 127.0.0.1</pre>
         <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Web — Lycée Charlie Chaplin</strong></p>
         <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
                 href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
-        <p>Prochaine mission (Séance 2) : le DNS, l'annuaire d'internet</p>
+        <p>Prochaine mission (Séance 2) : déployer votre serveur web local</p>
     </footer>
 </body>
 

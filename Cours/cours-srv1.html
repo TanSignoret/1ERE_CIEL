@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours — Généraliser : ce que le TP nous a appris</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <link rel="stylesheet" href="../../Ressources/style.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- En-tête -->
+        <header class="hero">
+            <div class="eyebrow">Cours — Séquence Web · Séance 1 · Synthèse</div>
+            <h1>Généraliser : ce que le TP nous a appris</h1>
+            <p class="lede">
+                Dans le TP, vous avez suivi <b>une</b> requête vers <b>un</b> site. Ce cours court montre que ce que
+                vous avez observé n'est pas un cas particulier : c'est <b>le modèle</b> qui fait fonctionner tout
+                l'informatique en réseau.
+            </p>
+            <div class="chips">
+                <span class="chip">Première Bac Pro CIEL</span>
+                <span class="chip">Durée : 30 min</span>
+                <span class="chip">Après le TP « Le voyage d'une requête web »</span>
+            </div>
+        </header>
+
+        <!-- De l'exemple au modèle -->
+        <section id="modeles">
+            <div class="sec-head"><span class="sec-num">01</span>
+                <h2>De l'exemple au modèle</h2><span class="sec-tag">Généralisation</span>
+            </div>
+            <div class="col">
+                <p>Dans le TP, vous avez observé ceci :</p>
+                <div class="mermaid">
+                    flowchart LR
+                    A[Navigateur<br>le client] -->|requête HTTP| B[Site web<br>le serveur]
+                    B -->|réponse : HTML| A
+                </div>
+                <p>Mais ce schéma ne décrit pas que le web. Il décrit <b>toute communication en réseau</b> :</p>
+                <div class="tw">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Service</th>
+                                <th>Le client est…</th>
+                                <th>Le serveur est…</th>
+                                <th>Ce qui circule</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Web</b> (HTTP)</td>
+                                <td>Le navigateur</td>
+                                <td>Le serveur web</td>
+                                <td>Pages HTML, images, CSS</td>
+                            </tr>
+                            <tr>
+                                <td><b>Messagerie</b></td>
+                                <td>Votre application mail</td>
+                                <td>Le serveur de mails</td>
+                                <td>Des messages</td>
+                            </tr>
+                            <tr>
+                                <td><b>Jeux en ligne</b></td>
+                                <td>Le jeu sur votre PC ou console</td>
+                                <td>Le serveur de jeu</td>
+                                <td>Positions, actions des joueurs</td>
+                            </tr>
+                            <tr>
+                                <td><b>Partage de fichiers</b></td>
+                                <td>L'explorateur de fichiers</td>
+                                <td>Le serveur de fichiers (NAS)</td>
+                                <td>Des documents</td>
+                            </tr>
+                            <tr>
+                                <td><b>Impression</b></td>
+                                <td>Vos applications</td>
+                                <td>Le serveur d'impression</td>
+                                <td>Des travaux d'impression</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout">
+                    <span class="lbl">À retenir n°1</span>
+                    <p><b>Client-serveur</b> n'est pas une notion « du web » : c'est <b>le modèle universel</b> des
+                        services en réseau. Un client demande, un serveur écoute et répond. Toujours.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protocoles et ports -->
+        <section id="protocoles">
+            <div class="sec-head"><span class="sec-num">02</span>
+                <h2>Protocoles et ports : la langue et la porte</h2><span class="sec-tag">Vocabulaire</span>
+            </div>
+            <div class="col">
+                <p>Dans le TP, vous avez relevé un port (<b>443</b>) et un protocole (<b>HTTPS</b>). Généralisons :</p>
+                <ul>
+                    <li>Un <b>protocole</b> est la <b>langue commune</b> : les règles précises de l'échange. Sans
+                        protocole partagé, pas de dialogue (comme deux personnes qui ne parlent pas la même langue).
+                    </li>
+                    <li>Un <b>port</b> est la <b>porte numérotée</b> par laquelle le service écoute sur la machine. Une
+                        machine peut héberger <b>plusieurs services</b>, chacun sur son port.</li>
+                </ul>
+                <div class="tw">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Port</th>
+                                <th>Service</th>
+                                <th>Protocole</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>80</b></td>
+                                <td>Serveur web</td>
+                                <td>HTTP</td>
+                            </tr>
+                            <tr>
+                                <td><b>443</b></td>
+                                <td>Serveur web sécurisé</td>
+                                <td>HTTPS (HTTP + TLS)</td>
+                            </tr>
+                            <tr>
+                                <td><b>53</b></td>
+                                <td>Serveur DNS</td>
+                                <td>DNS</td>
+                            </tr>
+                            <tr>
+                                <td><b>25</b></td>
+                                <td>Envoi de mails</td>
+                                <td>SMTP</td>
+                            </tr>
+                            <tr>
+                                <td><b>22</b></td>
+                                <td>Administration à distance</td>
+                                <td>SSH</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout">
+                    <span class="lbl">À retenir n°2</span>
+                    <p><b>Adresse IP + port</b> = l'adresse complète d'un <b>service</b> (pas seulement d'une machine).
+                        C'est pour cela que le ping peut réussir alors que le site ne répond pas : la machine est
+                        joignable, mais la porte 443 est fermée.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Erreurs et diagnostic -->
+        <section id="erreurs">
+            <div class="sec-head"><span class="sec-num">03</span>
+                <h2>Quand ça ne marche pas : une méthode, pas de la chance</h2><span class="sec-tag">Diagnostic</span>
+            </div>
+            <div class="col">
+                <p>Les codes de statut du TP (<code>200</code>, <code>404</code>, <code>403</code>…) ne concernent pas
+                    que le web : toute application réseau renvoie des <b>réponses structurées</b> qui disent <b>ce qui
+                        s'est passé</b>. Un bon technicien lit la réponse au lieu de deviner.</p>
+                <div class="mermaid">
+                    flowchart TD
+                    P[Le service ne répond pas] --> Q1{La machine est-elle joignable ? ping}
+                    Q1 -->|Non| R1[Réseau, câblage, IP, machine éteinte]
+                    Q1 -->|Oui| Q2{Le service écoute-t-il sur son port ?}
+                    Q2 -->|Non| R2[Service arrêté, port bloqué, pare-feu]
+                    Q2 -->|Oui| Q3{La ressource existe-t-elle ? code de statut}
+                    Q3 -->|404| R3[Mauvaise adresse, fichier absent]
+                    Q3 -->|403| R4[Droits d'accès insuffisants]
+                    Q3 -->|200| R5[Le problème est ailleurs : côté client]
+                </div>
+                <p><em>La démarche de diagnostic : de la machine vers le service, du plus large au plus précis —
+                        toujours dans le même ordre.</em></p>
+                <div class="callout">
+                    <span class="lbl">À retenir n°3</span>
+                    <p>On ne teste jamais au hasard. On pose les questions <b>dans l'ordre</b> : machine joignable →
+                        service en écoute → ressource disponible. Chaque réponse élimine une cause.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Synthèse -->
+        <section id="synthese">
+            <div class="sec-head"><span class="sec-num">04</span>
+                <h2>Les 5 phrases à savoir dire</h2><span class="sec-tag">Synthèse</span>
+            </div>
+            <div class="col">
+                <ol class="plain">
+                    <li>« Le web est un <b>service</b> qui circule sur <b>internet</b>, l'infrastructure mondiale de
+                        réseaux. »</li>
+                    <li>« Tout service en réseau suit le modèle <b>client-serveur</b> : le client demande, le serveur
+                        écoute et répond. »</li>
+                    <li>« Un service est identifié par <b>adresse IP + port</b> ; le <b>DNS</b> traduit le nom de
+                        domaine en IP avant le dialogue. »</li>
+                    <li>« Le dialogue respecte un <b>protocole</b> (HTTP pour le web) ; les réponses portent des
+                        <b>codes de statut</b> qui disent ce qui s'est passé. »</li>
+                    <li>« Pour diagnostiquer, je teste <b>dans l'ordre</b> : machine joignable → service en écoute →
+                        ressource disponible. »</li>
+                </ol>
+                <div class="callout">
+                    <span class="lbl">Et maintenant ?</span>
+                    <p>Séance 2 : vous quittez le rôle de client. Vous allez <b>installer le serveur</b> sur votre
+                        propre
+                        poste — et revivre tout ce modèle… de l'autre côté du dialogue.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Web — Lycée Charlie Chaplin</strong></p>
+            <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
+                    href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+            <p>Prochaine séance : déployer votre serveur web local</p>
+        </footer>
+    </div>
+</body>
+
+</html>
