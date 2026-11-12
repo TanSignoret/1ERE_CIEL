@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compte rendu — Le voyage d'une requête web</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+    <style>
+        /* Styles locaux : zones de réponse et impression */
+        .cr-head {
+            border: 2px solid #2c3e50;
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .cr-head .tw td {
+            height: 2.2rem;
+        }
+
+        .reponse {
+            border: 1px dashed #8a9bb0;
+            border-radius: 6px;
+            background: #f7f9fc;
+            padding: .8rem 1rem;
+            margin: .5rem 0 1rem;
+            min-height: 2.5rem;
+        }
+
+        .reponse p {
+            margin: 0;
+            color: #8a9bb0;
+            font-style: italic;
+        }
+
+        .tw td:empty {
+            height: 2rem;
+        }
+
+        .tw .vide {
+            height: 2rem;
+        }
+
+        @media print {
+            body {
+                font-size: 12pt;
+            }
+
+            .reponse {
+                background: #fff;
+            }
+
+            section {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header class="hero col">
+        <div class="eyebrow">Séquence Web — Séance 1 · Mission n°1 · Compte rendu</div>
+        <h1>Le voyage d'une requête web</h1>
+        <p class="lede">À compléter au fur et à mesure du TP, puis à déposer sur Pronote au format <strong>PDF</strong>
+            à
+            la fin de la séance.</p>
+
+        <div class="chips">
+            <span class="chip">1ʳᵉ Bac Pro CIEL</span>
+            <span class="chip">Durée : 2 h</span>
+            <span class="chip">Un compte rendu par élève</span>
+        </div>
+    </header>
+
+    <section id="entete">
+        <div class="cr-head">
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Classe</th>
+                            <th>Date</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="etape1">
+        <div class="sec-head"><span class="sec-num">01</span>
+            <h2>Étape 1 — Décoder une URL</h2><span class="sec-tag">15 min</span>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Relevé — URL de la page de TP</span>
+            <p>Recopiez l'URL complète de la page de TP :</p>
+        </div>
+        <div class="reponse">
+            <p>https://</p>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Question 1</span>
+            <p><strong>1.</strong> Pour chaque partie de l'URL, expliquez <b>qui la choisit</b> : l'utilisateur, le
+                propriétaire du site, ou personne (imposée) ?</p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+        <div class="question">
+            <p><strong>2.</strong> Que signifie le <code>s</code> de <code>https</code> ? Quel port est utilisé,
+                comparé au HTTP ?</p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Relevé — nslookup / ping</span>
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Commande</th>
+                            <th>Résultat (adresse IP obtenue)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>nslookup tansignoret.github.io</code></td>
+                            <td class="vide"></td>
+                        </tr>
+                        <tr>
+                            <td><code>ping tansignoret.github.io</code> → réussi ? (✔ / ✘)</td>
+                            <td class="vide"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Question 2</span>
+            <p><strong>1.</strong> Quelle information le DNS a-t-il fournie ? Recopiez l'adresse IP obtenue.</p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+        <div class="question">
+            <p><strong>2.</strong> Pourquoi un « ping » sur un nom fonctionne-t-il alors que la commande n'accepte que
+                des adresses ?</p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+    </section>
+
+    <section id="etape2">
+        <div class="sec-head"><span class="sec-num">02</span>
+            <h2>Étape 2 — Surprendre la requête HTTP</h2><span class="sec-tag">25 min</span>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Question 3</span>
+            <p>Combien de requêtes sont nécessaires pour afficher la page du TP ? Pourquoi <b>plusieurs</b>, alors que
+                vous n'avez tapé qu'une seule adresse ?</p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Question 4 — Tableau de lecture de la requête</span>
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Information</th>
+                            <th>Valeur relevée</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>Méthode</b> (GET…)</td>
+                            <td class="vide"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Code de statut</b></td>
+                            <td class="vide"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Adresse du serveur</b> (IP distante)</td>
+                            <td class="vide"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Port distant</b></td>
+                            <td class="vide"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Type de contenu</b> (Content-Type)</td>
+                            <td class="vide"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Question 4 (suite)</span>
+            <p><strong>1.</strong> Que signifie le code <code>200</code> ? Que signifient <code>404</code> et
+                <code>403</code> ? Relevez le code obtenu avec une adresse inexistante :
+            </p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+        <div class="question">
+            <p><strong>2.</strong> Comparez l'IP distante relevée ici avec celle obtenue à l'étape 1 avec
+                <code>nslookup</code> : que remarquez-vous ?
+            </p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Question 5 — Requête ou réponse ?</span>
+            <p>Rangez chaque information dans la bonne colonne. Justifiez chaque rangement en une ligne.</p>
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Information</th>
+                            <th>Envoyé par le client</th>
+                            <th>Envoyé par le serveur</th>
+                            <th>Justification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Nom du navigateur</td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                        </tr>
+                        <tr>
+                            <td>Code de statut</td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                        </tr>
+                        <tr>
+                            <td>Site demandé</td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                        </tr>
+                        <tr>
+                            <td>Type de contenu</td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="etape3">
+        <div class="sec-head"><span class="sec-num">03</span>
+            <h2>Étape 3 — Identifier les acteurs du voyage</h2><span class="sec-tag">20 min</span>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Question 6</span>
+            <p><strong>1.</strong> Combien d'étapes environ séparent votre poste du serveur ? Recopiez les 3 premières
+                lignes du <code>tracert</code> :</p>
+        </div>
+        <div class="reponse">
+            <pre class="tree">1.
+2.
+3.</pre>
+        </div>
+        <div class="question">
+            <p><strong>2.</strong> Pourquoi votre requête passe-t-elle d'abord par la passerelle de l'atelier ?</p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Question 7</span>
+            <p><strong>1.</strong> Que prouve le succès du ping vers le site ? Que ne prouve-t-il <b>pas</b> ?</p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+        <div class="question">
+            <p><strong>2.</strong> À quoi reconnaît-on, dans le navigateur, qu'un serveur est joignable mais que le
+                service web ne répond pas ?</p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+    </section>
+
+    <section id="etape4">
+        <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Étape 4 — Le schéma du voyage</h2><span class="sec-tag">20 min</span>
+        </div>
+
+        <p>Dessinez le trajet complet de la requête. Reportez les adresses IP relevées pendant le TP, fléchez la
+            requête en <b>vert</b> et la réponse en <b>rouge</b>. Indiquez où le nom est traduit en IP et où le
+            document HTML est fabriqué.</p>
+        <div class="reponse" style="min-height: 12rem;">
+            <p>Schéma : poste — switch — passerelle — FAI — DNS — serveur web…</p>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Question 8</span>
+            <p>Quel acteur du schéma n'apparaît <b>qu'une seule fois</b> dans le dialogue, au tout début ? Justifiez.
+            </p>
+        </div>
+        <div class="reponse">
+            <p>Votre réponse…</p>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Contrôle croisé</span>
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Binôme contrôleur</th>
+                            <th>5 acteurs retrouvés ✔/✘</th>
+                            <th>2 flèches correctes ✔/✘</th>
+                            <th>Erreurs signalées</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                            <td class="vide"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <section id="synthese">
+        <div class="sec-head"><span class="sec-num">05</span>
+            <h2>Synthèse à compléter</h2><span class="sec-tag">Trace écrite</span>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Texte à trous n°1 — Client-serveur</span>
+            <p>« Dans le modèle ............ , le ............ formule une requête et attend la réponse ; le
+                ............
+                écoute en permanence sur un ............ (80 en HTTP, ............ en HTTPS). Le navigateur est un
+                client, le site est hébergé par un ............ . »</p>
+        </div>
+        <div class="reponse">
+            <p>Complétez ici…</p>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Texte à trous n°2 — L'URL et le trajet</span>
+            <p>« Une URL se décompose ainsi : <code>............</code> :// <code>............</code> /
+                <code>............</code>. Avant d'envoyer la requête, le navigateur demande au serveur ............
+                l'adresse ............ du serveur web. La réponse ............ contient le document ............ que le
+                navigateur affiche. »
+            </p>
+        </div>
+        <div class="reponse">
+            <p>Complétez ici…</p>
+        </div>
+
+        <div class="question">
+            <span class="lbl">Texte à trous n°3 — Les codes de statut</span>
+            <p>« 200 = la requête a ............ · 404 = la ressource ............ · 403 = accès ............ · 301 = la
+                page a été ............ . Un ping qui répond prouve que le serveur est ............ , mais pas que le
+                ............ web fonctionne. »</p>
+        </div>
+        <div class="reponse">
+            <p>Complétez ici…</p>
+        </div>
+    </section>
+
+    <section id="rendre">
+        <div class="sec-head"><span class="sec-num">06</span>
+            <h2>Ce que je dois rendre</h2><span class="sec-tag">Checklist</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Compte rendu complété</span>
+                    <label class="tick"><input type="checkbox"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Découpage de l'URL et valeurs relevées (DNS, IP, code de statut, port).</li>
+                        <li>Réponses aux questions 1 à 8.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Schéma du voyage validé par un pair</span>
+                    <label class="tick"><input type="checkbox"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Schéma (5 acteurs, adresses, 2 flèches) + 3 textes à trous complétés + case « contrôle croisé »
+                        signée.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <footer>
+        <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Web — Lycée Charlie Chaplin</strong></p>
+        <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
+                href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+        <p>À déposer sur Pronote au format PDF avant la fin de la séance.</p>
+    </footer>
+</body>
+
+</html>

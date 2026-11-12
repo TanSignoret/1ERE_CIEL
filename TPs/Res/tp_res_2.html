@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP CIEL — Construire un réseau local avec Packet Tracer</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function (e) {
+                        if (e.target.tagName === 'A' || e.target.tagName === 'INPUT') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header class="hero col">
+        <div class="eyebrow">Séquence Réseau — Séance 2 · Mission n°2</div>
+        <h1>Analyser puis construire un réseau local</h1>
+        <p class="lede">Vous allez découvrir ou redécouvrir <strong>Cisco Packet Tracer</strong> et la conception du réseau local.</p>
+        <div class="chips">
+            <span class="chip">1ʳᵉ Bac Pro CIEL</span>
+            <span class="chip">Durée : 4 h</span>
+            <span class="chip">Cisco Packet Tracer</span>
+        </div>
+    </header>
+
+    <section id="objectifs">
+        <div class="sec-head"><span class="sec-num">01</span>
+            <h2>Ce que vous allez faire</h2><span class="sec-tag">Objectifs</span>
+        </div>
+        <ul class="plain">
+            <li><b>Chantier 1 (guidé)</b> : installer Packet Tracer, reconstruire à l'identique le réseau d'une
+                entreprise, DHCP et DNS compris, en suivant le dossier technique fourni.</li>
+            <li><b>Chantier 2 (autonome)</b> : construire le réseau du local technique en choisissant vous-mêmes le plan
+                d'adressage, et justifier chaque choix.</li>
+            <li><b>Chantier 3</b> : relier les deux îlots avec un routeur.</li>
+        </ul>
+        <h3>Compétences visées</h3>
+        <div class="skills">
+            <div class="skill">
+                <span class="code">Mission 2 · Séquence Réseau</span>
+                <b>Construire un réseau local</b>
+                <span>Câbler une topologie en étoile, configurer postes et services, prouver la communication.</span>
+            </div>
+            <div class="skill">
+                <span class="code">Mission 2 · Séquence Réseau</span>
+                <b>Choisir et justifier un adressage</b>
+                <span>Définir un plan d'adressage cohérent et l'expliquer avec le vocabulaire du cours.</span>
+            </div>
+        </div>
+        <div class="callout">
+            <span class="lbl">Pourquoi une maquette ?</span>
+            <p><b>Packet Tracer</b> est un simulateur de réseau : on y construit le réseau complet avant de le câbler
+                pour de vrai. Tout ce que vous ferez aujourd'hui se refait à l'identique sur du matériel réel — et vous
+                pouvez casser la maquette sans risque.</p>
+        </div>
+    </section>
+
+    <section id="etape0">
+        <div class="sec-head"><span class="sec-num">02</span>
+            <h2>Étape 0 — Installer Packet Tracer</h2><span class="sec-tag">À faire AVANT la séance</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Créer un compte Cisco Networking Academy</span>
+                    <label class="tick"><input type="checkbox" data-step="i1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Ouvrez <a href="https://www.netacad.com">www.netacad.com</a> et cliquez sur <b>Sign up</b>
+                            (ou « Créer un compte »).</li>
+                        <li>Remplissez le formulaire : prénom, nom, <b>e-mail personnel</b> (pas l'e-mail du lycée), mot
+                            de passe.</li>
+                        <li>Validez votre inscription : Cisco vous envoie un e-mail de confirmation — cliquez sur le
+                            lien qu'il contient.</li>
+                    </ul>
+                    <div class="callout">
+                        <span class="lbl">À écrire dans votre compte rendu</span>
+                        <p>Noter l'adresse e-mail utilisée pour l'inscription (vous en aurez besoin à chaque lancement
+                            de Packet Tracer).</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Télécharger Packet Tracer</span>
+                    <label class="tick"><input type="checkbox" data-step="i2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Une fois connecté sur netacad.com, ouvrez le menu <b>Resources</b> → <b>Download Packet
+                                Tracer</b>.</li>
+                        <li>Choisissez la version pour votre système (<b>Windows 64-bit</b> pour les postes du lycée) et
+                            cliquez sur <b>Download</b>.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Installer et se connecter</span>
+                    <label class="tick"><input type="checkbox" data-step="i3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Lancez le fichier téléchargé et suivez l'installation (suivant → suivant → terminer, options
+                            par défaut).</li>
+                        <li>Ouvrez Packet Tracer : au premier lancement, il demande vos <b>identifiants netacad</b> —
+                            saisissez l'e-mail et le mot de passe de l'étape 1.</li>
+                    </ul>
+                    <div class="callout deliver">
+                        <span class="lbl">Validation de l'étape 0</span>
+                        <p>Packet Tracer s'ouvre et affiche l'écran d'accueil avec une zone de travail vide.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="chantier1">
+        <div class="sec-head"><span class="sec-num">03</span>
+            <h2>Chantier 1 — Reconstruire le réseau de l'atelier (guidé)</h2><span class="sec-tag">1 h 15</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Situation professionnelle n°1</span>
+            <p>Vous êtes <b>en stage</b> chez <b>Tech'Usine</b>, une petite entreprise de maintenance. Le réseau de
+                l'atelier existe déjà mais le technicien n'a pas de maquette pour le présenter. Il vous confie une
+                mission simple : <b>« Reconstruis notre réseau dans Packet Tracer, en suivant exactement le dossier
+                    technique ci-dessous, puis vérifie que tout communique. »</b></p>
+        </div>
+
+        <h3>Le dossier technique de l'atelier</h3>
+        <p>Le réseau de l'atelier est un réseau <b>192.168.10.0</b>, masque <b>255.255.255.0</b> (/24). Il comporte un
+            switch, trois postes et un serveur :</p>
+        <svg class="svg-fig" viewBox="0 0 740 300" role="img" aria-label="Schéma du réseau de l'atelier">
+            <style>
+                .svg-fig .box {
+                    fill: #FFFFFF;
+                    stroke: #D5DFDF;
+                    stroke-width: 1.5;
+                }
+
+                .svg-fig .box-acc {
+                    stroke: #0B6B68;
+                    stroke-width: 2;
+                }
+
+                .svg-fig .t-name {
+                    font-family: Archivo, sans-serif;
+                    font-weight: 700;
+                    font-size: 14px;
+                    fill: #111C1D;
+                }
+
+                .svg-fig .t-ip {
+                    font-family: "IBM Plex Mono", monospace;
+                    font-size: 12.5px;
+                    fill: #0B6B68;
+                    font-weight: 600;
+                }
+
+                .svg-fig .t-mut {
+                    font-family: "IBM Plex Mono", monospace;
+                    font-size: 11px;
+                    fill: #546466;
+                }
+
+                .svg-fig .wire {
+                    stroke: #546466;
+                    stroke-width: 1.6;
+                    fill: none;
+                }
+            </style>
+            <rect x="290" y="18" width="160" height="52" rx="9" class="box box-acc" />
+            <text x="370" y="40" text-anchor="middle" class="t-name">SW-ATELIER</text>
+            <text x="370" y="58" text-anchor="middle" class="t-mut">switch 2960</text>
+            <line x1="110" y1="230" x2="320" y2="70" class="wire" />
+            <line x1="290" y1="230" x2="360" y2="70" class="wire" />
+            <line x1="470" y1="230" x2="390" y2="70" class="wire" />
+            <line x1="650" y1="230" x2="430" y2="70" class="wire" />
+            <text x="318" y="105" class="t-mut">Fa0/4</text>
+            <text x="352" y="100" class="t-mut">Fa0/1</text>
+            <text x="396" y="100" class="t-mut">Fa0/2</text>
+            <text x="425" y="105" class="t-mut">Fa0/3</text>
+            <rect x="30" y="230" width="160" height="58" rx="9" class="box" />
+            <text x="110" y="252" text-anchor="middle" class="t-name">SRV</text>
+            <text x="110" y="270" text-anchor="middle" class="t-ip">192.168.10.10</text>
+            <text x="110" y="284" text-anchor="middle" class="t-mut">serveur DHCP + DNS</text>
+            <rect x="215" y="230" width="150" height="58" rx="9" class="box" />
+            <text x="290" y="252" text-anchor="middle" class="t-name">PC-ATELIER-1</text>
+            <text x="290" y="270" text-anchor="middle" class="t-ip">192.168.10.11</text>
+            <text x="290" y="284" text-anchor="middle" class="t-mut">IP fixe</text>
+            <rect x="395" y="230" width="150" height="58" rx="9" class="box" />
+            <text x="470" y="252" text-anchor="middle" class="t-name">PC-ATELIER-2</text>
+            <text x="470" y="270" text-anchor="middle" class="t-ip">192.168.10.12</text>
+            <text x="470" y="284" text-anchor="middle" class="t-mut">IP fixe</text>
+            <rect x="575" y="230" width="150" height="58" rx="9" class="box" />
+            <text x="650" y="252" text-anchor="middle" class="t-name">PC-ATELIER-3</text>
+            <text x="650" y="270" text-anchor="middle" class="t-ip">192.168.10.100 +</text>
+            <text x="650" y="284" text-anchor="middle" class="t-mut">adresse donnée par DHCP</text>
+        </svg>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Adresse IP</th>
+                        <th>Masque</th>
+                        <th>Remarque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Réseau de l'atelier</td>
+                        <td><code>192.168.10.0</code></td>
+                        <td><code>255.255.255.0</code> (/24)</td>
+                        <td>plage privée, 254 adresses possibles</td>
+                    </tr>
+                    <tr>
+                        <td><b>SRV</b> (serveur)</td>
+                        <td><code>192.168.10.10</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>IP fixe — sert DHCP et DNS</td>
+                    </tr>
+                    <tr>
+                        <td><b>PC-ATELIER-1</b></td>
+                        <td><code>192.168.10.11</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>IP fixe</td>
+                    </tr>
+                    <tr>
+                        <td><b>PC-ATELIER-2</b></td>
+                        <td><code>192.168.10.12</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>IP fixe</td>
+                    </tr>
+                    <tr>
+                        <td><b>PC-ATELIER-3</b></td>
+                        <td>donnée par DHCP</td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>à partir de <code>192.168.10.100</code></td>
+                    </tr>
+                    <tr>
+                        <td>Nom interne du serveur</td>
+                        <td><code>intranet.techusine.fr</code></td>
+                        <td>—</td>
+                        <td>enregistrement DNS</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>À vous de jouer</h3>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Découvrir l'écran de travail</span>
+                    <label class="tick"><input type="checkbox" data-step="a1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Ouvrez Packet Tracer et repérez les trois zones : en bas à gauche les <b>catégories
+                                d'équipements</b> (routeurs, switchs, terminaux…), au centre la <b>zone de travail</b>
+                            (votre maquette), en bas à droite les <b>modes</b> (Realtime / Simulation).</li>
+                        <li>Dans la catégorie <b>Network Devices</b> → <b>Switches</b>, glissez un <b>switch 2960</b> au
+                            centre de la zone de travail.</li>
+                        <li>Renommez-le <code>SW-ATELIER</code> : un clic sur le switch → onglet <b>Config</b> → champ
+                            <b>Display Name</b>.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Placer et nommer les 4 machines</span>
+                    <label class="tick"><input type="checkbox" data-step="a2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Catégorie <b>End Devices</b> : glissez <b>3 PC</b> et <b>1 Server</b>.</li>
+                        <li>Renommez-les <code>PC-ATELIER-1</code>, <code>PC-ATELIER-2</code>, <code>PC-ATELIER-3</code>
+                            et <code>SRV</code> (même méthode que pour le switch).</li>
+                    </ul>
+                    <div class="callout">
+                        <span class="lbl">Réflexe de technicien</span>
+                        <p>On renomme <b>toujours</b> les équipements dès qu'on les pose : un schéma plein de « PC0,
+                            PC1, Server0 » ne se lit pas et provoque des erreurs de câblage.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Câbler en étoile, exactement comme sur le schéma</span>
+                    <label class="tick"><input type="checkbox" data-step="a3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Cliquez sur l'icône <b>connexion</b> (petit éclair orange), vérifiez que le type <b>Cooper
+                                Straight-Through</b> (câble droit) est sélectionné, et reliez : <code>SRV</code> → port
+                            <code>Fa0/4</code>, <code>PC-ATELIER-1</code> → <code>Fa0/1</code>,
+                            <code>PC-ATELIER-2</code> → <code>Fa0/2</code>, <code>PC-ATELIER-3</code> →
+                            <code>Fa0/3</code>.</li>
+                        <li>Sur chaque PC, cliquez sur le port <code>FasterEthernet0</code> ; sur le switch, choisissez
+                            le port indiqué par le schéma.</li>
+                        <li>Observez les <b>triangles verts</b> qui apparaissent aux extrémités du câble : c'est le
+                            voyant de liaison. Orange puis vert = le lien se met en service, comme sur un vrai switch.
+                        </li>
+                    </ul>
+                    <div class="callout deliver">
+                        <span class="lbl">Validation</span>
+                        <p>Les 4 câbles sont posés et tous les voyants de liaison sont verts.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head">
+                    <span class="step-title">Saisir les adresses IP fixes du dossier</span>
+                    <label class="tick"><input type="checkbox" data-step="a4"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Sur <code>SRV</code> : onglet <b>Desktop</b> → <b>IP Configuration</b> → <b>Static</b> → IP
+                            <code>192.168.10.10</code>, masque <code>255.255.255.0</code>.</li>
+                        <li>Faites de même sur <code>PC-ATELIER-1</code> (<code>192.168.10.11</code>) et
+                            <code>PC-ATELIER-2</code> (<code>192.168.10.12</code>), même masque.</li>
+                        <li>Laissez passerelle et DNS vides : il n'y a pas encore de routeur ni de serveur DNS
+                            configuré.</li>
+                        <li><code>PC-ATELIER-3</code> reste pour l'instant <b>en DHCP</b> : on s'en occupe à l'étape 6.
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">5</div>
+                <div class="step-head">
+                    <span class="step-title">Prouver que les postes communiquent</span>
+                    <label class="tick"><input type="checkbox" data-step="a5"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Sur <code>PC-ATELIER-1</code> : <b>Desktop → Command Prompt</b>, puis effectuez les tests dans
+                        l'ordre et notez le résultat :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Commande à taper</th>
+                                    <th>Réponse attendue</th>
+                                    <th>Mon résultat ✔ / ✘</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><code>ping 127.0.0.1</code></td>
+                                    <td>réponses de 127.0.0.1</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><code>ping 192.168.10.11</code></td>
+                                    <td>réponses de sa propre IP</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><code>ping 192.168.10.12</code></td>
+                                    <td>réponses de PC-ATELIER-2</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><code>ping 192.168.10.10</code></td>
+                                    <td>réponses de SRV</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><code>ping 192.168.10.255</code></td>
+                                    <td>une réponse de <b>chaque machine</b> du réseau</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question 1</span>
+                        <p>Pour le test n°5, notez combien de réponses vous avez reçues et de quelles adresses. Comment
+                            appelle-t-on un message envoyé à toutes les machines du réseau en même temps ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">6</div>
+                <div class="step-head">
+                    <span class="step-title">Mettre le serveur DHCP en service</span>
+                    <label class="tick"><input type="checkbox" data-step="a6"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Le dossier précise que PC-ATELIER-3 reçoit son adresse automatiquement. C'est le rôle du serveur
+                        <b>DHCP</b> installé sur SRV :</p>
+                    <ul class="plain">
+                        <li>Sur <code>SRV</code> : onglet <b>Services</b> → <b>DHCP</b> → bouton <b>On</b>.</li>
+                        <li>Vérifiez les réglages du dossier technique : <code>Start IP Address</code> =
+                            <code>192.168.10.100</code>, <code>Subnet Mask</code> = <code>255.255.255.0</code>,
+                            <code>Maximum Users</code> = <code>50</code>, <code>DNS Server</code> =
+                            <code>192.168.10.10</code>. Cliquez <b>Save</b>.</li>
+                        <li>Sur <code>PC-ATELIER-3</code> : <b>Desktop → IP Configuration → DHCP</b>. Le message
+                            <code>DHCP request successful</code> doit apparaître.</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 2</span>
+                        <p>Notez l'adresse IP que PC-ATELIER-3 a reçue. Le message d'accompagnement parle de <b>bail</b>
+                            (lease) : recopiez sa durée. Qui a choisi cette adresse : le PC ou le serveur ?</p>
+                    </div>
+                    <div class="callout">
+                        <span class="lbl">Expérience à faire</span>
+                        <p>Sur PC-ATELIER-3, tapez <code>ipconfig /release</code> puis regardez l'écran IP
+                            Configuration. Puis <code>ipconfig /renew</code>. Désactivez ensuite le service DHCP sur SRV
+                            (bouton <b>Off</b>), refaites un <code>ipconfig /renew</code> sur le PC et notez l'adresse
+                            affichée : elle commence par <code>169.254…</code> — c'est l'adresse <b>APIPA</b>, le signe
+                            qu'aucun serveur DHCP ne répond. Réactivez le DHCP avant de continuer.</p>
+                    </div>
+                    <div class="callout deliver">
+                        <span class="lbl">Validation</span>
+                        <p>PC-ATELIER-3 a une adresse en 192.168.10.xxx, et retombe en 169.254.x.x quand le DHCP est
+                            coupé.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">7</div>
+                <div class="step-head">
+                    <span class="step-title">Mettre le serveur DNS en service</span>
+                    <label class="tick"><input type="checkbox" data-step="a7"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Sur <code>SRV</code> : <b>Services → DNS</b> → bouton <b>On</b>.</li>
+                        <li>Cliquez <b>Add</b> et créez l'enregistrement du dossier : nom
+                            <code>intranet.techusine.fr</code> → adresse <code>192.168.10.10</code>.</li>
+                        <li>Sur les <b>3 PC</b> : dans IP Configuration, renseignez <b>DNS Server</b> =
+                            <code>192.168.10.10</code>.</li>
+                        <li>Testez depuis PC-ATELIER-1 : <code>ping intranet.techusine.fr</code>.</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 3</span>
+                        <p>Recopiez la première ligne affichée par le ping. Elle commence par
+                            <code>Pinging intranet.techusine.fr [xxx.xxx.xxx.xxx]</code> : quelle adresse apparaît entre
+                            crochets, et qui a trouvé cette adresse à la place du PC ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">8</div>
+                <div class="step-head">
+                    <span class="step-title">Voir les trames circuler (mode Simulation)</span>
+                    <label class="tick"><input type="checkbox" data-step="a8"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Passez en bas à droite en mode <b>Simulation</b>.</li>
+                        <li>Cliquez <b>Show All/None</b> puis cochez uniquement <b>ICMP</b> : on ne regardera que les
+                            pings.</li>
+                        <li>Depuis PC-ATELIER-1, tapez <code>ping 192.168.10.12</code> puis avancez avec le bouton
+                            <b>Play</b> (pas à pas) : observez l'enveloppe aller jusqu'à PC-ATELIER-2, puis la réponse
+                            qui revient.</li>
+                        <li>Cliquez sur l'enveloppe dans la zone <b>Event List</b> : observez les couches (<b>OSI
+                                Model</b>) et regardez dans quelle couche se trouve ICMP.</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 4</span>
+                        <p>Le premier ping vers un PC inconnu du switch fait un détour : la trame part aussi vers les
+                            autres ports. Refaites immédiatement le même ping : le trajet est-il direct cette fois ? Que
+                            vient d'apprendre le switch entre les deux essais ?</p>
+                    </div>
+                    <div class="callout deliver">
+                        <span class="lbl">Chantier 1 terminé</span>
+                        <p>Maquette conforme au dossier + tests 1 à 5 tous verts + DHCP et DNS en service. Sauvegardez
+                            votre fichier : <code>chantier1_atelier.pka</code>.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="chantier2">
+        <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Chantier 2 — Construire le réseau du local technique (autonome)</h2><span class="sec-tag">1 h 15</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Situation professionnelle n°2</span>
+            <p>Retour au lycée — le client a validé votre intervention sur le poste n°1 et vous confie maintenant la
+                <b>mise en service du réseau complet du local technique</b> : <b>3 postes de travail</b> et <b>1
+                    serveur</b> (DHCP + DNS). Cette fois, le dossier technique n'existe pas encore : <b>c'est vous le
+                    technicien</b>. Vous choisissez le plan d'adressage, vous configurez tout, et vous rendrez compte de
+                vos choix.</p>
+        </div>
+        <p><b>Méthode :</b> vous refaites exactement les mêmes gestes qu'au chantier 1 (vous savez maintenant les faire)
+            — mais avec <b>vos propres valeurs</b>. Gardez le chantier 1 sous les yeux : il sert d'exemple de ce qui est
+            attendu.</p>
+
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Choisir le plan d'adressage</span>
+                    <label class="tick"><input type="checkbox" data-step="b1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Le local technique compte 4 machines — et l'entreprise prévoit d'en ajouter d'autres plus tard.
+                        Choisissez un réseau <b>privé</b> adapté et remplissez votre plan :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Élément</th>
+                                    <th>Adresse IP choisie</th>
+                                    <th>Masque</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Adresse du réseau</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV (DHCP + DNS)</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>PC-LOCAL-1</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>PC-LOCAL-2</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>PC-LOCAL-3 (en DHCP)</td>
+                                    <td>première adresse de votre plage DHCP :</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Adresse de diffusion</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="plain collapsible">
+                        <li>Rappels avant de choisir (cliquer pour déplier)
+                            <ul class="plain">
+                                <li>Les 3 plages privées : <code>10.x.x.x</code>, <code>172.16.x.x</code> à
+                                    <code>172.31.x.x</code>, <code>192.168.x.x</code>.</li>
+                                <li>L'adresse <b>.0</b> du réseau et l'adresse <b>.255</b> (pour un /24) de diffusion ne
+                                    sont jamais attribuées à une machine.</li>
+                                <li>Convention souvent utilisée : une adresse <b>basse et facile à retenir</b> pour le
+                                    serveur (au chantier 1 : .10).</li>
+                                <li>La plage DHCP ne doit pas recouvrir les IP fixes : commencez-la assez haut (au
+                                    chantier 1 : .100).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 5 — compte rendu</span>
+                        <p>a) Quelle plage privée avez-vous choisie, et pourquoi celle-là ?<br>b) Recopiez l'adresse de
+                            diffusion de votre réseau et dites à quoi elle sert.<br>c) Expliquez en une phrase pourquoi
+                            votre plage DHCP ne démarre pas à l'adresse .1.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Construire la maquette</span>
+                    <label class="tick"><input type="checkbox" data-step="b2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Dans un <b>nouveau fichier</b> Packet Tracer : placez le switch, 3 PC et le serveur,
+                            renommez-les (<code>SW-LOCAL</code>, <code>SRV</code>, <code>PC-LOCAL-1</code>…), câblez en
+                            étoile.</li>
+                        <li>Attribuez les IP fixes de votre plan (SRV, PC-LOCAL-1, PC-LOCAL-2).</li>
+                        <li>Notez vos ports de switch sur votre schéma : vous en aurez besoin pour le chantier 3.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Prouver la communication</span>
+                    <label class="tick"><input type="checkbox" data-step="b3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Reprenez la <b>même démarche de test</b> qu'au chantier 1, étape 5 — mais avec vos adresses à
+                        vous : ping de l'adresse réseau, ping du voisin, ping du serveur, ping de l'adresse de
+                        diffusion. Notez les résultats.</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head">
+                    <span class="step-title">Activer DHCP, puis DNS</span>
+                    <label class="tick"><input type="checkbox" data-step="b4"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Sur SRV : configurez le service <b>DHCP</b> avec <b>votre</b> plage, <b>votre</b> masque, et
+                            l'adresse de SRV comme DNS. PC-LOCAL-3 passe en DHCP.</li>
+                        <li>Toujours sur SRV : activez le <b>DNS</b> et créez un enregistrement du nom de votre choix
+                            (par exemple <code>intranet.local</code>) pointant vers SRV.</li>
+                        <li>Configurez les PC pour utiliser votre serveur DNS, puis testez avec un ping sur le nom.</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 6 — compte rendu</span>
+                        <p>a) Quelle adresse PC-LOCAL-3 a-t-il reçue, et comment s'appelle ce type d'attribution ?<br>b)
+                            Recopiez la première ligne du ping sur le nom de votre serveur, et entourez l'adresse IP
+                            qu'il contient.</p>
+                    </div>
+                    <div class="callout deliver">
+                        <span class="lbl">Livrable du chantier 2</span>
+                        <p>Schéma de la maquette (ports du switch + adresses), tableau d'adressage complété et fichier
+                            <code>chantier2_local.pka</code>.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="chantier3">
+        <div class="sec-head"><span class="sec-num">05</span>
+            <h2>Chantier 3 — Relier les deux îlots</h2><span class="sec-tag">50 min</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Situation</span>
+            <p>Le client installe un <b>deuxième local technique</b> à côté du premier : 2 postes supplémentaires
+                (<code>PC-LOCAL-4</code> et <code>PC-LOCAL-5</code>) qui doivent <b>communiquer avec le premier
+                    local</b>. Le client vous demande aussi un <b>accès internet</b> : vous ajouterez donc un routeur
+                servant de passerelle vers l'extérieur.</p>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Créer le 2ᵉ îlot</span>
+                    <label class="tick"><input type="checkbox" data-step="c1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Dans le fichier du chantier 2 : ajoutez un 2ᵉ switch et 2 PC, câblés en étoile.</li>
+                        <li>Choisissez un <b>réseau différent</b> pour ce 2ᵉ îlot (autre plage privée que celle du local
+                            1) et attribuez les IP.</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 7</span>
+                        <p>Pourquoi le 2ᵉ îlot doit-il être dans un réseau <b>différent</b> du premier ? Que se
+                            passerait-il si vous réutilisiez la même plage d'adresses ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Câbler et configurer le routeur</span>
+                    <label class="tick"><input type="checkbox" data-step="c2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Placez un <b>routeur 1941</b> entre les deux switchs.</li>
+                        <li>Câblez <code>Gi0/0</code> vers le switch du local 1, <code>Gi0/1</code> vers le switch du
+                            local 2 (câbles droits).</li>
+                        <li>Sur le routeur (onglet <b>Config</b> → interface) : donnez à <code>GigabitEthernet0/0</code>
+                            une adresse du <b>réseau 1</b>, et à <code>GigabitEthernet0/1</code> une adresse du
+                            <b>réseau 2</b>. Cochez <b>Port Status On</b>.</li>
+                        <li>Sur chaque PC : renseignez la <b>passerelle</b> = l'adresse du routeur dans <b>son
+                                propre</b> réseau (et le serveur DNS du local 1).</li>
+                    </ul>
+                    <ul class="plain collapsible">
+                        <li>Aide : la règle de la passerelle
+                            <ul class="plain">
+                                <li>La passerelle est la « porte de sortie » du réseau : elle doit être <b>une adresse
+                                        du réseau auquel appartient le PC</b>.</li>
+                                <li>Un PC du local 1 prend donc l'adresse <code>Gi0/0</code> du routeur ; un PC du local
+                                    2 prend l'adresse <code>Gi0/1</code>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Tester entre les deux locaux</span>
+                    <label class="tick"><input type="checkbox" data-step="c3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Depuis PC-LOCAL-1 :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Commande à taper</th>
+                                    <th>Mon résultat ✔ / ✘</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><code>ping &lt;passerelle du local 1&gt;</code></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><code>ping &lt;passerelle du local 2&gt;</code></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><code>ping &lt;IP de PC-LOCAL-4&gt;</code></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><code>ping intranet.local</code> (depuis PC-LOCAL-4, dans l'autre sens)</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question 8</span>
+                        <p>Testez maintenant le ping vers l'<b>adresse de diffusion du réseau 2</b> depuis un PC du
+                            réseau 1 : .................... Comparez avec le test n°5 du chantier 1 : le message envoyé
+                            à toutes les machines traverse-t-il le routeur ? Comment s'appelle la zone limitée par le
+                            routeur ?</p>
+                    </div>
+                    <div class="callout deliver">
+                        <span class="lbl">Livrable du chantier 3</span>
+                        <p>Schéma final des deux réseaux + routeur (adresses des deux interfaces), fichier
+                            <code>chantier3_deux-ilets.pka</code>.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="rendre">
+        <div class="sec-head"><span class="sec-num">06</span>
+            <h2>Ce que je dois rendre</h2><span class="sec-tag">Checklist</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Les 3 fichiers Packet Tracer</span>
+                    <label class="tick"><input type="checkbox" data-step="r1"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p><code>chantier1_atelier.pka</code>, <code>chantier2_local.pka</code>,
+                        <code>chantier3_deux-ilets.pka</code> (ou un seul fichier évolutif, versions 1-2-3).</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Le dossier technique du local technique</span>
+                    <label class="tick"><input type="checkbox" data-step="r2"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Schémas des chantiers 2 et 3 (ports du switch, adresses) + tableaux d'adressage complétés.</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Les réponses aux questions 1 à 8</span>
+                    <label class="tick"><input type="checkbox" data-step="r3"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Réponses courtes, phrases complètes, commandes et adresses recopiées quand c'est demandé.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="lexique">
+        <div class="sec-head"><span class="sec-num">07</span>
+            <h2>Lexique</h2><span class="sec-tag">Vocabulaire</span>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mot</th>
+                        <th>Définition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Packet Tracer</b></td>
+                        <td>Simulateur de réseaux Cisco : on y construit et teste une maquette avant le câblage réel.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Topologie en étoile</b></td>
+                        <td>Chaque poste est relié par son propre câble à un équipement central (switch).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Switch</b></td>
+                        <td>Envoie chaque trame uniquement sur le bon port, grâce à sa table d'adresses MAC.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Routeur / passerelle</b></td>
+                        <td>Relie des réseaux différents ; c'est la « porte de sortie » de chaque réseau. Une interface
+                            par réseau.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Plan d'adressage</b></td>
+                        <td>Document définissant le réseau, le masque et l'attribution des adresses avant
+                            l'installation.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Adresse de diffusion (broadcast)</b></td>
+                        <td>Dernière adresse d'un réseau (.255 pour un /24) : le message envoyé atteint toutes les
+                            machines du réseau.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Bail DHCP</b></td>
+                        <td>Adresse IP attribuée par le serveur DHCP, pour une durée limitée, à un client qui la
+                            demande.</td>
+                    </tr>
+                    <tr>
+                        <td><b>APIPA (169.254.x.x)</b></td>
+                        <td>Adresse d'auto-configuration attribuée quand aucun serveur DHCP ne répond : signe de panne
+                            DHCP.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur DNS</b></td>
+                        <td>Traduit un nom (intranet.techusine.fr) en adresse IP.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Domaine de diffusion</b></td>
+                        <td>Ensemble des postes qui reçoivent les broadcasts. Le switch l'étend, le routeur le limite.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>Mode Simulation</b></td>
+                        <td>Dans Packet Tracer : visualisation pas à pas des trames circulant entre équipements.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Réseau — Lycée Charlie Chaplin</strong></p>
+        <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
+                href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+        <p>Prochaine mission (Séance 3) : diagnostiquer une liaison qui ne passe pas</p>
+    </footer>
+</body>
+
+</html>
