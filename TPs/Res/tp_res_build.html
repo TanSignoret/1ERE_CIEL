@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP CIEL — Construire un réseau local avec Filius</title>
+    <link rel="stylesheet" href="../../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function (e) {
+                        if (e.target.tagName === 'A' || e.target.tagName === 'INPUT') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header class="hero col">
+        <div class="eyebrow">Séquence Réseau — Séance 2 · Mission n°2</div>
+        <h1>Analyser puis construire un réseau local</h1>
+        <p class="lede">Vous allez créer un réseau avec le simulateur <strong>Filius</strong>.
+        <div class="chips">
+            <span class="chip">1ʳᵉ Bac Pro CIEL</span>
+            <span class="chip">Durée : 2 h 30</span>
+            <span class="chip">Simulateur Filius</span>
+            <span class="chip">Travail individuel</span>
+            <span class="chip">Evalué</span>
+        </div>
+    </header>
+
+    <section id="objectifs">
+        <div class="sec-head"><span class="sec-num">01</span>
+            <h2>Ce que vous allez faire</h2><span class="sec-tag">Objectifs</span>
+        </div>
+        <h3>Compétences visées</h3>
+        <div class="skills">
+            <div class="skill">
+                <span class="code">Mission 2 · Séquence Réseau</span>
+                <b>Construire un réseau local</b>
+                <span>Câbler une topologie en étoile, configurer postes et services, prouver la communication.</span>
+            </div>
+            <div class="skill">
+                <span class="code">Mission 2 · Séquence Réseau</span>
+                <b>Choisir et justifier un adressage</b>
+                <span>Définir un plan d'adressage cohérent et l'expliquer avec le vocabulaire de la mission 1.</span>
+            </div>
+        </div>
+        <div class="callout">
+            <span class="lbl">Pourquoi un simulateur ?</span>
+            <p><b>Filius</b> est un simulateur de réseau pédagogique : on y construit le réseau complet avant de le
+                câbler pour de vrai. Tout ce que vous ferez aujourd'hui (câblage, adressage, tests) se refait à
+                l'identique sur du matériel réel.</p>
+        </div>
+    </section>
+
+    <section id="etape0">
+        <div class="sec-head"><span class="sec-num">02</span>
+            <h2>Étape 0 — Installer Filius</h2><span class="sec-tag">10 min</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Télécharger Filius</span>
+                    <label class="tick"><input type="checkbox" data-step="i1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Ouvrez <a href="https://www.filius-lernsoftware.de">www.filius-lernsoftware.de</a> →
+                            <b>Download</b>.</li>
+                        <li>Choisissez la version <b>Windows (ZIP)</b> et téléchargez-la.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Installer et lancer</span>
+                    <label class="tick"><input type="checkbox" data-step="i2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Décompressez le ZIP (clic droit → <b>Extraire tout</b>), lancez l'installeur et suivez les
+                            étapes (options par défaut).</li>
+                        <li>Ouvrez Filius : l'écran est vide, c'est votre zone de travail.</li>
+                    </ul>
+                    <div class="callout deliver">
+                        <span class="lbl">Validation de l'étape 0</span>
+                        <p>Filius s'ouvre et affiche une zone de travail vide, avec les trois boutons de mode en haut à
+                            droite.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="chantier1">
+        <div class="sec-head"><span class="sec-num">03</span>
+            <h2>Chantier 1 — Reconstruire le réseau de l'atelier (guidé)</h2><span class="sec-tag">1 h</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Situation professionnelle</span>
+            <p>Vous êtes <b>en stage</b> chez <b>Tech'Usine</b>, une petite entreprise de maintenance. Le réseau de
+                l'atelier existe déjà mais le technicien n'a pas de maquette pour le présenter. Il vous confie une
+                mission simple : <b>« Reconstruis notre réseau dans Filius, en suivant exactement le dossier technique
+                    ci-dessous, puis vérifie que tout communique. »</b> Aucune décision à prendre : appliquez les
+                valeurs données, et concentrez-vous sur la manipulation du logiciel.</p>
+        </div>
+
+        <h3>Le dossier technique de l'atelier</h3>
+        <p>Le réseau de l'atelier est un réseau <b>192.168.10.0</b>, masque <b>255.255.255.0</b>. Il comporte un switch,
+            deux postes de travail et un serveur :</p>
+        <pre class="tree">
+                    ┌──────────────────┐
+                    │    SW-ATELIER    │   switch
+                    └──┬─────┬─────┬───┘
+                       │     │     │
+             ┌─────────┘     │     └─────────┐
+             │               │               │
+      ┌──────┴──────┐ ┌──────┴──────┐ ┌──────┴──────┐
+      │     SRV     │ │ PC-ATELIER-1│ │ PC-ATELIER-2│
+      │192.168.10.10│ │192.168.10.11│ │192.168.10.12│
+      │ IP fixe     │ │ IP fixe     │ │ DHCP        │
+      │DHCP+DNS+Web │ │             │ │ 192.168.10.x│
+      └─────────────┘ └─────────────┘ └─────────────┘
+        Réseau : 192.168.10.0 · Masque : 255.255.255.0 · DNS : intranet.techusine.fr → 192.168.10.10</pre>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Adresse IP</th>
+                        <th>Masque</th>
+                        <th>Remarque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Réseau de l'atelier</td>
+                        <td><code>192.168.10.0</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>plage privée</td>
+                    </tr>
+                    <tr>
+                        <td><b>SRV</b> (serveur)</td>
+                        <td><code>192.168.10.10</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>IP fixe — sert DHCP, DNS et web</td>
+                    </tr>
+                    <tr>
+                        <td><b>PC-ATELIER-1</b></td>
+                        <td><code>192.168.10.11</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>IP fixe</td>
+                    </tr>
+                    <tr>
+                        <td><b>PC-ATELIER-2</b></td>
+                        <td>donnée par DHCP</td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>à partir de <code>192.168.10.100</code></td>
+                    </tr>
+                    <tr>
+                        <td>Nom interne du serveur</td>
+                        <td><code>intranet.techusine.fr</code></td>
+                        <td>—</td>
+                        <td>enregistrement DNS</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>À vous de jouer</h3>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Découvrir les trois modes de Filius</span>
+                    <label class="tick"><input type="checkbox" data-step="a1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>En haut à droite, repérez les <b>3 modes</b> : 🔨 <b>Design</b> (le marteau — on construit
+                            la maquette), ▶️ <b>Simulation</b> (la flèche verte — le réseau « vit »), ✏️
+                            <b>Documentation</b> (le crayon — on annote).</li>
+                        <li>Restez en mode <b>Design</b> pour construire ; on passera en Simulation pour les tests.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Placer et nommer les machines</span>
+                    <label class="tick"><input type="checkbox" data-step="a2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Dans la barre de gauche, glissez <b>2 Notebook</b> (les clients) et <b>1 PC</b> (le serveur)
+                            dans la zone de travail.</li>
+                        <li>Renommez-les : <code>PC-ATELIER-1</code>, <code>PC-ATELIER-2</code>, <code>SRV</code> — clic
+                            droit → <b>Rename</b> (ou champ <b>Name</b> dans la configuration).</li>
+                    </ul>
+                    <div class="callout">
+                        <span class="lbl">Réflexe de technicien</span>
+                        <p>On renomme <b>toujours</b> les équipements dès qu'on les pose : un schéma plein de « Notebook
+                            1, PC 2 » ne se lit pas et provoque des erreurs.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Câbler en étoile</span>
+                    <label class="tick"><input type="checkbox" data-step="a3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Glissez un <b>Switch</b> au centre et renommez-le <code>SW-ATELIER</code>.</li>
+                        <li>Cliquez sur l'outil <b>câble</b> (dans la barre de gauche), puis cliquez sur un équipement
+                            et sur le switch pour poser le lien. Répétez pour les 3 machines, comme sur le schéma du
+                            dossier.</li>
+                        <li>Passez en mode <b>Simulation</b> (flèche verte)</li>
+                        <li>Réduire le slider de rapidité, en faut de la fenpetre à 30%.</li>
+                        <li>Faire doule click sur un des équipements puis <code>Installation de logiciel</code>, déplacer <code>invite de commande</code> à gauche.</li>
+                        <li>Faire un ping vers un autre équipement du réseau et vérifier que les liaisons fonctionnent bien.</li>
+                    </ul>
+                    <div class="callout deliver">
+                        <span class="lbl">Validation</span>
+                        <p>Les 3 câbles sont posés et les voyants sont verts en mode Simulation.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head">
+                    <span class="step-title">Saisir les adresses IP fixes du dossier</span>
+                    <label class="tick"><input type="checkbox" data-step="a4"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Retournez en mode <b>Design</b>. Sur <code>SRV</code> : double-clic (ou clic droit →
+                            <b>Configure</b>) → onglet réseau → IP <code>192.168.10.10</code>, masque
+                            <code>255.255.255.0</code>.</li>
+                        <li>Sur <code>PC-ATELIER-1</code> : même chose avec <code>192.168.10.11</code>.</li>
+                        <li><code>PC-ATELIER-2</code> reste pour l'instant sans configuration automatique : on
+                            l'adressera par DHCP à l'étape 6.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">5</div>
+                <div class="step-head">
+                    <span class="step-title">Installer la ligne de commande et prouver que les postes
+                        communiquent</span>
+                    <label class="tick"><input type="checkbox" data-step="a5"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Sur <code>PC-ATELIER-1</code> : double-clic → dans la liste d'applications, installez
+                            <b>Command Line</b> (glissez-la sur le bureau du poste), puis passez en mode
+                            <b>Simulation</b>, double-cliquez sur le poste et lancez <b>Command Line</b>.</li>
+                    </ul>
+                    <p>Toujours dans <b>Command Line</b> de PC-ATELIER-1, testez dans l'ordre et notez chaque résultat :
+                    </p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Commande à taper</th>
+                                    <th>Réponse attendue</th>
+                                    <th>Mon résultat ✔ / ✘</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><code>ping 127.0.0.1</code></td>
+                                    <td>réponses de 127.0.0.1</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><code>ping 192.168.10.11</code></td>
+                                    <td>réponses de sa propre IP</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><code>ping 192.168.10.10</code></td>
+                                    <td>réponses de SRV</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question 1 </span>
+                        <p>Comment appelle-t-on un message envoyé à toutes les machines du réseau en même temps ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">6</div>
+                <div class="step-head">
+                    <span class="step-title">Mettre le serveur DHCP en service</span>
+                    <label class="tick"><input type="checkbox" data-step="a6"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Le dossier précise que PC-ATELIER-2 reçoit son adresse automatiquement. C'est le rôle du serveur
+                        <b>DHCP</b> installé sur SRV :</p>
+                    <ul class="plain">
+                        <li>Sur <code>SRV</code> (mode Design) : installez l'application <b>DHCP Server</b>, puis
+                            double-cliquez dessus.</li>
+                        <li>Renseignez les réglages du dossier : <b>Début de plage</b> = <code>192.168.10.100</code>,
+                            <b>Fin de plage</b> = <code>192.168.10.200</code>, masque <code>255.255.255.0</code>,
+                            passerelle <code>0.0.0.0</code> (pas encore de routeur), DNS <code>192.168.10.10</code>.
+                            Cochez <b>Activer le service DHCP</b>.</li>
+                        <li>Sur <code>PC-ATELIER-2</code> : dans la configuration réseau, cochez <b>Adressage
+                                automatique (DHCP)</b>.</li>
+                        <li>Passez en mode <b>Simulation</b>, ouvrez Command Line sur PC-ATELIER-2 et tapez
+                            <code>ipconfig</code> : notez l'adresse reçue.</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 2</span>
+                        <p>L'adresse reçue par PC-ATELIER-2 est-elle dans la plage définie sur le serveur ? Qui a choisi
+                            cette adresse : le PC ou le serveur ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">7</div>
+                <div class="step-head">
+                    <span class="step-title">Mettre le serveur DNS et le site web en service</span>
+                    <label class="tick"><input type="checkbox" data-step="a7"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Sur <code>SRV</code> : installez <b>DNS Server</b>, lancez-le, ajoutez l'enregistrement du
+                            dossier : nom <code>intranet.techusine.fr</code> → adresse <code>192.168.10.10</code>,
+                            bouton <b>Add</b>, puis <b>Start</b>.</li>
+                        <li>Toujours sur SRV : installez <b>Web Server</b>, lancez-le (double-clic sur le bureau du
+                            serveur) et appuyez sur <b>Start</b> : SRV héberge maintenant le site interne de
+                            l'entreprise.</li>
+                        <li>Sur <code>PC-ATELIER-1</code> : installez un <b>Webbrowser</b>, ouvrez-le et tapez l'URL
+                            <code>http://192.168.10.10</code> : la page du serveur s'affiche.</li>
+                        <li>Maintenant tapez <code>http://intranet.techusine.fr</code> : même page, mais par le nom.</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 3</span>
+                        <p>Quelle information le DNS a-t-il fournie au navigateur pour qu'il trouve la page ?</p>
+                    </div>
+                    <div class="callout deliver">
+                        <span class="lbl">Chantier 1 terminé</span>
+                        <p>Sauvegardez : <code>chantier1_atelier.fls</code>.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="chantier2">
+        <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Chantier 2 — Construire le réseau du local technique (autonome)</h2><span class="sec-tag">45 min</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Situation professionnelle n°2</span>
+            <p>Le lendemain, votre tuteur a validé votre intervention sur le poste n°1 et vous confie maintenant la
+                <b>mise en service du réseau complet du local technique</b> : <b>3 postes de travail</b> et <b>1
+                serveur</b> (DHCP + DNS + web).</p>
+            <p>Cette fois, le dossier technique n'existe pas encore : <b>c'est a vous de le faire
+                le technicien</b>.</p>
+        </div>
+        <p><b>Méthode :</b> vous refaites exactement les mêmes gestes qu'au chantier 1 mais avec <b>vos propres valeurs</b>.</p>
+
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Choisir le plan d'adressage</span>
+                    <label class="tick"><input type="checkbox" data-step="b1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Le local technique compte 4 machines — et l'entreprise prévoit d'en ajouter d'autres plus tard.
+                        Choisissez un réseau <b>privé</b> adapté et remplissez votre plan :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Élément</th>
+                                    <th>Adresse IP choisie</th>
+                                    <th>Masque</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Adresse du réseau</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV (DHCP + DNS + web)</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>PC-LOCAL-1</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>PC-LOCAL-2</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>PC-LOCAL-3 (en DHCP)</td>
+                                    <td>première adresse de votre plage DHCP :</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="plain collapsible">
+                        <li>Rappels avant de choisir (cliquer pour déplier)
+                            <ul class="plain">
+                                <li>Les 3 plages privées : <code>10.x.x.x</code>, <code>172.16.x.x</code> à
+                                    <code>172.31.x.x</code>, <code>192.168.x.x</code>.</li>
+                                <li>L'adresse <b>.0</b> du réseau et la dernière adresse de diffusion ne sont jamais
+                                    attribuées à une machine.</li>
+                                <li>Convention souvent utilisée : une adresse <b>basse et facile à retenir</b> pour le
+                                    serveur (au chantier 1 : .10).</li>
+                                <li>La plage DHCP ne doit pas recouvrir les IP fixes : commencez-la assez haut (au
+                                    chantier 1 : .100).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 4</span>
+                        <p>Complétez le tableau dans votre compte rendu.</p>
+                        <p>a) Quelle plage privée avez-vous choisie, et pourquoi celle-là ?<br>b) Expliquez en une phrase pourquoi
+                            votre plage DHCP ne démarre pas à l'adresse <code>.1</code>.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Construire la maquette</span>
+                    <label class="tick"><input type="checkbox" data-step="b2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Placer les différents équipements demandé.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Prouver la communication</span>
+                    <label class="tick"><input type="checkbox" data-step="b3"><span>Fait</span></label>
+                </div>
+                <div class="question">
+                    <span class="lbl">Question 5</span>
+                    <p>Comment s'assurer que la communication entre les différents poste est bien fonctionelle ?</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head">
+                    <span class="step-title">Mettre en service DHCP, DNS et le site interne</span>
+                    <label class="tick"><input type="checkbox" data-step="b4"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Activez <b>DHCP Server</b> avec votre plage, puis <b>DNS Server</b> avec un
+                            enregistrement du nom de votre choix pointant vers le serveur WEB, puis activez le <b>Web Server</b>.</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 6</span>
+                        <p>a) Comment faites vous pour que tout les postes connaissent l'adresse du serveur WEB ?</p>
+                    </div>
+                    <div class="callout deliver">
+                        <span class="lbl">Chantier 2</span>
+                        <p>Schéma de la maquette (avec adresses), tableau d'adressage complété et fichier
+                            <code>chantier2_local.fls</code>.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="chantier3">
+        <div class="sec-head"><span class="sec-num">05</span>
+            <h2>Chantier 3 — Relier les deux îlots</h2><span class="sec-tag">45 min</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Situation</span>
+            <p>La situation de l'entreprise évolue et votre tuteur vous demande d'ajouter un <b>deuxième local technique</b> à côté du premier : 2 postes supplémentaires
+                (<code>PC-LOCAL-4</code> et <code>PC-LOCAL-5</code>) qui doivent <b>communiquer avec le premier
+                    local</b> et consulter son serveur web. Vous ajoutez donc un <b>routeur</b> entre les deux réseaux.
+            </p>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Créer le 2ᵉ îlot</span>
+                    <label class="tick"><input type="checkbox" data-step="c1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Dans le fichier du chantier 2 : ajoutez un switch et 2 PC, câblés en étoile.</li>
+                        <li>Choisissez un <b>réseau différent</b> pour ce 2ᵉ îlot (autre plage privée que celle du local
+                            1) et attribuez les IP.</li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 7</span>
+                        <p>Pourquoi le 2ᵉ îlot doit-il être dans un réseau <b>différent</b> du premier ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Câbler et configurer le routeur</span>
+                    <label class="tick"><input type="checkbox" data-step="c2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Placez un <b>Routeur</b> entre les deux switchs et câblez-le vers chacun.</li>
+                        <li>Sur le routeur : dans <b>General</b>, cliquez <b>Manage Connections</b> pour ajouter une
+                            carte réseau, puis donnez à la première interface une adresse du <b>réseau 1</b>, et à la
+                            seconde une adresse du <b>réseau 2</b>.</li>
+                        <li>Sur chaque poste : renseignez la <b>passerelle</b> = l'adresse du routeur dans <b>son
+                                propre</b> réseau (et le serveur DNS du local 1).</li>
+                    </ul>
+                    <ul class="plain collapsible">
+                        <li>Aide : la règle de la passerelle
+                            <ul class="plain">
+                                <li>La passerelle est la « porte de sortie » du réseau : elle doit être <b>une adresse
+                                        du réseau auquel appartient le poste</b>.</li>
+                                <li>Un poste du local 1 prend donc l'adresse de l'interface « réseau 1 » du routeur ; un
+                                    poste du local 2 prend l'autre.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Tester entre les deux locaux</span>
+                    <label class="tick"><input type="checkbox" data-step="c3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Depuis PC-LOCAL-1 :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Commande à taper</th>
+                                    <th>Mon résultat ✔ / ✘</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><code>ping &lt;passerelle du local 1&gt;</code></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><code>ping &lt;passerelle du local 2&gt;</code></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><code>ping &lt;IP de PC-LOCAL-4&gt;</code></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><code>host intranet.local</code> (ou le nom choisi au chantier 2)</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question 8</span>
+                        <p>Notez vos observation dans votre compte rendu.</p>
+                        <p>Le site web du local 1 est-il consultable depuis un poste du local 2 par son nom ?</p>
+                    </div>
+                    <div class="callout deliver">
+                        <span class="lbl">Chantier 3</span>
+                        <p>Schéma final des deux réseaux + routeur (adresses des interfaces), fichier
+                            <code>chantier3_deux-ilets.fls</code>.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="aide-filius">
+        <div class="sec-head"><span class="sec-num">06</span>
+            <h2>Aide — Repères Filius</h2><span class="sec-tag">Mémo</span>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Je cherche…</th>
+                        <th>Où trouver</th>
+                        <th>Astuce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Les 3 modes</b></td>
+                        <td>En haut à droite : 🔨 Design (marteau), ▶️ Simulation (flèche verte), ✏️ Documentation
+                            (crayon)</td>
+                        <td>On construit en Design, on teste en Simulation. Si rien ne répond, vérifiez le mode !</td>
+                    </tr>
+                    <tr>
+                        <td><b>Un Notebook (client)</b></td>
+                        <td>Barre de gauche, catégorie <b>Endgeräte</b> (terminaux)</td>
+                        <td>On prend des Notebook pour les clients, des PC pour les serveurs.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Un PC (serveur)</b></td>
+                        <td>Même catégorie</td>
+                        <td>C'est sur le PC qu'on installe les applications serveur.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Le switch</b></td>
+                        <td>Catégorie <b>Netzknoten</b> (équipements réseau)</td>
+                        <td>Il relie tout le monde en étoile.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Le routeur</b></td>
+                        <td>Même catégorie</td>
+                        <td>Pour ajouter une interface : onglet <b>General</b> → <b>Manage Connections</b>.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Le câble</b></td>
+                        <td>Outil câble dans la barre de gauche</td>
+                        <td>Cliquer sur le 1ᵉʳ équipement, puis sur le 2ᵉ. Les voyants passent au vert en mode
+                            Simulation.</td>
+                    </tr>
+                    <tr>
+                        <td><b>La configuration d'une machine</b></td>
+                        <td>Double-clic (ou clic droit → Configure)</td>
+                        <td>Onglet réseau : IP, masque, passerelle, DNS, adresse MAC. C'est aussi là qu'on installe les
+                            applications.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Installer une application</b></td>
+                        <td>Fenêtre de configuration → glisser l'application sur le bureau de la machine</td>
+                        <td>Command Line sur les clients ; DHCP Server, DNS Server, Web Server sur le serveur.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Les commandes utiles</b></td>
+                        <td>Application <b>Command Line</b></td>
+                        <td><code>ping</code>, <code>ipconfig</code>, <code>host nom</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <section id="rendre">
+        <div class="sec-head"><span class="sec-num">07</span>
+            <h2>Ce que je dois rendre</h2><span class="sec-tag">Checklist</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Le dernier fichier Filius</span>
+                    <label class="tick"><input type="checkbox" data-step="r1"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p><code>chantier3.fls</code> avec la connection des 2 réseaux ou à défaut votre avancement.</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Les réponses aux questions 1 à 7, au format pdf</span>
+                    <label class="tick"><input type="checkbox" data-step="r3"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Réponses courtes, phrases complètes, commandes et adresses recopiées quand c'est demandé.</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="lexique">
+        <div class="sec-head"><span class="sec-num">08</span>
+            <h2>Lexique</h2><span class="sec-tag">Vocabulaire</span>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mot</th>
+                        <th>Définition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Filius</b></td>
+                        <td>Simulateur de réseaux pédagogique : on y construit et teste une maquette avant le câblage
+                            réel.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Topologie en étoile</b></td>
+                        <td>Chaque poste est relié par son propre câble à un équipement central (switch).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Switch</b></td>
+                        <td>Envoie chaque trame uniquement sur le bon port, grâce à sa table d'adresses MAC.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Routeur / passerelle</b></td>
+                        <td>Relie des réseaux différents ; c'est la « porte de sortie » de chaque réseau. Une interface
+                            par réseau.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Plan d'adressage</b></td>
+                        <td>Document définissant le réseau, le masque et l'attribution des adresses avant
+                            l'installation.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Adresse de diffusion (broadcast)</b></td>
+                        <td>Message envoyé à toutes les machines du réseau en même temps.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Bail DHCP</b></td>
+                        <td>Adresse IP attribuée par le serveur DHCP, pour une durée limitée, à un client qui la
+                            demande.</td>
+                    </tr>
+                    <tr>
+                        <td><b>APIPA (169.254.x.x)</b></td>
+                        <td>Adresse d'auto-configuration attribuée quand aucun serveur DHCP ne répond : signe de panne
+                            DHCP.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur DNS</b></td>
+                        <td>Traduit un nom (intranet.techusine.fr) en adresse IP ; interrogé par <code>host</code> ou
+                            <code>nslookup</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur web</b></td>
+                        <td>Machine qui héberge des sites, consultables par URL depuis un navigateur.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Réseau — Lycée Charlie Chaplin</strong></p>
+        <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
+                href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+        <p>Prochaine mission (Séance 3) : diagnostiquer une liaison qui ne passe pas</p>
+    </footer>
+</body>
+
+</html>
