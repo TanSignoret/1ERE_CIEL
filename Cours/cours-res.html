@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours CIEL — Le réseau informatique</title>
+    <link rel="stylesheet" href="../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function (e) {
+                        if (e.target.tagName === 'A' || e.target.tagName === 'INPUT') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header class="hero col">
+        <div class="eyebrow">Séquence Réseau — Séance 2 · Cours</div>
+        <h1>Le réseau informatique</h1>
+        <p class="lede">Équipements, couches, protocoles et plan d'adressage : tout ce qu'il faut savoir pour
+            comprendre, construire et diagnostiquer un réseau local.</p>
+        <div class="chips">
+            <span class="chip">1ʳᵉ Bac Pro CIEL</span>
+            <span class="chip">Séance 2</span>
+            <span class="chip">Cours de synthèse</span>
+        </div>
+    </header>
+
+    <section id="fonctionnement">
+        <div class="sec-head"><span class="sec-num">01</span>
+            <h2>Le fonctionnement d'un réseau</h2><span class="sec-tag">Bases</span>
+        </div>
+        <p>Un <b>réseau informatique</b> est un ensemble d'équipements interconnectés qui échangent des données en
+            suivant des règles communes appelées <b>protocoles</b>.</p>
+        <p>Pour qu'un réseau fonctionne, il faut trois choses :</p>
+        <ul class="plain">
+            <li>des <b>nœuds</b> : les appareils connectés (postes, serveurs, imprimantes, téléphones) ;</li>
+            <li>des <b>liens</b> : les supports de transmission (câbles, ondes Wi-Fi, fibre optique) ;</li>
+            <li>des <b>protocoles</b> : les règles d'échange (TCP/IP, HTTP, DNS…).</li>
+        </ul>
+        <p>L'intérêt d'un réseau : <b>partager des ressources</b> (fichiers, imprimantes, connexion internet) et
+            <b>communiquer</b> entre utilisateurs et machines.</p>
+        <div class="callout">
+            <span class="lbl">Je retiens</span>
+            <p>Réseau = équipements + liens + règles. Sans protocole commun, deux machines ne se comprennent pas, même
+                câblées ensemble.</p>
+        </div>
+    </section>
+
+    <section id="equipements">
+        <div class="sec-head"><span class="sec-num">02</span>
+            <h2>Les équipements du réseau</h2><span class="sec-tag">Matériel &amp; logiciels</span>
+        </div>
+
+        <h3>🔌 Les équipements physiques</h3>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Équipement</th>
+                        <th>Couche</th>
+                        <th>Rôle</th>
+                        <th>Où le rencontrer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Switch (commutateur)</b></td>
+                        <td>2</td>
+                        <td>Relie les machines d'un même réseau local ; envoie chaque trame au bon port grâce à la table
+                            d'adresses MAC</td>
+                        <td>Baie de brassage, local technique, salle</td>
+                    </tr>
+                    <tr>
+                        <td><b>Routeur</b></td>
+                        <td>3</td>
+                        <td>Interconnecte des réseaux différents ; achemine selon les adresses IP ; sert de
+                            <b>passerelle</b></td>
+                        <td>Sortie du réseau, salle des serveurs</td>
+                    </tr>
+                    <tr>
+                        <td><b>Point d'accès Wi-Fi</b></td>
+                        <td>2</td>
+                        <td>Relie les appareils sans fil au réseau filaire</td>
+                        <td>Plafonds des couloirs et des salles</td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur</b></td>
+                        <td>—</td>
+                        <td>Machine dédiée qui fournit des services (fichiers, web, DNS, DHCP)</td>
+                        <td>Salle des serveurs</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><b>🔀 Le switch</b> — C'est le cœur du réseau local : tous les postes d'une salle s'y branchent en étoile. Il
+            lit l'<b>adresse MAC</b> de destination de chaque trame et ne l'envoie que sur le bon port — contrairement à
+            l'ancien hub qui recopiait tout partout. C'est pour cela qu'on le trouve en <b>couche 2</b>. Quand il ne
+            connaît pas encore une adresse MAC, il recopie la trame sur tous ses ports : c'est ce que vous avez observé
+            en mode Simulation dans le simulateur.</p>
+        <p><b>🧭 Le routeur</b> — Lui travaille avec les <b>adresses IP</b> (couche 3) : il relie des réseaux
+            <b>différents</b> et choisit la route des paquets. Chaque interface du routeur appartient à un réseau
+            différent ; c'est pourquoi il porte autant d'adresses IP qu'il a de réseaux connectés. Dans le réseau local,
+            il joue le rôle de <b>passerelle</b> : la porte de sortie vers internet. C'est aussi lui qui <b>limite le
+                domaine de diffusion</b> : les broadcasts ne le traversent pas.</p>
+        <p><b>📶 Le point d'accès Wi-Fi</b> — Il fait le pont entre le monde <b>sans fil</b> (postes portables,
+            téléphones) et le réseau <b>filaire</b>. Côté radio, il diffuse un SSID (le nom du réseau visible) protégé
+            par un mot de passe (WPA2/WPA3) ; côté filaire, il est branché au switch comme un poste. Les bornes du
+            lycée, fixées au plafond, sont toutes reliées par câble : le Wi-Fi ne remplace pas le câblage, il le
+            prolonge.</p>
+        <p><b>🗄️ Le serveur</b> — Une machine sans écran ni clavier, dédiée à <b>rendre des services</b> aux autres
+            machines, 24 h/24. Physiquement, c'est un boîtier en tour ou en rack, rangé dans une salle climatisée. Un
+            seul serveur physique peut faire tourner <b>plusieurs services</b> (voir section 03).</p>
+
+        <h3>🧰 Les équipements logiciels essentiels</h3>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Équipement</th>
+                        <th>Couche</th>
+                        <th>Rôle</th>
+                        <th>Où le rencontrer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Pare-feu (firewall)</b></td>
+                        <td>3-7</td>
+                        <td>Filtre le trafic entrant/sortant selon des règles de sécurité</td>
+                        <td>Entre le réseau local et internet</td>
+                    </tr>
+                    <tr>
+                        <td><b>Proxy</b></td>
+                        <td>7</td>
+                        <td>Relais entre les postes et internet ; contrôle et met en cache les requêtes web</td>
+                        <td>À la sortie du réseau, souvent avec le pare-feu</td>
+                    </tr>
+                    <tr>
+                        <td><b>Passerelle (gateway)</b></td>
+                        <td>3</td>
+                        <td>Route par défaut : l'adresse à qui confier tout message destiné à un autre réseau</td>
+                        <td>Champ « passerelle » de <code>ipconfig /all</code></td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur DNS</b></td>
+                        <td>7</td>
+                        <td>Traduit les noms de domaine en adresses IP</td>
+                        <td>Champ « serveurs DNS » de <code>ipconfig /all</code></td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur DHCP</b></td>
+                        <td>7</td>
+                        <td>Distribue automatiquement les adresses IP (bails)</td>
+                        <td>Ligne « bail obtenu / expire » de <code>ipconfig /all</code></td>
+                    </tr>
+                    <tr>
+                        <td><b>Windows Server / Linux Server</b></td>
+                        <td>—</td>
+                        <td>Systèmes d'exploitation qui hébergent tous ces services</td>
+                        <td>Salle des serveurs</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><b>🛡️ Le pare-feu</b> — C'est le gardien du réseau : il <b>filtre</b> ce qui passe entre le réseau local et
+            internet, selon des règles définies par l'administrateur (autoriser, bloquer). Il bloque les sites dangereux
+            ou interdits, empêche des connexions suspectes d'entrer. On le place <b>à la sortie du réseau</b>, au point
+            de passage obligé : c'est pour cela qu'il est souvent un des premiers sauts après la passerelle dans un
+            tracert. Un pare-feu peut aussi <b>ne pas répondre au ping</b>.</p>
+        <p><b>🚦 Le proxy</b> — Un intermédiaire entre vos postes et internet : quand vous demandez une page web, c'est
+            le proxy qui la demande pour vous, vérifie qu'elle est autorisée, et vous la renvoie. Il permet de
+            <b>contrôler</b> (blocage de sites par catégories, journal des visites) et d'<b>accélérer</b> (il garde en
+            cache les pages déjà demandées). Dans le lycée, c'est une des raisons pour lesquelles certains sites sont
+            inaccessibles.</p>
+        <p><b>🚪 La passerelle</b> — Pas une machine à part : c'est un <b>rôle</b> confié à un équipement (souvent le
+            routeur, ou le pare-feu). La passerelle est l'adresse que tout poste utilise quand le destinataire n'est pas
+            dans son réseau : « je ne connais pas cette adresse, je donne le paquet à la passerelle ». C'est le champ
+            <b>passerelle par défaut</b> que vous relevez dans <code>ipconfig /all</code>, et la règle vue en TP : la
+            passerelle doit être <b>une adresse du réseau auquel appartient le poste</b>.</p>
+        <p><b>📖 Le serveur DNS</b> — L'annuaire du réseau : il répond à la question « quelle est l'adresse de ce nom ?
+            ». Sans lui, il faudrait retenir <code>142.250.74.36</code> au lieu de <code>www.google.com</code>. On
+            l'interroge avec <code>nslookup</code> ; il écoute sur le port 53. S'il tombe en panne, le réseau fonctionne
+            toujours (les pings passent) mais la navigation par nom ne marche plus — un symptôme typique à savoir
+            reconnaître.</p>
+        <p><b>🎁 Le serveur DHCP</b> — Le réceptionniste du réseau : à chaque machine qui arrive, il attribue une
+            adresse IP libre, pour une durée limitée (le <b>bail</b>). Il évite de configurer des centaines de postes à
+            la main et évite les conflits d'adresses. On réserve les IP <b>fixes</b> aux équipements qui doivent rester
+            joignables au même endroit : serveurs, imprimantes, équipements d'infrastructure. Quand aucun DHCP ne
+            répond, le poste s'invente une adresse <code>169.254.x.x</code> (<b>APIPA</b>) : premier réflexe de
+            diagnostic.</p>
+        <p><b>💻 Windows Server / Linux Server</b> — Ce sont les <b>systèmes d'exploitation</b> sur lesquels tournent
+            tous ces services. Windows Server s'administre en interface graphique et est très répandu avec Active
+            Directory ; Linux Server s'administre en ligne de commande et équipe la majorité des serveurs web et
+            d'infrastructure. Un technicien CIEL doit être capable de travailler sur les deux.</p>
+    </section>
+
+    <section id="serveurs">
+        <div class="sec-head"><span class="sec-num">03</span>
+            <h2>Les serveurs dans le réseau</h2><span class="sec-tag">Services</span>
+        </div>
+        <p>Un <b>serveur</b> est une machine qui <b>rend un service</b> à d'autres machines (les clients). Les
+            principaux :</p>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Serveur</th>
+                        <th>Service rendu</th>
+                        <th>Exemple vu en TP</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Serveur DNS</b></td>
+                        <td>Traduit les noms de domaine en adresses IP — « quelle est l'adresse de ce nom ? »</td>
+                        <td><code>nslookup www.google.com</code></td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur DHCP</b></td>
+                        <td>Distribue automatiquement les adresses IP (bails) — « quelle est ton adresse, toi ? »</td>
+                        <td>Ligne « bail obtenu / expire » dans <code>ipconfig /all</code></td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur web</b></td>
+                        <td>Héberge les sites (HTTP/HTTPS)</td>
+                        <td>Le site interne <code>intranet.techusine.fr</code> du TP Filius</td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur de fichiers</b></td>
+                        <td>Stockage et partage centralisés des documents</td>
+                        <td>Les dossiers partagés du lycée</td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur d'impression</b></td>
+                        <td>Gère les files d'attente des imprimantes réseau</td>
+                        <td>Les imprimantes avec adresse IP</td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur de messagerie</b></td>
+                        <td>Envoi et réception des mails (SMTP/IMAP)</td>
+                        <td>Votre messagerie académique</td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur de domaine (Active Directory)</b></td>
+                        <td>Gère les comptes et les identités : qui a le droit de se connecter où</td>
+                        <td>Votre session du lycée avec votre identifiant</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout">
+            <span class="lbl">Je retiens</span>
+            <p>Un serveur = un service. Le DNS répond « quelle est l'adresse de ce nom ? », le DHCP répond « quelle est
+                ton adresse, toi ? ». Un même serveur physique peut héberger plusieurs services.</p>
+        </div>
+    </section>
+
+    <section id="osi">
+        <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Le modèle OSI : découper la communication en couches</h2><span class="sec-tag">Modèles</span>
+        </div>
+        <p>La communication réseau est complexe : on la découpe donc en couches, chacune avec un rôle précis. C'est le
+            <b>modèle OSI</b> (7 couches). Le modèle <b>TCP/IP</b> (4 couches), plus proche de la réalité, lui
+            correspond presque couche par couche.</p>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>N°</th>
+                        <th>Couche OSI</th>
+                        <th>Rôle</th>
+                        <th>Modèle TCP/IP</th>
+                        <th>Protocoles exemples</th>
+                        <th>Équipement associé</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>7</td>
+                        <td>Application</td>
+                        <td>Interface avec l'utilisateur et les logiciels</td>
+                        <td>Application</td>
+                        <td>HTTP, HTTPS, DNS, DHCP, SMTP</td>
+                        <td>Serveurs, postes</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Présentation</td>
+                        <td>Format et chiffrement des données</td>
+                        <td>Application</td>
+                        <td>TLS/SSL, JPEG</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>Session</td>
+                        <td>Ouverture et gestion des dialogues</td>
+                        <td>Application</td>
+                        <td>NetBIOS, RPC</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Transport</td>
+                        <td>Fiabilité, contrôle de flux, <b>ports</b></td>
+                        <td>Transport</td>
+                        <td>TCP, UDP</td>
+                        <td>—</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Réseau</td>
+                        <td>Adressage logique (IP) et routage</td>
+                        <td>Internet</td>
+                        <td>IP, ICMP, ARP</td>
+                        <td>Routeur</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Liaison</td>
+                        <td>Adressage physique (MAC), trames</td>
+                        <td>Accès réseau</td>
+                        <td>Ethernet, Wi-Fi</td>
+                        <td>Switch</td>
+                    </tr>
+                    <tr>
+                        <td>1</td>
+                        <td>Physique</td>
+                        <td>Signaux, câbles, connecteurs</td>
+                        <td>Accès réseau</td>
+                        <td>Câble RJ45, fibre, ondes</td>
+                        <td>Câblage, prises</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><b>Moyen mnémotechnique</b> (de la couche 1 à la 7) : <b>P</b>hysique, <b>L</b>iaison, <b>R</b>éseau,
+            <b>T</b>ransport, <b>S</b>ession, <b>P</b>résentation, <b>A</b>pplication.</p>
+        <p><b>Le principe de l'empilement</b> : quand un poste envoie des données, chaque couche <b>ajoute</b> ses
+            informations (adresse IP à la couche 3, adresse MAC à la couche 2…) en descendant ; chez le destinataire,
+            les couches <b>dépouillent</b> ces informations en remontant. Chaque couche ne dialogue qu'avec la même
+            couche de l'autre machine grâce à un même protocole.</p>
+        <div class="callout">
+            <span class="lbl">Je retiens</span>
+            <p>Couche 1 = les câbles et les signaux ; couche 2 = les adresses MAC (le switch) ; couche 3 = les adresses
+                IP (le routeur) ; couche 4 = TCP/UDP et les ports ; couches 5-7 = les applications (web, mail, DNS).</p>
+        </div>
+    </section>
+
+    <section id="protocoles">
+        <div class="sec-head"><span class="sec-num">05</span>
+            <h2>Les protocoles importants</h2><span class="sec-tag">Règles d'échange</span>
+        </div>
+        <p>Un <b>protocole</b> est une règle d'échange : format des messages, ordre des questions/réponses.</p>
+
+        <h3>📚 Les protocoles à connaître en détail</h3>
+        <p><b>🧭 IP (Internet Protocol)</b> — Le protocole d'adressage et d'acheminement, en couche 3. Chaque machine
+            reçoit une <b>adresse IP logique</b> : IPv4 s'écrit sur 4 octets (192.168.1.10), IPv6 sur 128 bits.
+            L'adresse IP a deux parties : une partie <b>réseau</b> et une partie <b>machine</b>, séparées par le
+            <b>masque</b>. IP ne garantit rien : un paquet peut arriver en désordre ou se perdre — c'est le travail de
+            TCP de rattraper cela. C'est l'adresse que vous relevez dans <code>ipconfig /all</code> et que vous pinguez.
+        </p>
+        <p><b>🔗 TCP (Transmission Control Protocol)</b> — Le transport <b>fiable</b>, en couche 4 : il découpe les
+            données en segments, les numérote, accuse réception de chaque segment et retransmet ce qui est perdu. Les
+            données arrivent <b>complètes et dans l'ordre</b> — indispensable pour le web, les mails et le transfert de
+            fichiers. Chaque service est joignable sur un <b>port</b> numéroté (web : 80 et 443, mail : 25/143…). Plus
+            lent, mais sûr.</p>
+        <p><b>⚡ UDP (User Datagram Protocol)</b> — Le transport <b>rapide</b>, en couche 4 : pas d'accusé de réception,
+            pas de retransmission — on envoie, point. Si un paquet se perd, tant pis. Parfait quand la vitesse compte
+            plus que la perfection : DNS, streaming, jeux en ligne, visioconférence.</p>
+        <p><b>📖 DNS (Domain Name System)</b> — Le protocole de l'annuaire, en couche 7 : il traduit un <b>nom</b> de
+            domaine en <b>adresse IP</b>. On tape <code>www.google.com</code>, le DNS répond <code>142.250.74.36</code>.
+            Le serveur DNS est configuré dans <code>ipconfig /all</code> et interrogé avec <code>nslookup</code> ; il
+            écoute sur le <b>port 53</b>. Symptôme typique d'une panne DNS : les pings vers les adresses IP passent,
+            mais plus aucun site ne s'ouvre par son nom.</p>
+        <p><b>🎁 DHCP (Dynamic Host Configuration Protocol)</b> — Le protocole de la distribution automatique
+            d'adresses, en couche 7. Quand une machine arrive sur le réseau, elle crie « il y a un serveur DHCP ? » et
+            reçoit : une adresse IP, un masque, une passerelle, un serveur DNS — le tout pour une durée limitée, le
+            <b>bail</b>, renouvelable. On le voit dans <code>ipconfig /all</code> (lignes « bail obtenu / expire »).
+            Sans réponse DHCP : adresse <b>APIPA</b> en <code>169.254.x.x</code>. Les IP fixes restent réservées aux
+            serveurs, imprimantes et équipements d'infrastructure.</p>
+
+        <h3>📬 Les autres protocoles (à reconnaître)</h3>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Protocole</th>
+                        <th>Couche</th>
+                        <th>À quoi il sert</th>
+                        <th>À retenir</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>HTTP / HTTPS</b></td>
+                        <td>7</td>
+                        <td>Sites web</td>
+                        <td>HTTPS = version chiffrée (cadenas du navigateur) ; ports 80 / 443</td>
+                    </tr>
+                    <tr>
+                        <td><b>ICMP</b></td>
+                        <td>3</td>
+                        <td>Messages de contrôle et d'erreur</td>
+                        <td>C'est le protocole du <b>ping</b> et du <b>tracert</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>ARP</b></td>
+                        <td>2-3</td>
+                        <td>Trouver l'adresse MAC correspondant à une IP</td>
+                        <td>Commande <code>arp -a</code> ; la table ARP du TP</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ethernet</b></td>
+                        <td>2</td>
+                        <td>Réseaux filaires locaux</td>
+                        <td>Trames, adresses MAC, câbles RJ45</td>
+                    </tr>
+                    <tr>
+                        <td><b>Wi-Fi (802.11)</b></td>
+                        <td>2</td>
+                        <td>Réseaux locaux sans fil</td>
+                        <td>WLAN</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout">
+            <span class="lbl">Je retiens</span>
+            <p>TCP = fiabilité, UDP = rapidité. Ping = ICMP. IP → MAC = ARP. Le DNS et le DHCP sont détaillés en section
+                02.</p>
+        </div>
+    </section>
+
+    <section id="adressage">
+        <div class="sec-head"><span class="sec-num">06</span>
+            <h2>Le plan d'adressage</h2><span class="sec-tag">Concevoir</span>
+        </div>
+
+        <h3>🗺️ Pourquoi un plan d'adressage ?</h3>
+        <p>Un technicien ne câble jamais un réseau sans l'avoir écrit d'abord. Le <b>plan d'adressage</b> est le
+            document de référence de l'installation : il définit quel réseau est utilisé, qui reçoit quelle adresse, et
+            où se trouvent les équipements essentiels.</p>
+        <ul class="plain">
+            <li>il <b>évite les conflits d'adresses</b> (deux postes avec la même IP = panne) ;</li>
+            <li>il <b>rend le réseau lisible</b> : en voyant une adresse, on devine à quel service elle appartient ;
+            </li>
+            <li>il <b>facilite le diagnostic</b> : on sait où chercher ;</li>
+            <li>il <b>prévoit la croissance</b> de l'entreprise.</li>
+        </ul>
+
+        <h3>🔒 Adresses privées et publiques</h3>
+        <p>Toutes les adresses ne peuvent pas circuler sur Internet. Les unes appartiennent aux réseaux locaux, les
+            autres au monde entier :</p>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Plages (RFC 1918)</th>
+                        <th>Utilisation</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Privées</b></td>
+                        <td><code>10.0.0.0/8</code></td>
+                        <td>Très grandes organisations. Un réseau de 16,7 millions d'adresses.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Privées</b></td>
+                        <td><code>172.16.0.0/12</code></td>
+                        <td>Plages 172.16.x.x à 172.31.x.x. 1 million d'adresses réparties en 16 réseaux /16.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Privées</b></td>
+                        <td><code>192.168.0.0/16</code></td>
+                        <td>Petits réseaux : maison, TPE, îlots de TP. 256 réseaux de 256 adresses.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Publiques</b></td>
+                        <td>Toutes les autres</td>
+                        <td>Routables sur Internet. Attribuées par les opérateurs, payées, rares.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p><b>Conséquence</b> : deux entreprises peuvent utiliser toutes deux le réseau 192.168.1.0/24 sans conflit, car
+            ces adresses n'existent que dans leur réseau local. C'est la <b>passerelle</b> qui fait le lien entre le
+            réseau privé et Internet grâce au <b>NAT</b> (<i>Network Address Translation</i>) : elle réécrit les
+            adresses privées en une adresse publique partagée.</p>
+        <div class="callout">
+            <span class="lbl">À retenir</span>
+            <p>Privé = réseau local, non routable sur Internet ; public = routable, attribué par un opérateur. Le NAT
+                fait le pont entre les deux.</p>
+        </div>
+
+        <h3>⚠️ Adresses spéciales à connaître</h3>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Adresse</th>
+                        <th>Nom</th>
+                        <th>Rôle</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>127.0.0.1</code></td>
+                        <td>Boucle locale (localhost)</td>
+                        <td>Le poste lui-même. Pinger cette adresse teste la pile réseau du poste, jamais le câble.</td>
+                    </tr>
+                    <tr>
+                        <td><code>169.254.x.x</code></td>
+                        <td>APIPA (auto-configuration)</td>
+                        <td>Attribuée automatiquement par un poste quand aucun serveur DHCP ne répond. Symptôme de
+                            diagnostic : DHCP injoignable.</td>
+                    </tr>
+                    <tr>
+                        <td><code>x.x.x.0</code></td>
+                        <td>Adresse du réseau</td>
+                        <td>Identifie le réseau (partie hôte à 0). <b>Jamais attribuée.</b></td>
+                    </tr>
+                    <tr>
+                        <td><code>x.x.x.255</code> (en /24)</td>
+                        <td>Adresse de diffusion (broadcast)</td>
+                        <td>Parle à tous les postes du réseau d'un coup (partie hôte à 1). <b>Jamais attribuée.</b></td>
+                    </tr>
+                    <tr>
+                        <td><code>0.0.0.0/0</code></td>
+                        <td>Route par défaut</td>
+                        <td>Signifie « n'importe quelle destination » dans une table de routage.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>🧮 Calculer l'adresse du réseau et de diffusion (en /24)</h3>
+        <p>Avec un masque <code>255.255.255.0</code>, les <b>3 premiers octets</b> désignent le réseau, le dernier
+            désigne la machine :</p>
+        <ul class="plain">
+            <li>poste <code>172.20.30.45</code>, masque <code>255.255.255.0</code> → réseau : <code>172.20.30.0</code>
+                (dernier octet à 0) ;</li>
+            <li>diffusion : <code>172.20.30.255</code> (dernier octet à 255) ;</li>
+            <li>adresses utilisables pour les machines : de <code>172.20.30.1</code> à <code>172.20.30.254</code>, soit
+                <b>254 adresses utiles</b>.</li>
+        </ul>
+        <p><b>Méthode</b> : garder les octets couverts par le masque (255), mettre à 0 pour le réseau, à 255 pour la
+            diffusion.</p>
+
+        <h3>🛠️ Construire son plan : la démarche</h3>
+        <p>Un technicien procède en <b>quatre questions</b> :</p>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head"><span class="step-title">De quelle taille ai-je besoin ?</span></div>
+                <div class="step-body">
+                    <p>Compter les équipements à adresser et prévoir une marge de croissance. Le masque découle de ce
+                        besoin :</p>
+                    <ul class="plain">
+                        <li>jusqu'à ~250 hôtes → <b>/24</b> (254 adresses utiles) ;</li>
+                        <li>jusqu'à ~500 → /23 ; jusqu'à ~1000 → /22 ;</li>
+                        <li>au-delà → /16 ou découpage en plusieurs réseaux.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head"><span class="step-title">Quelle plage privée ?</span></div>
+                <div class="step-body">
+                    <p>Petit réseau local : <code>192.168.x.0/24</code>. Grande organisation : <code>10.x.x.x</code>.
+                    </p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head"><span class="step-title">Quelles conventions d'organisation ?</span></div>
+                <div class="step-body">
+                    <p>Regrouper par familles d'équipements, par exemple :</p>
+                    <ul class="plain">
+                        <li>passerelle en <code>.1</code> ou <code>.254</code> ;</li>
+                        <li>équipements d'infrastructure (serveurs, imprimantes) en <b>basses adresses</b> ;</li>
+                        <li>plage DHCP (postes des utilisateurs) en <b>hautes adresses</b>.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head"><span class="step-title">Où sont les frontières ?</span></div>
+                <div class="step-body">
+                    <p>S'il y a plusieurs réseaux (services, étages, sites), chacun a son propre réseau, avec un plan
+                        d'ensemble cohérent.</p>
+                </div>
+            </li>
+        </ol>
+
+        <h3>📋 Exemple de plan complet — îlot de TP</h3>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Adresse</th>
+                        <th>Convention</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Adresse du réseau</td>
+                        <td><code>192.168.50.0/24</code></td>
+                        <td>Plage privée, marge de croissance</td>
+                    </tr>
+                    <tr>
+                        <td>Passerelle</td>
+                        <td><code>192.168.50.254</code></td>
+                        <td>Dernière adresse utile</td>
+                    </tr>
+                    <tr>
+                        <td>Serveur DHCP / DNS</td>
+                        <td><code>192.168.50.10</code></td>
+                        <td>Infrastructure : basses adresses</td>
+                    </tr>
+                    <tr>
+                        <td>Serveur de fichiers</td>
+                        <td><code>192.168.50.11</code></td>
+                        <td>Infrastructure : adresses voisines</td>
+                    </tr>
+                    <tr>
+                        <td>Imprimante</td>
+                        <td><code>192.168.50.20</code></td>
+                        <td>Familles d'équipements séparées</td>
+                    </tr>
+                    <tr>
+                        <td>Plage DHCP (postes)</td>
+                        <td><code>.100</code> à <code>.200</code></td>
+                        <td>Postes : hautes adresses, dynamiques</td>
+                    </tr>
+                    <tr>
+                        <td>Adresse de diffusion</td>
+                        <td><code>192.168.50.255</code></td>
+                        <td>Jamais attribuée</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout">
+            <span class="lbl">À retenir</span>
+            <p>Un plan d'adressage se justifie : taille → masque, plage privée → usage, conventions → lisibilité,
+                frontières → découpage. La croissance doit être prévue dès le départ.</p>
+        </div>
+
+        <h3>🌍 Le NAT en une image</h3>
+        <pre class="tree">
+   Réseau local (privé)                    Internet (public)
+   192.168.50.10  ─┐
+   192.168.50.11  ─┤   [ PASSERELLE / NAT ] ────  82.64.12.37
+   192.168.50.12  ─┘
+        3 postes différents            sortent sous UNE seule adresse</pre>
+        <p>Chaque message sortant quitte le réseau local avec l'<b>adresse publique</b> de la passerelle ; au retour, la
+            passerelle sait à quel poste du réseau privé remettre la réponse. C'est ainsi que des centaines de postes
+            partagent une poignée d'adresses publiques.</p>
+    </section>
+
+    <section id="exercices">
+        <div class="sec-head"><span class="sec-num">07</span>
+            <h2>Exercices</h2><span class="sec-tag">À toi de jouer</span>
+        </div>
+
+        <h3>Exercice 1 — Équipements, couches et protocoles</h3>
+        <div class="question">
+            <span class="lbl">Q1</span>
+            <p>Le réseau du lycée est-il un réseau <b>privé ou public</b> ? Un poste du lycée peut-il être contacté
+                directement depuis internet ? Justifiez.<br><br><br></p>
+        </div>
+        <div class="question">
+            <span class="lbl">Q2</span>
+            <p>À quelle couche OSI travaille le switch ? Le routeur ? Quel type d'adresse chacun utilise-t-il
+                ?<br><br><br></p>
+        </div>
+        <div class="question">
+            <span class="lbl">Q3</span>
+            <p>Citez deux différences entre TCP et UDP, et un exemple d'usage pour chacun.<br><br><br></p>
+        </div>
+        <div class="question">
+            <span class="lbl">Q4</span>
+            <p>Un poste affiche l'adresse <code>169.254.12.34</code> : que se passe-t-il, et quelle commande permet de
+                le confirmer ?<br><br><br></p>
+        </div>
+        <div class="question">
+            <span class="lbl">Q5</span>
+            <p>Quel serveur traduit un nom de domaine en adresse IP ? Et quel protocole trouve l'adresse MAC
+                correspondant à une IP ?<br><br><br></p>
+        </div>
+        <div class="question">
+            <span class="lbl">Q6</span>
+            <p>Où place-t-on un pare-feu dans un réseau, et pourquoi ?<br><br><br></p>
+        </div>
+
+        <h3>Exercice 2 — Privé ou public ?</h3>
+        <div class="question">
+            <span class="lbl">Consigne</span>
+            <p>Pour chaque adresse, dites si elle est <b>privée ou publique</b>, et si elle peut circuler telle quelle
+                sur Internet :<br>a. <code>192.168.1.10</code> — b. <code>8.8.8.8</code> — c. <code>172.20.5.4</code> —
+                d. <code>11.5.32.80</code> — e. <code>10.0.0.1</code> — f. <code>172.33.4.2</code><br><br><br></p>
+        </div>
+
+        <h3>Exercice 3 — Que signifie cette adresse ?</h3>
+        <div class="question">
+            <span class="lbl">Consigne</span>
+            <p>Pour chaque situation, dites ce que l'adresse révèle :<br>a. Un poste affiche <code>169.254.3.17</code> :
+                que s'est-il passé ?<br>b. Un technicien saisit la route <code>0.0.0.0/0</code> sur un routeur : que
+                signifie cette route ?<br>c. Un poste à <code>192.168.10.14/24</code> : peut-on lui attribuer aussi
+                <code>192.168.10.255</code> ? Pourquoi ?<br>d. Un poste ping <code>127.0.0.1</code> avec succès, mais
+                aucun autre poste ne répond : que peut-on en conclure ?<br><br><br></p>
+        </div>
+
+        <h3>Exercice 4 — Choisir la taille du réseau</h3>
+        <div class="question">
+            <span class="lbl">Consigne</span>
+            <p>Pour chaque besoin, proposez un masque (/n) et justifiez :<br>a. Un appartement : 5 appareils, pas de
+                croissance prévue.<br>b. Un atelier de 30 postes + 5 équipements réseau, croissance possible jusqu'à
+                100.<br>c. Un lycée : 900 postes répartis en ateliers et salles, sur plusieurs réseaux distincts de 200
+                à 400 postes chacun.<br><br><br></p>
+        </div>
+
+        <h3>Exercice 5 — Critiquer un plan d'adressage</h3>
+        <div class="question">
+            <span class="lbl">Consigne</span>
+            <p>Un stagiaire propose le plan suivant pour un atelier de 6 postes + 1 serveur + 1 imprimante :</p>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Adresse proposée</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Passerelle</td>
+                        <td><code>192.168.1.100</code></td>
+                    </tr>
+                    <tr>
+                        <td>Serveur</td>
+                        <td><code>192.168.1.101</code></td>
+                    </tr>
+                    <tr>
+                        <td>Imprimante</td>
+                        <td><code>192.168.1.102</code></td>
+                    </tr>
+                    <tr>
+                        <td>Postes (statiques)</td>
+                        <td><code>192.168.1.103</code> à <code>.108</code></td>
+                    </tr>
+                    <tr>
+                        <td>Adresse de diffusion</td>
+                        <td><code>192.168.1.200</code></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="question">
+            <span class="lbl">Consigne</span>
+            <p>Trouvez <b>au moins trois erreurs</b> ou mauvaises pratiques, et proposez un plan corrigé.<br><br><br>
+            </p>
+        </div>
+
+        <h3>Exercice 6 — Compléter le NAT</h3>
+        <div class="question">
+            <span class="lbl">Consigne</span>
+            <p>Complétez le texte : « Dans le réseau local, chaque poste possède une adresse ................, non
+                routable sur Internet. Quand un message sort du réseau local, la ................ réécrit son adresse
+                source avec l'adresse ................ du réseau. Au retour, elle remet la réponse au ................
+                grâce à sa table de correspondance. Ce mécanisme s'appelle le ................ . »<br><br><br></p>
+        </div>
+    </section>
+
+    <section id="corriges">
+        <div class="sec-head"><span class="sec-num">08</span>
+            <h2>Corrigés</h2><span class="sec-tag">Cliquer pour déplier</span>
+        </div>
+        <p class="note">Cherchez d'abord par vous-même ! Cliquez sur un corrigé pour l'afficher.</p>
+        <ul class="plain collapsible">
+            <li>Corrigé — Exercice 1 : équipements, couches et protocoles
+                <ul>
+                    <li><b>Q1.</b> Le réseau du lycée utilise des adresses <b>privées</b> (non routables sur Internet) :
+                        un poste du lycée ne peut pas être contacté directement depuis internet. Seule la
+                        <b>passerelle</b>, avec son adresse publique et le NAT, fait le lien entre les deux mondes.</li>
+                    <li><b>Q2.</b> Le switch travaille en <b>couche 2</b> (liaison : adresses <b>MAC</b>, trames). Le
+                        routeur en <b>couche 3</b> (réseau : adresses <b>IP</b>, routage).</li>
+                    <li><b>Q3.</b> TCP : transport <b>fiable</b> (accusés de réception, ordre garanti) mais plus lent —
+                        utilisé par le web, les mails, les fichiers. UDP : transport <b>rapide sans garantie</b> —
+                        utilisé par le DNS, le streaming, les jeux en ligne.</li>
+                    <li><b>Q4.</b> Le poste n'a reçu <b>aucune adresse du serveur DHCP</b> : il s'est auto-attribué une
+                        adresse <b>APIPA</b>. On confirme avec <code>ipconfig /all</code> (absence de bail DHCP).</li>
+                    <li><b>Q5.</b> Le <b>serveur DNS</b> traduit un nom en adresse IP. Le protocole <b>ARP</b> trouve
+                        l'adresse MAC correspondant à une IP (table visible avec <code>arp -a</code>).</li>
+                    <li><b>Q6.</b> À la <b>sortie du réseau</b>, entre le réseau local et internet : c'est le point de
+                        passage obligé de tout le trafic, où le filtrage s'applique à tout le monde.</li>
+                </ul>
+            </li>
+            <li>Corrigé — Exercice 2 : privé ou public ?
+                <ul>
+                    <li>a. <code>192.168.1.10</code> : privée (192.168.0.0/16), non routable sur Internet.</li>
+                    <li>b. <code>8.8.8.8</code> : publique (serveur DNS de Google), routable.</li>
+                    <li>c. <code>172.20.5.4</code> : privée (172.16.0.0/12 couvre 172.16 à 172.31).</li>
+                    <li>d. <code>11.5.32.80</code> : publique.</li>
+                    <li>e. <code>10.0.0.1</code> : privée (10.0.0.0/8).</li>
+                    <li>f. <code>172.33.4.2</code> : publique — piège : 172.33 est hors de la plage 172.16–172.31.</li>
+                </ul>
+            </li>
+            <li>Corrigé — Exercice 3 : que signifie cette adresse ?
+                <ul>
+                    <li>a. Le poste n'a trouvé aucun serveur DHCP : il s'est auto-attribué une adresse <b>APIPA</b>. Le
+                        DHCP est hors service, mal configuré, ou le poste est déconnecté du réseau.</li>
+                    <li>b. C'est la <b>route par défaut</b> : « pour toute destination inconnue, envoyer par ici ». Le
+                        routeur transmet tout ce qui n'est pas explicitement dans sa table vers le prochain saut.</li>
+                    <li>c. Non : <code>.255</code> est l'<b>adresse de diffusion</b> en /24 (partie hôte tout à 1), elle
+                        n'est jamais attribuée à un poste.</li>
+                    <li>d. La pile réseau du poste fonctionne (localhost répond), mais la communication vers le réseau
+                        est défaillante : câble, carte, ou mauvais réseau/masque. Le poste est isolé.</li>
+                </ul>
+            </li>
+            <li>Corrigé — Exercice 4 : choisir la taille du réseau
+                <ul>
+                    <li>a. <b>/24</b> (255.255.255.0) amplement suffisant, la plage privée classique pour un petit
+                        réseau. (Même si l'on n'utilise que quelques adresses, un /24 est simple et standard.)</li>
+                    <li>b. <b>/24</b> : 254 adresses utiles pour ~35 équipements et une croissance jusqu'à 100 —
+                        confortable. Un /25 serait trop juste (126 hôtes pour 100 visés, pas de marge).</li>
+                    <li>c. Plusieurs réseaux distincts de 200 à 400 postes : <b>/23</b> (510 utiles) ou /24 selon les
+                        salles, choisis dans <code>10.0.0.0/8</code> pour la lisibilité (ex. un /23 ou /24 par salle :
+                        10.0.1.0/24, 10.0.2.0/24…). L'important est la cohérence : même taille de réseau pour des usages
+                        similaires, numérotation lisible.</li>
+                </ul>
+            </li>
+            <li>Corrigé — Exercice 5 : critiquer un plan d'adressage
+                <ul>
+                    <li>Erreurs attendues : 1) la passerelle au milieu de la plage des postes (.100) : mauvaise pratique
+                        — elle doit être en .1 ou .254 ; 2) le plan ne mentionne ni l'adresse du réseau (.0) ni la vraie
+                        adresse de diffusion : .200 n'est pas l'adresse de diffusion d'un /24, c'est .255 ; 3) pas de
+                        marge : tout est statique et collé (.100 à .108) ; une plage DHCP séparée et des familles
+                        d'équipements distinctes manquent ; 4) (bonus) 192.168.1.0/24 est la plage « par défaut des box
+                        » : parfois évitée pour ne pas créer de conflit avec les réseaux maison des techniciens qui se
+                        connectent à distance.</li>
+                    <li>Plan corrigé possible : réseau 192.168.1.0/24 (ou autre /24 privé), passerelle .254, serveur
+                        .10, imprimante .20, postes .101 à .106, plage DHCP réservée .150 à .200, diffusion .255.</li>
+                </ul>
+            </li>
+            <li>Corrigé — Exercice 6 : compléter le NAT
+                <ul>
+                    <li>privée — passerelle — publique — poste (au bon poste/client) — NAT.</li>
+                </ul>
+            </li>
+        </ul>
+    </section>
+
+    <footer>
+        <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Réseau — Lycée Charlie Chaplin</strong></p>
+        <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
+                href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+    </footer>
+</body>
+
+</html>
