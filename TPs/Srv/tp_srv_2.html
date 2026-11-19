@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP CIEL — Déployer un serveur web local</title>
+    <link rel="stylesheet" href="../../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function (e) {
+                        if (e.target.tagName === 'A' || e.target.tagName === 'INPUT') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header class="hero col">
+        <div class="eyebrow">Séquence Web — Séance 3 · Mission n°2</div>
+        <h1>Déployer un serveur web local</h1>
+
+        <div class="chips">
+            <span class="chip">1ʳᵉ Bac Pro CIEL</span>
+            <span class="chip">Durée : 2 h</span>
+            <span class="chip">VirtualBox</span>
+        </div>
+    </header>
+
+    <section id="objectifs">
+        <div class="sec-head"><span class="sec-num">01</span>
+            <h2>Ce que vous allez apprendre</h2><span class="sec-tag">Objectifs</span>
+        </div>
+        <ul class="plain">
+            <li>Démarrer une <b>machine virtuelle</b> et vérifier son mode réseau (<b>accès par pont</b>).</li>
+            <li>Installer un <b>serveur web</b> (Apache) avec le gestionnaire de paquets <code>apt</code>.</li>
+            <li>Organiser l'<b>arborescence</b> d'un site : racine <code>/var/www/html</code>, page d'accueil
+                <code>index.html</code>.
+            </li>
+            <li>Gérer un <b>service</b> avec <code>systemctl</code> et vérifier son <b>port d'écoute</b> avec
+                <code>ss</code>.
+            </li>
+            <li>Vérifier l'accès au site via <code>localhost</code>, <code>127.0.0.1</code> puis l'<b>adresse IP</b> de
+                la VM.</li>
+            <li>Ouvrir le <b>port 80</b> dans le pare-feu <code>ufw</code> pour autoriser l'accès depuis un autre
+                poste.</li>
+            <li><b>Diagnostiquer</b> une panne de serveur web de façon méthodique.</li>
+            <li><b>Documenter</b> une procédure technique pour un public non spécialiste.</li>
+        </ul>
+
+        <h3>Compétences visées</h3>
+        <div class="skills">
+            <div class="skill">
+                <span class="code">Bloc 2 · U31 — Installer</span>
+                <b>Mettre en place un service web</b>
+                <span>Installer Apache sur Debian, organiser l'arborescence du site, déposer une page et vérifier le
+                    service.</span>
+            </div>
+            <div class="skill">
+                <span class="code">Bloc 2 · U31 — Exploiter un réseau informatique</span>
+                <b>Ouvrir, sécuriser et diagnostiquer</b>
+                <span>Configurer le pare-feu pour autoriser le port d'écoute, valider l'accès distant depuis un autre
+                    poste, diagnostiquer une panne niveau par niveau.</span>
+            </div>
+            <div class="skill">
+                <span class="code">Bloc 3 · U32 — Coder</span>
+                <b>Publier une page</b>
+                <span>Déposer un document HTML à la racine du serveur : c'est la première étape vers la publication de
+                    vos propres pages.</span>
+            </div>
+        </div>
+    </section><section id="activite1">
+        <div class="sec-head"><span class="sec-num">02</span>
+            <h2>Activité 0 — Créer sa machine virtuelle</h2><span class="sec-tag"></span>
+        </div>
+        <p><b>Objectif de la phase :</b> chaque commande vous est donnée. Suivez la procédure à la lettre, observez les
+            résultats et répondez aux questions.</p>
+    
+        <ol class="steps">
+            <li class="step">
+                <span class="step-num">1</span>
+                <div class="step-head">
+                    <span class="step-title">Téléchargement officiel</span>
+                    <label class="tick"><input type="checkbox"> Fait</label>
+                </div>
+                <div class="step-body">
+                    <p>Si VirtualBox n'est pas installé sur votre poste, téléchargez et installez-le.</p>
+                    <p>Aller sur <a href="https://www.virtualbox.org/wiki/Downloads"
+                            target="_blank">virtualbox.org/wiki/Downloads</a> (site officiel)</p>
+                </div>
+            </li>
+
+            <li class="step">
+                <span class="step-num">2</span>
+                <div class="step-head">
+                    <span class="step-title">Téléchargement ISO</span>
+                    <label class="tick"><input type="checkbox"> Fait</label>
+                </div>
+                <div class="step-body">
+                    <p>Si aucun ISO n'est pas disponible sur votre poste, téléchargez en un.</p>
+                    <p>Aller sur <a href="https://ubuntu.com/download/server" target="_blank">ubuntu server</a></p>
+                </div>
+            </li>
+
+            <li class="step">
+                <span class="step-num">3</span>
+                <div class="step-head">
+                    <span class="step-title">Configuration de la VM</span>
+                    <label class="tick"><input type="checkbox"> Fait</label>
+                </div>
+                <div class="step-body">
+                    <p>Créez une nouvelle machine virtuelle dans VirtualBox à partir de l'ISO téléchargé.</p>
+                    <p>Réalisez une configuration classique : 8 CPU, 8 Go RAM, 10 Go disque dur.</p>
+                </div>
+            </li>
+
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head">
+                    <span class="step-title">Démarrer la VM et vérifier le mode réseau</span>
+                    <label class="tick"><input type="checkbox" data-step="a1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Dans VirtualBox, la VM doit être configurée en <b>accès par pont</b> (Configuration
+                            → Réseau → mode d'accès réseau : « Accès par pont »).</li>
+                    </ul>
+                    <p>Dans la VM, connectez-vous et vérifiez que la VM a bien reçu <b>sa propre adresse IP</b> sur le
+                        réseau du lycée :</p>
+                    <pre class="tree">ip a</pre>
+                    <p>Relevez dans votre compte rendu :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Information</th>
+                                    <th>Valeur relevée</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><b>Adresse IPv4</b> de la VM (ex. <code>172.16.12.34</code>)</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Adresse IPv4 du poste Windows hôte</b> (<code>ipconfig</code> dans
+                                        Windows)</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>Adresse IP du serveur de votre voisin</b></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="plain collapsible">
+                        <li>Comment reconnaître l'IP de la VM dans <code>ip a</code> ?
+                            <ul class="plain">
+                                <li>Repérez l'interface <code>enp0s3</code> (ou <code>ens33</code>) : l'adresse est
+                                    indiquée après « <code>inet</code> ».</li>
+                                <li><code>127.0.0.1</code> (interface <code>lo</code>) est la boucle locale, ce
+                                    <b>n'est pas</b> l'adresse réseau de la VM.
+                                </li>
+                                <li>L'IP de la VM et celle du poste hôte doivent commencer par les mêmes nombres :
+                                    elles sont sur le même réseau.</li>
+                            </ul>
+                        </li>
+                        <li>La VM n'a pas d'adresse IP (pas de ligne <code>inet</code> autre que
+                            <code>127.0.0.1</code>)
+                            <ul class="plain">
+                                <li>La VM est probablement en mode NAT : éteignez-la, vérifiez le mode « Accès par
+                                    pont » dans VirtualBox, redémarrez.</li>
+                            </ul>
+                                    
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ol>
+
+    </section>
+    <section id="activite1">
+        <div class="sec-head"><span class="sec-num">03</span>
+            <h2>Activité 1 — Créer son serveur web</h2><span class="sec-tag"></span>
+        </div>
+        <ul class="plain">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Installer le serveur web Apache</span>
+                    <label class="tick"><input type="checkbox" data-step="a2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Dans la VM, saisissez les deux commandes suivantes (<code>sudo</code> = « faire en
+                        administrateur » ; tapez le mot de passe quand il est demandé) :</p>
+                    <pre class="tree">sudo apt update
+    sudo apt install apache2 -y</pre>
+                    <ul class="plain collapsible">
+                        <li>Que font ces commandes ?
+                            <ul class="plain">
+                                <li><code>apt update</code> : met à jour la liste des logiciels disponibles (l'annuaire
+                                    des paquets), à faire <b>avant</b> toute installation.</li>
+                                <li><code>apt install apache2</code> : télécharge et installe le serveur web Apache et
+                                    ses dépendances. <code>-y</code> répond automatiquement « oui ».</li>
+                                <li>À la fin, Debian démarre automatiquement le service <code>apache2</code>.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Vérifier le service et son port d'écoute</span>
+                    <label class="tick"><input type="checkbox" data-step="a3"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Vérifiez que le service Apache est <b>actif</b> :</p>
+                    <pre class="tree">systemctl status apache2</pre>
+                    <p>Vous devez voir <code>active (running)</code> en vert. Quittez l'affichage avec
+                        <kbd>Q</kbd>.
+                    </p>
+                    <p>Vérifiez ensuite sur quel <b>port</b> le serveur écoute :</p>
+                    <pre class="tree">ss -tlnp | grep apache</pre>
+                    <ul class="plain collapsible">
+                        <li>Comment lire le résultat ?
+                            <ul class="plain">
+                                <li><code>ss -tlnp</code> liste les ports en écoute : <b>t</b>CP, <b>l</b>istening,
+                                    <b>n</b>umériques, <b>p</b>rocessus.
+                                </li>
+                                <li>Cherchez la ligne contenant <code>0.0.0.0:80</code> : Apache écoute sur
+                                    <b>toutes</b> les interfaces de la VM, port 80.
+                                </li>
+                                <li><code>0.0.0.0</code> signifie « n'importe quelle adresse de cette machine » :
+                                    localhost, 127.0.0.1 et l'IP de la VM fonctionneront.</li>
+                                <li>Si rien n'apparaît : le service n'est pas démarré, recommencez l'étape 3.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question</span>
+                        <p>1. Sur quel <b>port</b> Apache écoute-t-il ? Quelle commande vous l'a prouvé ?</p>
+                        <p>2. En quoi <code>systemctl status</code> prouve-t-il qu'Apache est bien un <b>service</b> et
+                            pas un simple programme lancé à la main ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head">
+                    <span class="step-title">Déposer la page fournie à la racine</span>
+                    <label class="tick"><input type="checkbox" data-step="a4"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Regardez d'abord ce que contient la racine web livrée avec Apache :</p>
+                    <pre class="tree">ls /var/www/html</pre>
+                    <p>Téléchargez la page fournie par l'enseignant directement dans la racine web, puis vérifiez :</p>
+                    <pre class="tree">sudo wget https://tansignoret.github.io/1ERE_CIEL/TPs/Srv/index.html -O /var/www/html/index.html
+    ls -l /var/www/html</pre>
+                    <ul class="plain collapsible">
+                        <li>Que font ces commandes ?
+                            <ul class="plain">
+                                <li><code>ls</code> liste le contenu d'un dossier. Avant le téléchargement, vous devez
+                                    voir <code>index.nginx-debian.html</code> ou <code>index.html</code> : la page
+                                    d'accueil par défaut d'Apache (« Apache2 Default Page »).</li>
+                                <li><code>wget … -O /var/www/html/index.html</code> télécharge le fichier et
+                                    l'enregistre <b>sous le nom</b> <code>index.html</code> dans la racine web : il
+                                    <b>remplace</b> la page par défaut.
+                                </li>
+                                <li><code>sudo</code> est nécessaire car le dossier <code>/var/www/html</code>
+                                    n'est modifiable que par l'administrateur.</li>
+                            </ul>
+                        </li>
+                        <li>La commande <code>wget</code> échoue (« temporary failure resolving… »)
+                            <ul class="plain">
+                                <li>La VM n'a pas accès à internet : vérifiez <code>ip a</code> (étape 1), puis
+                                    appelez l'enseignant. En dernier recours, recopiez le fichier depuis le poste
+                                    hôte via un dossier partagé.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head">
+                    <span class="step-title">Tester les trois adresses locales</span>
+                    <label class="tick"><input type="checkbox" data-step="a5"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Dans le navigateur du <b>poste Windows</b> (pas besoin de navigateur dans la VM), testez
+                        successivement ces trois adresses et notez le résultat de chacune :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Adresse testée</th>
+                                    <th>Que désigne-t-elle ?</th>
+                                    <th>Résultat (page affichée ?)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>http://localhost</code></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><code>http://127.0.0.1</code></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td><b>l'adresse IP de la VM</b> (relevée à l'étape 1)</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="plain collapsible">
+                        <li>Attention à un piège
+                            <ul class="plain">
+                                <li><code>localhost</code> et <code>127.0.0.1</code> désignent la machine où tourne le
+                                    navigateur : depuis Windows, ils pointent vers <b>Windows</b>, pas vers la
+                                    VM !</li>
+                                <li>Si la page s'affiche quand même avec ces adresses, c'est que le navigateur est
+                                    <b>dans la VM</b> (ou qu'un serveur tourne aussi sous Windows…).
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question</span>
+                        <p>Ouvrez les outils de développement (F12, onglet Réseau) et rechargez la page : quel
+                            <b>code de statut</b> renvoie le serveur ? Quel <b>port</b> apparaît comme port
+                            <b>distant</b> ?
+                        </p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">5</div>
+                <div class="step-head">
+                    <span class="step-title">Tester depuis la machine d'un autre élève</span>
+                    <label class="tick"><input type="checkbox" data-step="a6"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Demandez à votre voisin d'ouvrir son navigateur et de saisir <b>l'adresse IP de votre VM</b>
+                        (ex. <code>http://172.16.x.x</code>). Faites l'inverse chez lui.</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Test</th>
+                                    <th>Résultat observé</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Votre page consultée depuis la VM (ou le poste) du voisin</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question</span>
+                        <p>1. Le test échoue-t-il ? Votre serveur est-il pour autant « en panne » ?</p>
+                        <p>2. Quel composant de la VM peut bloquer une connexion <b>entrante</b> alors que le service
+                            écoute correctement ?</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">6</div>
+                <div class="step-head">
+                    <span class="step-title">Ouvrir le port 80 dans le pare-feu</span>
+                    <label class="tick"><input type="checkbox" data-step="a7"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Le serveur écoute, mais le pare-feu de la VM bloque les connexions entrantes. Dans la VM :</p>
+                    <pre class="tree">sudo ufw allow 80/tcp
+    sudo ufw enable
+    sudo ufw status</pre>
+                    <ul class="plain collapsible">
+                        <li>Que font ces commandes ?
+                            <ul class="plain">
+                                <li><code>ufw allow 80/tcp</code> : crée une règle qui <b>autorise</b> les connexions
+                                    <b>entrantes</b> TCP vers le port 80.
+                                </li>
+                                <li><code>ufw enable</code> : active le pare-feu (si demandé, valide : la connexion
+                                    SSH, si vous en utilisez une, peut être coupée — dans notre cas, vous travaillez
+                                    directement dans la VM).</li>
+                                <li><code>ufw status</code> : liste les règles actives. Vous devez voir
+                                    <code>80/tcp ALLOW Anywhere</code>.
+                                </li>
+                                <li>On n'ouvre que le port nécessaire, avec une règle précise : désactiver
+                                    entièrement le pare-feu est une faute professionnelle.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <p>Refaite le test de l'étape 6 : votre voisin doit maintenant voir votre page.</p>
+                    <div class="question">
+                        <span class="lbl">Question</span>
+                        <p>1. Pourquoi la règle porte-t-elle sur le trafic <b>entrant</b> et pas <b>sortant</b> ?</p>
+                        <p>2. En séance 1, vous avez consulté des sites HTTPS sur le port 443 : fallait-il ouvrir ce
+                            port sur votre poste ? Expliquez la différence de situation.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    
+        <div class="callout">
+            <span class="lbl">Point de contrôle</span>
+            <p>Présentez à l'enseignant : vos relevés (IP de la VM, port d'écoute, sortie de <code>ufw status</code>).</p>
+        </div>
+    </section>
+
+    <section id="activite2">
+        <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Activité 2 — Diagnostiquer une panne</h2><span class="sec-tag"></span>
+        </div>
+        <p><b>Objectif de la phase :</b> cette fois, ce n'est plus la procédure qu'on vous donne, c'est le
+            <b>symptôme</b>.
+            À vous de trouver la cause, avec une méthode, pas au hasard.</p>
+
+        <div class="callout">
+            <span class="lbl">La méthode de diagnostic en 3 niveaux</span>
+            <p>Quand « ça ne marche pas », on vérifie <b>toujours dans le même ordre</b>, du plus proche au plus
+                lointain :</p>
+            <div class="tw">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Niveau</th>
+                            <th>Question à se poser</th>
+                            <th>Commande de vérification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><b>1. Le service</b></td>
+                            <td>Mon serveur tourne-t-il et écoute-t-il ?</td>
+                            <td><code>systemctl status apache2</code> puis <code>ss -tlnp | grep apache</code></td>
+                        </tr>
+                        <tr>
+                            <td><b>2. Le pare-feu</b></td>
+                            <td>Mon pare-feu laisse-t-il entrer le port 80 ?</td>
+                            <td><code>sudo ufw status</code></td>
+                        </tr>
+                        <tr>
+                            <td><b>3. Le réseau</b></td>
+                            <td>Les deux machines peuvent-elles se joindre ?</td>
+                            <td><code>ip a</code> (même réseau ?) puis <code>ping IP_DU_VOISIN</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <br>
+            <p>Cette démarche est exactement celle d'un technicien : on élimine les causes <b>une par une</b>, en
+                prouvant chaque étape, au lieu de tout réinstaller au hasard.</p>
+        </div>
+
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Provoquer les pannes</span>
+                    <label class="tick"><input type="checkbox" data-step="b1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Sur <b>votre</b> VM, provoquez successivement chaque panne, observez le symptôme chez le voisin,
+                        utilisez la méthode pour retrouver la cause, puis <b>réparez</b>. Notez à chaque fois le
+                        symptôme, la commande qui a révélé le problème et la réparation :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Panne à provoquer</th>
+                                    <th>Symptôme observé chez le voisin</th>
+                                    <th>Diagnostic (niveau + commande)</th>
+                                    <th>Réparation</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>A. Arrêter le service :<br><code>sudo systemctl stop apache2</code></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>B. Fermer le port :<br><code>sudo ufw delete allow 80/tcp</code></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <ul class="plain collapsible">
+                        <li>Comment redémarrer le service après réparation ?
+                            <ul class="plain">
+                                <li><code>sudo systemctl start apache2</code> (démarrer) ou
+                                    <code>sudo systemctl restart apache2</code> (redémarrer).
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 6</span>
+                        <p>1. Pour les pannes A et B, le <code>ping</code> vers votre VM réussit-il ?</p>
+                        <p>2. Un camarade vous dit : « mon serveur ne marche pas, je vais le réinstaller ». Quelle
+                            question lui posez-vous d'abord, et quelles vérifications lui faites-vous faire avant de
+                            toucher à l'installation ?</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+
+        <div class="callout">
+            <span class="lbl">Point de contrôle</span>
+            <p>Présentez votre travail à l'enseignant.</p>
+        </div>
+    </section>
+
+    <section id="activite3">
+        <div class="sec-head"><span class="sec-num">05</span>
+            <h2>Activité 3 — Documenter la procédure</h2><span class="sec-tag"></span>
+        </div>
+        <p><b>Objectif de la phase :</b> transformer ce que vous avez fait en <b>documentation professionnelle</b>
+            réutilisable. Cette fois, aucune procédure n'est fournie : vous écrivez la vôtre à partir de votre compte
+            rendu.</p>
+
+        <div class="callout">
+            <span class="lbl">Mission professionnelle</span>
+            <p>Vous êtes technicien intervenant pour une <b>association</b>. Vous venez de déployer son serveur web
+                sur une machine dédiée sous Debian. La présidente vous dit :</p>
+            <p>« La prochaine fois, on voudrait pouvoir refaire cette installation <b>sans faire appel à un
+                    prestataire</b>. Écrivez-nous un tuto clair que n'importe quel bénévole peut suivre. »</p>
+        </div>
+
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head">
+                    <span class="step-title">Rédiger le tutoriel</span>
+                    <label class="tick"><input type="checkbox" data-step="c1"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Rédigez un document (traitement de texte) qui explique <b>étape par étape</b> comment installer
+                        le serveur web et rendre le site accessible depuis un autre poste. Votre tuto doit
+                        comprendre :</p>
+                    <ul class="plain">
+                        <li>Un <b>titre</b> et une phrase de <b>contexte</b> (à qui il s'adresse, ce qu'il permet
+                            d'obtenir).</li>
+                        <li>Les <b>étapes numérotées</b>, dans l'ordre, avec les <b>commandes exactes</b> à taper
+                            (installation, vérification du service, page, pare-feu).</li>
+                        <li>Au moins <b>3 captures d'écran</b> des moments clés (service actif, <code>ufw status</code>,
+                            page affichée depuis un autre poste).</li>
+                        <li>Un encadré « <b>En cas de problème</b> » : la méthode de diagnostic en 3 niveaux, avec les
+                            commandes de vérification.</li>
+                        <li>Un <b>lexique</b> de 5 mots techniques utilisés, expliqués simplement (service, port,
+                            pare-feu, racine web, IP, VM…).</li>
+                    </ul>
+                    <ul class="plain collapsible">
+                        <li>À qui j'écris vraiment ?
+                            <ul class="plain">
+                                <li>À un <b>bénévole non technicien</b> : pas de jargon non expliqué, une action par
+                                    étape, des phrases courtes.</li>
+                                <li>Testez-vous : « si je n'avais jamais fait ce TP, saurais-je suivre mon tuto sans
+                                    aide ? »</li>
+                            </ul>
+                        </li>
+                        <li>Quelles valeurs sensibles masquer ?
+                            <ul class="plain">
+                                <li>Dans les captures, masquez les mots de passe. Les adresses IP du lycée peuvent
+                                    rester (réseau local de formation).</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head">
+                    <span class="step-title">Faire relire par un autre binôme</span>
+                    <label class="tick"><input type="checkbox" data-step="c2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <p>Échangez votre tuto avec un autre binôme. Chacun lit le tuto de l'autre et répond par écrit à
+                        deux questions :</p>
+                    <ul class="plain">
+                        <li>« Une étape est-elle ambiguë ou impossible à suivre telle quelle ? Laquelle ? »</li>
+                        <li>« Manque-t-il une étape par rapport à ce que nous avons réellement fait en activité 1 ? »
+                        </li>
+                    </ul>
+                    <p>Corrigez votre tuto à partir de cette relecture (le nom du relecteur figure en fin de
+                        document).</p>
+                </div>
+            </li>
+        </ol>
+
+        <div class="callout">
+            <span class="lbl">Point de contrôle</span>
+            <p>Présentez à l'enseignant : le tuto finalisé (avec captures, encadré « En cas de problème » et lexique).</p>
+        </div>
+    </section>
+
+    <section id="livrables">
+        <div class="sec-head"><span class="sec-num">06</span>
+            <h2>Ce que je dois rendre</h2><span class="sec-tag">Checklist</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head">
+                    <span class="step-title">Le tutoriel pour l'association</span>
+                    <label class="tick"><input type="checkbox" data-step="r2"><span>Rendu</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Étapes numérotées + commandes exactes + 3 captures minimum.</li>
+                        <li>Encadré « En cas de problème » (méthode en 3 niveaux) + lexique de 5 mots.</li>
+                        <li>Relu par un autre binôme (nom du relecteur indiqué).</li>
+                    </ul>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="voc">
+        <div class="sec-head"><span class="sec-num">07</span>
+            <h2>Vocabulaire et concepts essentiels</h2><span class="sec-tag">Connaissances</span>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Notion</th>
+                        <th>L'essentiel</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Machine virtuelle (VM)</b></td>
+                        <td>Ordinateur « logiciel » qui tourne dans votre poste Windows grâce à VirtualBox. Sa
+                            configuration réseau détermine qui peut la joindre.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Mode « accès par pont »</b></td>
+                        <td>Mode réseau dans lequel la VM obtient <b>sa propre adresse IP</b> sur le réseau du lycée
+                            (DHCP), comme un vrai poste. C'est ce qui permettra à votre voisin de voir votre
+                            serveur.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Snapshot</b></td>
+                        <td>« Photo » de l'état de la VM. Le snapshot <code>TP3 - départ</code> vous ramène en 10
+                            secondes à une machine propre en cas de problème.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Serveur web</b></td>
+                        <td>Programme <b>service</b> qui écoute en permanence sur un port (généralement <code>80</code>)
+                            et répond aux requêtes HTTP en renvoyant des fichiers. Apache est le serveur web le plus
+                            répandu.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Service</b></td>
+                        <td>Programme qui tourne en arrière-plan, sans fenêtre, démarré et supervisé par le système.
+                            Sous Debian, on le gère avec <code>systemctl</code>.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Port d'écoute</b></td>
+                        <td>« Porte » logique sur laquelle le service attend les clients. HTTP = port <code>80</code>,
+                            HTTPS = port <code>443</code> (vu en séance 1).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Racine web (<code>/var/www/html</code>)</b></td>
+                        <td>Dossier qu'Apache est autorisé à servir. Un fichier qui n'est pas dedans n'est <b>pas</b>
+                            accessible depuis le navigateur.</td>
+                    </tr>
+                    <tr>
+                        <td><b><code>index.html</code></b></td>
+                        <td>Page affichée par défaut quand on demande la racine du site (sans nom de fichier).</td>
+                    </tr>
+                    <tr>
+                        <td><b><code>localhost</code> / <code>127.0.0.1</code></b></td>
+                        <td>La boucle locale : « moi-même ». Tester avec permet de vérifier le serveur <b>sans passer
+                                par le réseau</b> (vu au TP « Le voyage d'une requête web »).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Pare-feu <code>ufw</code></b></td>
+                        <td>Gardien de la VM : il filtre le trafic <b>entrant</b>. Par défaut, tout est bloqué : votre
+                            serveur sera joignable localement mais pas par les autres postes… tant que vous n'avez pas
+                            ouvert le port.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mot</th>
+                        <th>Définition</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Machine virtuelle (VM)</b></td>
+                        <td>Ordinateur simulé par logiciel, qui possède son propre système (ici Debian) et sa propre
+                            adresse IP.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Accès par pont</b></td>
+                        <td>Mode réseau de la VM : elle obtient sa propre IP sur le réseau du lycée, comme un vrai
+                            poste.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Snapshot</b></td>
+                        <td>État sauvegardé d'une VM, qu'on peut restaurer en quelques secondes.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Service</b></td>
+                        <td>Programme qui tourne en arrière-plan sans fenêtre, démarré et supervisé par le système
+                            (<code>systemctl</code> sous Debian).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Port d'écoute</b></td>
+                        <td>Numéro logique sur lequel un service attend les clients. HTTP : <code>80</code>, HTTPS :
+                            <code>443</code>.
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><b>APT</b></td>
+                        <td>Gestionnaire de paquets de Debian : installe les logiciels et leurs dépendances
+                            (<code>apt install</code>).</td>
+                    </tr>
+                    <tr>
+                        <td><b>Racine web (<code>/var/www/html</code>)</b></td>
+                        <td>Dossier unique qu'Apache est autorisé à servir ; son contenu est accessible, le reste ne
+                            l'est pas.</td>
+                    </tr>
+                    <tr>
+                        <td><b><code>index.html</code></b></td>
+                        <td>Page servie par défaut quand on demande un dossier sans nom de fichier.</td>
+                    </tr>
+                    <tr>
+                        <td><b><code>localhost</code> / <code>127.0.0.1</code></b></td>
+                        <td>La boucle locale : désigne toujours la machine elle-même, sans passer par le réseau.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Pare-feu (ufw)</b></td>
+                        <td>Programme qui filtre le trafic réseau entrant (et sortant) selon des règles.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Règle de trafic entrant</b></td>
+                        <td>Autorisation donnée au pare-feu d'accepter les connexions vers un port précis (ex. TCP
+                            80).</td>
+                    </tr>
+                    <tr>
+                        <td><b>DHCP</b></td>
+                        <td>Service qui attribue automatiquement les adresses IP ; l'adresse d'une machine peut donc
+                            changer d'une session à l'autre.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Web — Lycée Charlie Chaplin</strong></p>
+        <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
+                href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+        <p>Prochaine mission : produire puis publier votre propre page web</p>
+    </footer>
+</body>
+
+</html>
