@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP CIEL — Construire deux LAN reliés et les connecter à internet</title>
+    <link rel="stylesheet" href="../../Ressources/style.css">
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const listItems = document.querySelectorAll('ul.plain > li');
+            listItems.forEach(item => {
+                if (item.querySelector('ul')) {
+                    item.addEventListener('click', function (e) {
+                        if (e.target.tagName === 'A' || e.target.tagName === 'INPUT') return;
+                        this.classList.toggle('active');
+                    });
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <header class="hero col">
+        <div class="eyebrow">Séquence Réseau — TP noté · Filius</div>
+        <h1>Deux réseaux locaux, un routeur, et internet</h1>
+        <p class="lede">Stagiaire chez <strong>Tech'Usine</strong> : l'entreprise fait agrandir ses locaux. Vous devez
+            mettre en service <strong>deux réseaux locaux</strong> — l'atelier (plan d'adressage fourni) et
+            l'administratif (plan à concevoir et justifier) — les <strong>relier par un routeur</strong>, puis
+            <strong>modéliser la sortie vers internet</strong>. Ce TP est <strong>noté</strong> : la grille est en bas
+            de page.</p>
+        <div class="chips">
+            <span class="chip">1ʳᵉ Bac Pro CIEL</span>
+            <span class="chip">TP noté /20</span>
+            <span class="chip">Simulateur Filius</span>
+            <span class="chip">Binôme (une maquette commune, questions individuelles)</span>
+        </div>
+    </header>
+
+    <section id="objectifs">
+        <div class="sec-head"><span class="sec-num">01</span>
+            <h2>Ce que vous allez faire</h2><span class="sec-tag">Objectifs</span>
+        </div>
+        <ul class="plain">
+            <li><b>Chantier 1 (guidé)</b> : construire le LAN de l'atelier d'après un dossier technique fourni — switch,
+                3 postes, serveur, DHCP et DNS.</li>
+            <li><b>Chantier 2 (autonome, noté)</b> : construire le LAN administratif — cette fois, <b>c'est vous qui
+                    concevez le plan d'adressage</b> et le justifiez.</li>
+            <li><b>Chantier 3</b> : relier les deux LAN avec un <b>routeur</b> et configurer les passerelles.</li>
+            <li><b>Chantier 4</b> : ajouter un <b>troisième réseau « internet »</b> avec un serveur web distant, et
+                prouver que les deux LAN peuvent le consulter.</li>
+        </ul>
+        <div class="callout">
+            <span class="lbl">Comment on travaille</span>
+            <p>Une maquette Filius <b>par binôme</b>. Les questions et la justification du plan d'adressage se rédigent
+                <b>individuellement</b> : chacun rend son propre compte rendu.</p>
+        </div>
+        <div class="callout deliver">
+            <span class="lbl">Rendu</span>
+            <p>Sur Pronote, <b>chaque élève</b> dépose <b>avant la fin de la séance</b> : un seul fichier <b>PDF</b>
+                (compte rendu + questions + plan d'adressage justifié) et le fichier Filius
+                <code>techusine_final.fls</code>. La maquette finale doit être sauvegardée et fonctionnelle.</p>
+        </div>
+    </section>
+
+    <section id="chantier1">
+        <div class="sec-head"><span class="sec-num">02</span>
+            <h2>Chantier 1 — Le LAN de l'atelier (plan donné)</h2><span class="sec-tag">Guidé</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Situation professionnelle</span>
+            <p>Tech'Usine vous confie la mise en service du réseau de l'<b>atelier</b>. Le dossier technique est prêt :
+                appliquez-le <b>exactement</b>, puis prouvez que tout fonctionne.</p>
+        </div>
+
+        <h3>Le dossier technique (à appliquer tel quel)</h3>
+        <pre class="tree">
+                   ┌──────────────────┐
+                   │    SW-ATELIER    │   switch
+                   └──┬─────┬────┬───┘
+                      │     │    │
+            ┌─────────┘     │    └─────────┐
+            │               │              │
+     ┌──────┴──────┐ ┌──────┴───────┐ ┌────┴────────┐
+     │     SRV     │ │ PC-ATELIER-1 │ │ PC-ATELIER-2│
+     │192.168.10.10│ │192.168.10.11 │ │192.168.10.12│
+     │ IP fixe     │ │ IP fixe      │ │ IP fixe     │
+     │DHCP+DNS+Web │ │              │ │             │
+     └─────────────┘ └──────────────┘ └─────────────┘
+     Réseau : 192.168.10.0 · Masque : 255.255.255.0
+     DNS : intranet.techusine.fr → 192.168.10.10</pre>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Élément</th>
+                        <th>Adresse IP</th>
+                        <th>Masque</th>
+                        <th>Remarque</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Réseau de l'atelier</td>
+                        <td><code>192.168.10.0</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>plage privée</td>
+                    </tr>
+                    <tr>
+                        <td><b>SRV</b></td>
+                        <td><code>192.168.10.10</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>IP fixe — DHCP, DNS et web</td>
+                    </tr>
+                    <tr>
+                        <td><b>PC-ATELIER-1</b></td>
+                        <td><code>192.168.10.11</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>IP fixe</td>
+                    </tr>
+                    <tr>
+                        <td><b>PC-ATELIER-2</b></td>
+                        <td><code>192.168.10.12</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>IP fixe</td>
+                    </tr>
+                    <tr>
+                        <td>Plage DHCP (réservée aux futurs postes)</td>
+                        <td><code>.100</code> à <code>.150</code></td>
+                        <td><code>255.255.255.0</code></td>
+                        <td>activée sur SRV</td>
+                    </tr>
+                    <tr>
+                        <td>Nom interne du serveur</td>
+                        <td><code>intranet.techusine.fr</code></td>
+                        <td>—</td>
+                        <td>enregistrement DNS</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3>À vous de jouer</h3>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head"><span class="step-title">Construire la maquette</span><label class="tick"><input
+                            type="checkbox" data-step="a1"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Mode <b>Design</b> : placez le switch (renommez-le <code>SW-ATELIER</code>), 2 Notebook et 1
+                            PC (le serveur), et renommez chaque machine comme le dossier.</li>
+                        <li>Câblez en étoile, puis passez en mode <b>Simulation</b> : les voyants passent au vert.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head"><span class="step-title">Configurer les adresses fixes</span><label
+                        class="tick"><input type="checkbox" data-step="a2"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <p>Retour en mode <b>Design</b> : renseignez les IP du dossier (SRV, PC-ATELIER-1, PC-ATELIER-2)
+                        avec le masque <code>255.255.255.0</code>.</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head"><span class="step-title">Mettre en service DHCP, DNS et web sur SRV</span><label
+                        class="tick"><input type="checkbox" data-step="a3"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li><b>DHCP Server</b> : plage <code>192.168.10.100</code> à <code>192.168.10.150</code>, masque
+                            <code>255.255.255.0</code>, DNS <code>192.168.10.10</code>, puis <b>Activer</b>.</li>
+                        <li><b>DNS Server</b> : enregistrement <code>intranet.techusine.fr</code> →
+                            <code>192.168.10.10</code>, puis <b>Start</b>.</li>
+                        <li><b>Web Server</b> : lancez-le, puis <b>Start</b>.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head"><span class="step-title">Prouver que ça communique</span><label
+                        class="tick"><input type="checkbox" data-step="a4"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <p>Depuis le Command Line de PC-ATELIER-1, notez le résultat de chaque test :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Commande</th>
+                                    <th>Résultat attendu</th>
+                                    <th>Mon résultat ✔ / ✘</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><code>ping 192.168.10.12</code></td>
+                                    <td>PC-ATELIER-2 répond</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><code>ping 255.255.255.255</code></td>
+                                    <td>toutes les machines répondent</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><code>host intranet.techusine.fr</code></td>
+                                    <td>le DNS renvoie 192.168.10.10</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>navigateur : <code>http://intranet.techusine.fr</code></td>
+                                    <td>la page s'affiche par le nom</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="chantier2">
+        <div class="sec-head"><span class="sec-num">03</span>
+            <h2>Chantier 2 — Le LAN administratif (plan à concevoir)</h2><span class="sec-tag">Autonome · Noté</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Situation professionnelle</span>
+            <p>Tech'Usine ouvre un <b>bureau administratif</b> : <b>1 serveur</b> (DHCP + DNS + web), <b>2 postes
+                    fixes</b> et <b>1 poste en DHCP</b> — avec une croissance prévue. Cette fois, personne ne vous donne
+                le dossier : <b>rédigez le vôtre</b>, appliquez-le dans Filius, et <b>justifiez chaque choix</b>.</p>
+        </div>
+
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head"><span class="step-title">Rédiger votre dossier technique</span><label
+                        class="tick"><input type="checkbox" data-step="b1"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <p>Complétez ce tableau dans votre compte rendu — c'est votre plan d'adressage :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Élément</th>
+                                    <th>Votre choix</th>
+                                    <th>Justification (une phrase)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Adresse du réseau</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Masque</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>SRV-ADMIN</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>PC-ADMIN-1</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>PC-ADMIN-2</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>PC-ADMIN-3 (en DHCP)</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Plage DHCP</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>Nom interne du serveur</td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <ul class="plain collapsible">
+                        <li>Rappels pour bien choisir (cliquer pour déplier)
+                            <ul class="plain">
+                                <li>Les 3 plages privées : <code>10.x.x.x</code>, <code>172.16.x.x</code> à
+                                    <code>172.31.x.x</code>, <code>192.168.x.x</code>.</li>
+                                <li>L'atelier utilise déjà <code>192.168.10.0/24</code> : votre réseau administratif
+                                    devra être <b>différent</b> (on les reliera au chantier 3).</li>
+                                <li><code>.0</code> (réseau) et la dernière adresse (diffusion) ne sont jamais
+                                    attribuées.</li>
+                                <li>IP fixes basses pour les serveurs ; plage DHCP haute, sans chevaucher les fixes.
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 1 — notée</span>
+                        <p>Justifiez vos trois choix principaux : la plage privée choisie, la place du serveur dans
+                            votre plan, et le début de votre plage DHCP. Utilisez le vocabulaire du cours (privé, IP
+                            fixe, plage, conflit d'adresses).</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head"><span class="step-title">Construire et mettre en service</span><label
+                        class="tick"><input type="checkbox" data-step="b2"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Dans le <b>même fichier</b> Filius (éloignez la maquette de l'atelier sur l'écran) : nouveau
+                            switch <code>SW-ADMIN</code>, 3 Notebook et 1 PC <code>SRV-ADMIN</code>, câblage en étoile.
+                        </li>
+                        <li>Appliquez votre plan : IP fixes, DHCP avec <b>votre</b> plage, DNS avec <b>votre</b> nom,
+                            web sur SRV-ADMIN.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head"><span class="step-title">Prouver que ça communique</span><label
+                        class="tick"><input type="checkbox" data-step="b3"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <p>Depuis PC-ADMIN-1 : ping de PC-ADMIN-2, ping de SRV-ADMIN, <code>host</code> de votre nom
+                        interne, et site web consulté par son nom. Notez les résultats.</p>
+                    <div class="callout deliver">
+                        <span class="lbl">Validation chantier 2</span>
+                        <p>Le réseau administratif fonctionne conformément à <b>votre</b> dossier, et votre tableau
+                            d'adressage est justifié.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="chantier3">
+        <div class="sec-head"><span class="sec-num">04</span>
+            <h2>Chantier 3 — Relier les deux LAN par un routeur</h2><span class="sec-tag">Passerelles</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Situation</span>
+            <p>L'entreprise veut que l'atelier et l'administratif <b>communiquent</b> : les postes de l'administratif
+                doivent consulter le site interne de l'atelier. On installe un <b>routeur</b> entre les deux réseaux.
+            </p>
+        </div>
+        <pre class="tree">
+   RÉSEAU ATELIER (votre réseau 1)         RÉSEAU ADMIN (votre réseau 2)
+        SW-ATELIER                             SW-ADMIN
+            │       ┌────────────┐                │
+            └───────┤  ROUTEUR   ├────────────────┘
+                    │ if A : ……  │  ← une adresse du RÉSEAU 1
+                    │ if B : ……  │  ← une adresse du RÉSEAU 2
+                    └────────────┘</pre>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head"><span class="step-title">Installer et configurer le routeur</span><label
+                        class="tick"><input type="checkbox" data-step="c1"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Placez un <b>Routeur</b> entre les deux switchs et câblez-le vers chacun.</li>
+                        <li>Onglet <b>General</b> → <b>Manage Connections</b> : ajoutez une 2ᵉ carte réseau. Donnez à la
+                            1ʳᵉ interface une adresse <b>du réseau atelier</b>, à la 2ᵉ une adresse <b>du réseau
+                                administratif</b>.</li>
+                        <li>Choisissez pour le routeur des adresses <b>libres</b> de chaque plan (en dehors des IP fixes
+                            et de la plage DHCP).</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head"><span class="step-title">Configurer les passerelles de tous les
+                        postes</span><label class="tick"><input type="checkbox" data-step="c2"><span>Fait</span></label>
+                </div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Sur chaque poste <b>et chaque serveur</b> : renseignez la <b>passerelle</b> = l'adresse du
+                            routeur <b>dans son propre réseau</b>.</li>
+                    </ul>
+                    <ul class="plain collapsible">
+                        <li>Aide : la règle de la passerelle (cliquer pour déplier)
+                            <ul class="plain">
+                                <li>La passerelle est la « porte de sortie » du réseau : elle doit être <b>une adresse
+                                        du réseau auquel appartient le poste</b>.</li>
+                                <li>SRV (atelier) → interface « atelier » du routeur. SRV-ADMIN (administratif) →
+                                    interface « administratif » du routeur.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <div class="question">
+                        <span class="lbl">Question 2 — notée</span>
+                        <p>SRV (atelier) veut joindre SRV-ADMIN (administratif). Expliquez le trajet du message en
+                            nommant les trois adresses IP importantes (source, passerelle, destination) et le rôle du
+                            switch puis du routeur.</p>
+                    </div>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head"><span class="step-title">Tester entre les deux LAN</span><label
+                        class="tick"><input type="checkbox" data-step="c3"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <p>Depuis PC-ATELIER-1 :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Commande</th>
+                                    <th>Résultat attendu</th>
+                                    <th>Mon résultat ✔ / ✘</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><code>ping &lt;passerelle atelier&gt;</code></td>
+                                    <td>le routeur répond</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><code>ping &lt;passerelle admin&gt;</code></td>
+                                    <td>la 2ᵉ interface répond</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><code>ping &lt;IP de SRV-ADMIN&gt;</code></td>
+                                    <td>SRV-ADMIN répond</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>navigateur : site web de SRV-ADMIN</td>
+                                    <td>la page administrative s'affiche</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question 3 — notée</span>
+                        <p>Pourquoi le ping direct PC-ATELIER-1 → SRV-ADMIN ne fonctionnait-il pas avant le routeur ?
+                            Que limite le routeur entre les deux réseaux (indice : le test 2 du ping de diffusion ?)</p>
+                    </div>
+                    <div class="callout">
+                        <span class="lbl">Piège classique</span>
+                        <p>Pour tester le site web de SRV-ADMIN par son nom depuis l'atelier, le plus simple est de
+                            l'ouvrir par son adresse IP. Enregistrer le nom admin dans le DNS de l'atelier est possible,
+                            mais pas demandé ici.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="chantier4">
+        <div class="sec-head"><span class="sec-num">05</span>
+            <h2>Chantier 4 — Modéliser la sortie vers internet</h2><span class="sec-tag">Réseau public</span>
+        </div>
+        <div class="callout">
+            <span class="lbl">Situation</span>
+            <p>Le chef d'entreprise veut visualiser comment ses postes <b>sortent sur internet</b>. Dans Filius, on
+                modélise internet par un <b>troisième réseau</b> : des adresses <b>publiques</b> et un serveur web
+                distant. On ajoute une <b>3ᵉ interface</b> au routeur : une interface par réseau, c'est la règle.</p>
+        </div>
+        <pre class="tree">
+   RÉSEAU ATELIER              RÉSEAU ADMIN              INTERNET (modélisé)
+   192.168.10.0                (votre plan)              198.51.100.0/24 (public)
+       │ SW-ATELIER   ┌────────────┐   SW-ADMIN │                 │
+       └──────────────┤  ROUTEUR   ├────────────┘       ┌──────────┴──────┐
+                      │            ├────────────────────┤   WEB-DISTANT   │
+                      │ interfaces │                    │  198.51.100.10  │
+                      │  if A : …  (réseau 1)           │  site externe   │
+                      │  if B : …  (réseau 2)           └─────────────────┘
+                      │  if C : 198.51.100.1 (public)
+                      └────────────┘</pre>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">1</div>
+                <div class="step-head"><span class="step-title">Créer le réseau « internet »</span><label
+                        class="tick"><input type="checkbox" data-step="d1"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Placez un PC nommé <code>WEB-DISTANT</code> (serveur), configurez-le : IP
+                            <code>198.51.100.10</code>, masque <code>255.255.255.0</code>, passerelle
+                            <code>198.51.100.1</code>, et installez un <b>Web Server</b> (Start).</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">2</div>
+                <div class="step-head"><span class="step-title">Ajouter l'interface internet au routeur</span><label
+                        class="tick"><input type="checkbox" data-step="d2"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Double-clic sur le routeur → onglet <b>General</b> → <b>Manage Connections</b> : ajoutez une
+                            <b>3ᵉ carte réseau</b>, câblez-la vers WEB-DISTANT, et donnez-lui l'adresse
+                            <code>198.51.100.1</code> (masque <code>255.255.255.0</code>).</li>
+                    </ul>
+                    <ul class="plain collapsible">
+                        <li>Aide : pourquoi 198.51.100.0 ? (cliquer pour déplier)
+                            <ul class="plain">
+                                <li>C'est une plage <b>publique</b> réservée à la documentation : elle ne peut pas être
+                                    confondue avec vos réseaux privés, et elle n'est jamais routée sur le vrai internet.
+                                </li>
+                                <li>Un réseau d'internet doit être <b>public</b> : utiliser <code>192.168.1.0</code>
+                                    serait un faux internet.</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">3</div>
+                <div class="step-head"><span class="step-title">Orienter les passerelles</span><label
+                        class="tick"><input type="checkbox" data-step="d3"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <ul class="plain">
+                        <li>Sur <b>tous les équipements des deux LAN</b> : la passerelle devient
+                            <code>198.51.100.1</code> ? Non : la passerelle reste <b>l'interface du routeur dans le
+                                réseau du poste</b> — elle est juste désormais capable de joindre aussi le réseau
+                            internet.</li>
+                        <li>C'est la <b>route par défaut</b> : « tout ce que je ne connais pas, je l'envoie à ma
+                            passerelle » ; le routeur, lui, connaît ses trois réseaux et transmet.</li>
+                    </ul>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">4</div>
+                <div class="step-head"><span class="step-title">Prouver la sortie internet</span><label
+                        class="tick"><input type="checkbox" data-step="d4"><span>Fait</span></label></div>
+                <div class="step-body">
+                    <p>Depuis PC-ATELIER-1 <b>et</b> PC-ADMIN-1 :</p>
+                    <div class="tw">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>N°</th>
+                                    <th>Commande</th>
+                                    <th>Résultat attendu</th>
+                                    <th>Mon résultat ✔ / ✘</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><code>ping 198.51.100.10</code></td>
+                                    <td>WEB-DISTANT répond</td>
+                                    <td></td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>navigateur : <code>http://198.51.100.10</code></td>
+                                    <td>le site externe s'affiche</td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="question">
+                        <span class="lbl">Question 4 — notée</span>
+                        <p>a) Dans la vraie vie, un poste de l'atelier a une adresse <b>privée</b> : comment peut-il
+                            être compris par un serveur d'<b>internet</b> qui, lui, n'utilise que des adresses publiques
+                            ? Donnez le nom du mécanisme.<br>b) Pourquoi les postes gardent-ils la même passerelle
+                            (l'interface du routeur dans leur réseau) alors qu'ils vont maintenant sur internet ?</p>
+                    </div>
+                    <div class="callout deliver">
+                        <span class="lbl">Validation chantier 4</span>
+                        <p>Le site <code>198.51.100.10</code> s'ouvre depuis un poste de chaque LAN. Votre modèle est
+                            complet : deux LAN privés, un routeur, un réseau public.</p>
+                    </div>
+                    <div class="callout">
+                        <span class="lbl">Ce que Filius simplifie</span>
+                        <p>Filius n'implémente pas le NAT : chaque réseau est simplement routé. Dans la réalité, le
+                            routeur d'accès traduit les adresses privées en une adresse publique — c'est le mécanisme de
+                            la question 4a.</p>
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="rendre">
+        <div class="sec-head"><span class="sec-num">06</span>
+            <h2>Ce que je dois rendre</h2><span class="sec-tag">Checklist</span>
+        </div>
+        <ol class="steps">
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head"><span class="step-title">Le fichier Filius final</span><label class="tick"><input
+                            type="checkbox" data-step="r1"><span>Rendu</span></label></div>
+                <div class="step-body">
+                    <p><code>techusine_final.fls</code> : les deux LAN, le routeur interne, le réseau internet, tout
+                        fonctionnel en mode Simulation.</p>
+                </div>
+            </li>
+            <li class="step">
+                <div class="step-num">✓</div>
+                <div class="step-head"><span class="step-title">Le compte rendu PDF</span><label class="tick"><input
+                            type="checkbox" data-step="r2"><span>Rendu</span></label></div>
+                <div class="step-body">
+                    <p>Dans l'ordre : dossier d'adressage du chantier 2 (tableau complété + justifications) · résultats
+                        des tests · réponses aux 4 questions · schéma final du réseau complet (à main levée scanné ou
+                        dessiné, avec les adresses des interfaces).</p>
+                </div>
+            </li>
+        </ol>
+    </section>
+
+    <section id="bareme">
+        <div class="sec-head"><span class="sec-num">07</span>
+            <h2>Barème (TP noté /20)</h2><span class="sec-tag">Évaluation</span>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Critère</th>
+                        <th>Points</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Chantier 1 : maquette conforme au dossier + tests notés</td>
+                        <td><b>4</b></td>
+                    </tr>
+                    <tr>
+                        <td>Chantier 2 : plan d'adressage cohérent et <b>justifié</b> (cohérence des valeurs, pas de
+                            conflits, plage DHCP correcte)</td>
+                        <td><b>5</b></td>
+                    </tr>
+                    <tr>
+                        <td>Chantier 3 : routeur et passerelles bien configurés, tests de traversée réussis</td>
+                        <td><b>4</b></td>
+                    </tr>
+                    <tr>
+                        <td>Chantier 4 : réseau internet modélisé et joignable depuis les deux LAN</td>
+                        <td><b>3</b></td>
+                    </tr>
+                    <tr>
+                        <td>Questions 1 à 4 : réponses justes et rédigées avec le vocabulaire du cours</td>
+                        <td><b>3</b></td>
+                    </tr>
+                    <tr>
+                        <td>Maîtrise : maquette propre, équipements renommés, rendu complet et à l'heure</td>
+                        <td><b>1</b></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="callout">
+            <span class="lbl">Auto-contrôle avant de rendre</span>
+            <p>Passez en mode Simulation et vérifiez : les deux serveurs web répondent par leur nom dans leur propre LAN
+                · un poste de chaque LAN ping l'autre LAN · un poste de chaque LAN ouvre le site
+                <code>198.51.100.10</code> · aucun poste ne porte l'adresse .0, .255, ou une adresse déjà utilisée.</p>
+        </div>
+    </section>
+
+    <section id="aide">
+        <div class="sec-head"><span class="sec-num">08</span>
+            <h2>Aide — Repères Filius</h2><span class="sec-tag">Mémo</span>
+        </div>
+        <div class="tw">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Je cherche…</th>
+                        <th>Où trouver</th>
+                        <th>Astuce</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Les 3 modes</b></td>
+                        <td>🔨 Design · ▶️ Simulation · ✏️ Documentation (en haut à droite)</td>
+                        <td>On construit en Design, on teste en Simulation.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Installer une application</b></td>
+                        <td>Double-clic sur la machine → glisser l'application sur son bureau</td>
+                        <td>Command Line sur les clients ; DHCP/DNS/Web Server sur les serveurs.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Ajouter une carte réseau</b></td>
+                        <td>Double-clic sur le routeur → onglet <b>General</b> → <b>Manage Connections</b></td>
+                        <td>Une interface par réseau connecté, une IP de ce réseau par interface.</td>
+                    </tr>
+                    <tr>
+                        <td><b>La passerelle</b></td>
+                        <td>Configuration réseau de chaque machine</td>
+                        <td>Toujours une adresse <b>du réseau du poste</b>.</td>
+                    </tr>
+                    <tr>
+                        <td><b>Les commandes</b></td>
+                        <td>Application <b>Command Line</b></td>
+                        <td><code>ping</code>, <code>ipconfig</code>, <code>host nom</code>.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Réseau — Lycée Charlie Chaplin</strong></p>
+        <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
+                href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+    </footer>
+</body>
+
+</html>
