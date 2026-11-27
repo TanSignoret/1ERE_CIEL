@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cours Web — Le web : acteurs, technologies et fonctionnement</title>
+    <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+    <script>mermaid.initialize({ startOnLoad: true });</script>
+    <link rel="stylesheet" href="../Ressources/style.css">
+</head>
+
+<body>
+    <div class="wrap">
+        <!-- En-tête -->
+        <header class="hero">
+            <div class="eyebrow">Cours — Séquence Web · Synthèse des séances 1 à 4</div>
+            <h1>Le web : acteurs, technologies et fonctionnement</h1>
+            <div class="chips">
+                <span class="chip">Première Bac Pro CIEL</span>
+                <span class="chip">Synthèse de séquence</span>
+            </div>
+        </header>
+
+        <!-- Internet vs web -->
+        <section id="internet">
+            <div class="sec-head"><span class="sec-num">01</span>
+                <h2>Internet et le web : ne pas confondre</h2><span class="sec-tag">Structure</span>
+            </div>
+            <div class="col">
+                <p>
+                    <b>Internet</b> (« inter-networks » : « entre les réseaux ») est l'interconnexion de millions de
+                    réseaux à travers le monde. Ce n'est pas un service : c'est une <b>infrastructure</b>, composée de
+                    machines et de liaisons.
+                </p>
+                <ul>
+                    <li><b>Réseau local (LAN)</b> : le réseau de la salle, de l'atelier ou de la maison.</li>
+                    <li><b>FAI</b> (Fournisseur d'Accès à Internet) : il relie votre réseau local au reste du monde
+                        via ses <b>routeurs</b>.</li>
+                    <li><b>Le web</b> : un <b>service</b> qui circule sur internet — parmi d'autres (messagerie,
+                        streaming, jeux en ligne…).</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Client-serveur -->
+        <section id="client-serveur">
+            <div class="sec-head"><span class="sec-num">02</span>
+                <h2>Le modèle client-serveur</h2><span class="sec-tag">Fondamentaux</span>
+            </div>
+            <div class="col">
+                <p>Presque tout ce que vous faites sur le web repose sur un seul principe :</p>
+                <ul>
+                    <li>Le <b>client</b> (votre navigateur) <b>formule une requête</b> et attend.</li>
+                    <li>Le <b>serveur web</b> — un <b>service</b> qui tourne en permanence sur une machine —
+                        <b>écoute</b> sur un <b>port</b> et <b>répond</b>.
+                    </li>
+                    <li>Le dialogue respecte un <b>protocole</b> commun : HTTP.</li>
+                </ul>
+                <div class="mermaid">
+                    sequenceDiagram
+                    participant C as Client (navigateur)
+                    participant D as Serveur DNS
+                    participant S as Serveur web (port 80/443)
+                    C->>D: Quelle est l'IP de tansignoret.github.io ?
+                    D-->>C: 185.199.108.153
+                    C->>S: GET /1ERE_CIEL/TPs/tp_web_bases.html
+                    S-->>C: 200 OK + document HTML
+                    Note over C,S: Puis le navigateur demande les autres ressources (CSS, images…)
+                </div>
+                <p><em>Une interrogation DNS, puis un aller-retour HTTP : tout le voyage d'une requête.</em></p>
+                <div class="tw">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Élément</th>
+                                <th>Ce qu'il fait</th>
+                                <th>Où vous l'avez vu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Client</b></td>
+                                <td>Programme qui émet une requête et attend une réponse (ex. navigateur).</td>
+                                <td>Séance 1 : F12, onglet Réseau.</td>
+                            </tr>
+                            <tr>
+                                <td><b>Serveur web</b></td>
+                                <td>Service qui écoute sur un port et sert les fichiers de sa racine
+                                    (<code>/var/www/html</code>).</td>
+                                <td>Séances 3-4 : Apache sur votre VM.</td>
+                            </tr>
+                            <tr>
+                                <td><b>Service</b></td>
+                                <td>Programme en arrière-plan, démarré et supervisé par le système
+                                    (<code>systemctl</code>).</td>
+                                <td>Séance 3 : <code>systemctl status apache2</code>.</td>
+                            </tr>
+                            <tr>
+                                <td><b>Port d'écoute</b></td>
+                                <td>« Porte » logique sur laquelle le service attend les clients.</td>
+                                <td>Séance 3 : <code>ss -tlnp</code>, <code>ufw allow 80/tcp</code>.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout">
+                    <span class="lbl">Ports à connaître par cœur</span>
+                    <p>HTTP : port <b>80</b> · HTTPS : port <b>443</b> (le « s » de <i>secure</i> = échanges
+                        <b>chiffrés</b>). À comparer : SSH 22, DNS 53, SMTP 25, POP3 110, IMAP 143, RDP 3389.
+                    </p>
+            </div>
+        </section>
+
+        <!-- Technologies -->
+        <section id="technologies">
+            <div class="sec-head"><span class="sec-num">03</span>
+                <h2>Les grandes technologies du web</h2><span class="sec-tag">Technologies</span>
+            </div>
+            <div class="col">
+                <p>Une page web n'est <b>pas une image</b> envoyée d'un coup : c'est du <b>texte</b> et des fichiers
+                    que le navigateur transforme en page. Quatre technologies jouent des rôles différents :</p>
+                <div class="tw">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Technologie</th>
+                                <th>Rôle</th>
+                                <th>La question à laquelle elle répond</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>HTML</b></td>
+                                <td>Structure et contenu de la page (balises).</td>
+                                <td>« Qu'est-ce qu'il y a ? »</td>
+                            </tr>
+                            <tr>
+                                <td><b>CSS</b></td>
+                                <td>Présentation, mise en forme.</td>
+                                <td>« À quoi ça ressemble ? »</td>
+                            </tr>
+                            <tr>
+                                <td><b>JavaScript</b></td>
+                                <td>Interactivité, comportements dynamiques.</td>
+                                <td>« Que se passe-t-il au clic ? »</td>
+                            </tr>
+                            <tr>
+                                <td><b>HTTP / HTTPS</b></td>
+                                <td>Protocole d'échange entre client et serveur.</td>
+                                <td>« Comment ça se transmet ? »</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout">
+                    <span class="lbl">La métaphore de la maison</span>
+                    <p>Le <b>HTML</b> est les murs et les pièces, le <b>CSS</b> est la peinture et la décoration, le
+                        <b>JavaScript</b> est l'électricité et les interrupteurs. Pas de page web sans HTML — comme
+                        pas de maison sans murs. Et HTTP est le camion qui livre les plans.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- URL et DNS -->
+        <section id="url-dns">
+            <div class="sec-head"><span class="sec-num">04</span>
+                <h2>URL et DNS : trouver le serveur</h2><span class="sec-tag">Adressage</span>
+            </div>
+            <div class="col">
+                <p>L'URL (<i>Uniform Resource Locator</i>) est l'adresse complète d'une ressource du web :</p>
+                <pre class="tree">https://tansignoret.github.io/1ERE_CIEL/TPs/tp_web_bases.html
+└─┬─┘   └──────────┬──────────┘└────┬────┘└─────────┬──────────┘
+schéma           domaine          dossier        fichier</pre>
+                <ul>
+                    <li><b>Schéma</b> : le protocole utilisé (<code>https</code>).</li>
+                    <li><b>Nom de domaine</b> : le nom lisible du serveur, enregistré par le propriétaire du site.</li>
+                    <li><b>Chemin et fichier</b> : l'organisation interne des dossiers <b>du serveur</b> — vous
+                        avez créé la vôtre en séance 4 (<code>/var/www/html/index.html</code>).</li>
+                </ul>
+                <div class="callout">
+                    <span class="lbl">Piège classique</span>
+                    <p>Le navigateur ne comprend <b>que les adresses IP</b> : avant tout échange, le nom de domaine
+                        doit être <b>traduit</b> en IP. C'est le travail du DNS.</p>
+                </div>
+                <p>
+                    Le <b>DNS</b> (Domain Name System) est l'annuaire mondial du web : il traduit
+                    <code>www.education.gouv.fr</code> en adresse IP. Il est <b>distribué</b> (aucun serveur ne
+                    connaît tous les noms), il <b>met en cache</b> ses réponses, et il peut renvoyer plusieurs
+                    adresses pour un même site (hébergement multiple, répartition de charge, CDN).
+                </p>
+                <div class="mermaid">
+                    flowchart LR
+                    A[Poste client<br>tape une URL] --> B[Le navigateur<br>a besoin de l'IP]
+                    B --> C[Résolveur DNS<br>(lycée ou FAI)]
+                    C --> D[(Cache DNS<br>déjà connu ?)]
+                    D -- non --> E[Racine puis TLD<br>. fr .io .com]
+                    E --> F[Serveur autoritaire<br>du domaine]
+                    F --> C
+                    C -- IP trouvée --> B
+                    B --> G[Requête HTTP<br>vers le serveur]
+                </div>
+                <p><em>Le DNS intervient une seule fois, au début : il ne participe pas au dialogue HTTP qui suit.</em>
+                </p>
+            </div>
+        </section>
+
+        <!-- HTTP -->
+        <section id="http">
+            <div class="sec-head"><span class="sec-num">05</span>
+                <h2>Le dialogue HTTP : requête, réponse, statut</h2><span class="sec-tag">Protocole</span>
+            </div>
+            <div class="col">
+                <p>
+                    <b>HTTP</b> (HyperText Transfer Protocol) est le protocole du dialogue web. Un échange comporte
+                    toujours <b>deux parties</b>, chacune portant des <b>en-têtes</b> (headers) :
+                </p>
+                <div class="tw">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Envoyés par le client</th>
+                                <th>Envoyés par le serveur</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Exemples d'en-têtes</b></td>
+                                <td><code>Host</code> (site demandé), <code>User-Agent</code> (navigateur)</td>
+                                <td><code>Server</code> (logiciel serveur), <code>Content-Type</code> (type de document)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>Contenu</b></td>
+                                <td>La requête : <code>GET /page.html</code></td>
+                                <td>La réponse : code de statut + document (HTML, image…)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h3>Les codes de statut à connaître</h3>
+                <div class="tw">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Famille</th>
+                                <th>Sens</th>
+                                <th>Codes à connaître</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>2xx</b></td>
+                                <td>Succès</td>
+                                <td><b>200</b> OK : le serveur renvoie le document demandé.</td>
+                            </tr>
+                            <tr>
+                                <td><b>3xx</b></td>
+                                <td>Redirection</td>
+                                <td><b>301</b> : la ressource a changé d'adresse définitivement.</td>
+                            </tr>
+                            <tr>
+                                <td><b>4xx</b></td>
+                                <td>Erreur côté client</td>
+                                <td><b>403</b> interdit · <b>404</b> introuvable (vous l'avez provoquée en séance 1).
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>5xx</b></td>
+                                <td>Erreur côté serveur</td>
+                                <td><b>500</b> : le serveur a échoué, <b>503</b> : indisponible.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout">
+                    <span class="lbl">404 : piège classique</span>
+                    <p>Un 404 ne signifie <b>pas</b> que le serveur est en panne : il a été joint, il a traité la
+                        requête, mais la ressource n'existe pas. La panne et l'erreur client sont deux situations
+                        différentes.</p>
+                </div>
+                <h3>HTTPS : le « s » de sécurisé</h3>
+                <p>
+                    <b>HTTPS</b> = HTTP + <b>chiffrement</b> (protocole TLS). Trois garanties : la
+                    <b>confidentialité</b> (un intercepteur ne lit rien), l'<b>intégrité</b> (les données ne sont pas
+                    modifiées en route) et l'<b>authentification</b> du serveur (certificat). Attention : HTTPS
+                    protège les échanges, il ne garantit pas que le site est honnête.
+                </p>
+            </div>
+        </section>
+
+        <!-- Acteurs récapitulatif -->
+        <section id="acteurs">
+            <div class="sec-head"><span class="sec-num">06</span>
+                <h2>Qui fait quoi ? Les acteurs du voyage</h2><span class="sec-tag">Récapitulatif</span>
+            </div>
+            <div class="col">
+                <div class="tw">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Acteur</th>
+                                <th>Rôle dans le voyage d'une requête</th>
+                                <th>Ordre</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><b>Utilisateur</b></td>
+                                <td>Saisit l'URL dans le navigateur.</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td><b>Navigateur</b> (client)</td>
+                                <td>Découpe l'URL, obtient l'IP via le DNS, envoie la requête HTTP, reçoit et
+                                    assemble la page (DOM, CSS, images, JS).</td>
+                                <td>2, 7, 9</td>
+                            </tr>
+                            <tr>
+                                <td><b>Serveur DNS</b></td>
+                                <td>Traduit le nom de domaine en adresse IP.</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td><b>Passerelle</b> puis <b>routeurs du FAI</b></td>
+                                <td>Acheminent les paquets de réseau en réseau jusqu'au serveur.</td>
+                                <td>4-6</td>
+                            </tr>
+                            <tr>
+                                <td><b>Serveur web</b></td>
+                                <td>Reçoit la requête sur son port d'écoute, renvoie une réponse avec un code de
+                                    statut.</td>
+                                <td>8</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout">
+                    <span class="lbl">À retenir</span>
+                    <p>Le premier équipement traversé est <b>toujours la passerelle</b> : c'est la seule porte du
+                        réseau local. Le navigateur n'envoie rien au serveur avant d'avoir obtenu son IP du DNS.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Outils -->
+        <section id="outils">
+            <div class="sec-head"><span class="sec-num">07</span>
+                <h2>Prouver et diagnostiquer : les outils du technicien</h2><span class="sec-tag">Méthode</span>
+            </div>
+            <div class="col">
+                <div class="tw">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Outil</th>
+                                <th>Ce qu'il prouve</th>
+                                <th>Ce qu'il ne prouve PAS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>ping</code></td>
+                                <td>La machine est joignable (elle répond à l'ICMP) et le temps de réponse.</td>
+                                <td>Que le <b>service web</b> fonctionne (ping ≠ HTTP).</td>
+                            </tr>
+                            <tr>
+                                <td><code>nslookup</code></td>
+                                <td>Le DNS traduit le nom en adresse IP.</td>
+                                <td>Que le serveur est joignable ou que le service répond.</td>
+                            </tr>
+                            <tr>
+                                <td><code>tracert</code></td>
+                                <td>La route suivie : les routeurs traversés, dans l'ordre.</td>
+                                <td>Que tous les routeurs répondent (les <code>*</code> ne sont pas des pannes)
+                                    ni l'état du service distant.</td>
+                            </tr>
+                            <tr>
+                                <td><code>systemctl status</code></td>
+                                <td>Le service est actif (« running ») ou arrêté.</td>
+                                <td>Que le port est ouvert dans le pare-feu.</td>
+                            </tr>
+                            <tr>
+                                <td><code>ss -tlnp</code></td>
+                                <td>Le port d'écoute du service (<code>0.0.0.0:80 LISTENING</code>).</td>
+                                <td>Que les clients distants peuvent y accéder.</td>
+                            </tr>
+                            <tr>
+                                <td><code>ufw status</code></td>
+                                <td>Les ports ouverts dans le pare-feu.</td>
+                                <td>Que le service derrière le port fonctionne.</td>
+                            </tr>
+                            <tr>
+                                <td>Outils de développement (<kbd>F12</kbd>)</td>
+                                <td>Le <b>dialogue HTTP réel</b> : méthodes, statuts, en-têtes, contenu.</td>
+                                <td>Ce qui se passe sur les machines intermédiaires.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="callout">
+                    <span class="lbl">La méthode de diagnostic en 3 niveaux</span>
+                    <p>Quand « ça ne marche pas », on vérifie toujours dans le même ordre : <b>1. le service</b>
+                        (<code>systemctl status</code>, <code>ss -tlnp</code>) → <b>2. le pare-feu</b>
+                        (<code>ufw status</code>) → <b>3. le réseau</b> (<code>ip a</code>, <code>ping</code>).
+                        On élimine les causes une par une, en prouvant chaque étape — jamais au hasard.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Synthèse -->
+        <section id="synthese">
+            <div class="sec-head"><span class="sec-num">08</span>
+                <h2>L'essentiel en un schéma</h2><span class="sec-tag">Synthèse</span>
+            </div>
+            <div class="col">
+                <div class="mermaid">
+                    flowchart LR
+                    A[Utilisateur<br>tape une URL] --> B[Navigateur<br>le client]
+                    B --> C[Serveur DNS<br>nom → IP]
+                    B --> D[Passerelle<br>puis routeurs du FAI]
+                    D --> E[Serveur web<br>écoute sur 80 / 443]
+                    E --> D --> B --> A
+                </div>
+                <p><em>Une interrogation DNS, un aller-retour HTTP : c'est tout le « voyage d'une requête ».</em></p>
+                <ul>
+                    <li>Le web est un <b>service</b> qui circule sur <b>internet</b>.</li>
+                    <li>Le navigateur est le <b>client</b> ; le site est hébergé sur un <b>serveur web</b>, service
+                        qui écoute sur un port (80/443) et sert sa racine.</li>
+                    <li>Une page est un <b>assemblage de ressources</b> : HTML (structure), CSS (forme), JS
+                        (interactivité), transportées par HTTP/HTTPS.</li>
+                    <li>Le <b>DNS</b> traduit le nom en IP <b>une seule fois, au début</b>.</li>
+                    <li>Chaque réponse HTTP porte un <b>code de statut</b> (200, 301, 403, 404, 5xx).</li>
+                    <li>Le diagnostic se fait <b>niveau par niveau</b> : service → pare-feu → réseau, avec l'outil
+                        adapté à chaque question.</li>
+                </ul>
+                <div class="callout">
+                    <span class="lbl">Pour l'évaluation</span>
+                    <p>Ce cours + le lexique du TP « Le voyage d'une requête web » + votre aide-mémoire HTML
+                        couvrent l'ensemble des questions de l'évaluation de fin de séquence. Les questions flash
+                        de chaque section en sont un échantillon.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <p><strong>1ʳᵉ Bac Pro CIEL — Séquence Web — Lycée Charlie Chaplin</strong></p>
+            <p>Cours et TP par <strong>Tanguy Signoret</strong> | <a
+                    href="mailto:tanguy.signoret@ac-lyon.fr">tanguy.signoret@ac-lyon.fr</a></p>
+            <p>Séquence : le web — structure de l'internet, serveur local et page statique</p>
+        </footer>
+    </div>
+</body>
+
+</html>
